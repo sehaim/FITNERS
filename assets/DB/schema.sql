@@ -1,3 +1,4 @@
+-- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -6,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema SSAFIT
 -- -----------------------------------------------------
+
 CREATE SCHEMA IF NOT EXISTS `SSAFIT` DEFAULT CHARACTER SET utf8 ;
 USE `SSAFIT` ;
 
@@ -16,18 +18,8 @@ CREATE TABLE IF NOT EXISTS `SSAFIT`.`User` (
   `user_id` VARCHAR(20) NOT NULL,
   `user_password` VARCHAR(20) NOT NULL,
   `user_name` VARCHAR(10) NOT NULL,
+  `isManager` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `SSAFIT`.`Manager`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SSAFIT`.`Manager` (
-  `manager_id` VARCHAR(20) NOT NULL,
-  `manager_password` VARCHAR(20) NOT NULL,
-  `manager_name` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`manager_id`))
 ENGINE = InnoDB;
 
 
@@ -38,11 +30,11 @@ CREATE TABLE IF NOT EXISTS `SSAFIT`.`Club` (
   `club_id` INT NOT NULL AUTO_INCREMENT,
   `club_name` VARCHAR(45) NOT NULL,
   `club_discription` VARCHAR(200) NOT NULL,
-  `manager_id` VARCHAR(20) NOT NULL,
+  `user_id` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`club_id`),
-  CONSTRAINT `fk_Club_Manager`
-    FOREIGN KEY (`manager_id`)
-    REFERENCES `SSAFIT`.`Manager` (`manager_id`)
+  CONSTRAINT `fk_Club_User1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `SSAFIT`.`User` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -54,17 +46,22 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SSAFIT`.`Club_board` (
   `board_id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
-  `writer_id` VARCHAR(20) NOT NULL,
-  `writer_name` VARCHAR(10) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `view_cnt` INT NOT NULL,
   `content` TEXT NOT NULL,
   `writer_type` VARCHAR(10) NOT NULL,
+  `user_name` VARCHAR(10) NOT NULL,
+  `user_id` VARCHAR(20) NOT NULL,
   `club_id` INT NOT NULL,
   PRIMARY KEY (`board_id`),
-  CONSTRAINT `fk_Club_board_Club`
+  CONSTRAINT `fk_Club_board_Club1`
     FOREIGN KEY (`club_id`)
     REFERENCES `SSAFIT`.`Club` (`club_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Club_board_User1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `SSAFIT`.`User` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -76,12 +73,17 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SSAFIT`.`Board` (
   `board_id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
-  `writer_id` VARCHAR(20) NOT NULL,
-  `writer_name` VARCHAR(10) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `view_cnt` INT NOT NULL,
   `content` TEXT NOT NULL,
-  PRIMARY KEY (`board_id`))
+  `user_id` VARCHAR(20) NOT NULL,
+  `user_name` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`board_id`),
+  CONSTRAINT `fk_Board_User1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `SSAFIT`.`User` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -93,12 +95,12 @@ CREATE TABLE IF NOT EXISTS `SSAFIT`.`Member` (
   `club_id` INT NOT NULL,
   `access` TINYINT NOT NULL,
   PRIMARY KEY (`user_id`, `club_id`),
-  CONSTRAINT `fk_Member_User`
+  CONSTRAINT `fk_Member_User1`
     FOREIGN KEY (`user_id`)
     REFERENCES `SSAFIT`.`User` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_Member_Club`
+  CONSTRAINT `fk_Member_Club1`
     FOREIGN KEY (`club_id`)
     REFERENCES `SSAFIT`.`Club` (`club_id`)
     ON DELETE CASCADE
@@ -114,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `SSAFIT`.`User_schedule` (
   `user_id` VARCHAR(20) NOT NULL,
   `schedule` DATETIME NOT NULL,
   PRIMARY KEY (`schedule_id`),
-  CONSTRAINT `fk_User_schedule_User`
+  CONSTRAINT `fk_User_schedule_User1`
     FOREIGN KEY (`user_id`)
     REFERENCES `SSAFIT`.`User` (`user_id`)
     ON DELETE CASCADE
@@ -130,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `SSAFIT`.`Club_schedule` (
   `schedule` DATETIME NOT NULL,
   `club_id` INT NOT NULL,
   PRIMARY KEY (`schedule_id`),
-  CONSTRAINT `fk_Club_schedule_Club`
+  CONSTRAINT `fk_Club_schedule_Club1`
     FOREIGN KEY (`club_id`)
     REFERENCES `SSAFIT`.`Club` (`club_id`)
     ON DELETE CASCADE
