@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafit.model.dao.UserDao">
+
+	<select id="select" resultType="User" parameterType="String">
+		SELECT id, name, password, isManager
+		FROM User
+		WHERE id = #{id};
+	</select>
+	
+	<select id="selectUserName" resultType="String" parameterType="String">
+		SELECT name
+		FROM User
+		WHERE id = #{id};
+	</select>
+	
+	<select id="checkUserType" resultType="boolean" parameterType="String">		
+		SELECT isManager
+		FROM User
+		WHERE id = #{id};
+	</select>
+	
+	<insert id="insertUser" parameterType="User">
+		INSERT INTO User (id, name, password, isManager)
+		VALUES (#{id}, #{name}, #{password}, ${isManager});
+	</insert>
+	
+	<delete id="deleteUser" parameterType="Map">
+		DELETE
+		FROM User
+		WHERE id = #{id} AND password = #{password};
+	</delete>
+	
+</mapper>
