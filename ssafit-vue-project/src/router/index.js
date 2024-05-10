@@ -5,6 +5,7 @@ import ClubView from "@/views/ClubView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import LoginView from "@/views/LoginView.vue";
 import SignupView from "@/views/SignupView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,15 @@ const router = createRouter({
       path: "/signup",
       name: "signup",
       component: SignupView,
+    },
+    {
+      path: "/notFound",
+      name: "notFound",
+      component: NotFoundView,
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      redirect: "/notFound",
     },
   ],
 });
