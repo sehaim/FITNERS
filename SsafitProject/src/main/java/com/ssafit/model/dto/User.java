@@ -1,36 +1,39 @@
 package com.ssafit.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "User DTO")
 public class User {
-	private String id;
-	private String name;
-	private String password;
+	private String userId;
+	private String userName;
+	private String userPassword;
 	private boolean isManager;
 
 	public User() {
 	}
 
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getUserPassword() {
+		return userPassword;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
 
 	public boolean isManager() {
@@ -43,7 +46,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", password=" + password + "]";
+		return "User [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword + ", isManager="
+				+ isManager + "]";
 	}
 
 }

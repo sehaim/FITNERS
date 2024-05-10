@@ -5,32 +5,32 @@
 <mapper namespace="com.ssafit.model.dao.UserDao">
 
 	<select id="select" resultType="User" parameterType="String">
-		SELECT id, name, password, isManager
+		SELECT user_id, user_name, user_password, isManager
 		FROM User
-		WHERE id = #{id};
+		WHERE user_id = #{userId};
 	</select>
 	
 	<select id="selectUserName" resultType="String" parameterType="String">
-		SELECT name
+		SELECT user_name
 		FROM User
-		WHERE id = #{id};
+		WHERE user_id = #{userId};
 	</select>
 	
 	<select id="checkUserType" resultType="boolean" parameterType="String">		
 		SELECT isManager
 		FROM User
-		WHERE id = #{id};
+		WHERE user_id = #{userId};
 	</select>
 	
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO User (id, name, password, isManager)
-		VALUES (#{id}, #{name}, #{password}, ${isManager});
+		INSERT INTO User (user_id, user_name, user_password, isManager)
+		VALUES (#{userId}, #{userName}, #{userPassword}, ${isManager});
 	</insert>
 	
 	<delete id="deleteUser" parameterType="Map">
 		DELETE
 		FROM User
-		WHERE id = #{id} AND password = #{password};
+		WHERE user_id = #{userId} AND user_password = #{userPassword};
 	</delete>
 	
 </mapper>
