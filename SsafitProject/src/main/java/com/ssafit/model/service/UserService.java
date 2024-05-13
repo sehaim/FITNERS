@@ -1,7 +1,6 @@
 package com.ssafit.model.service;
 
-import java.util.Map;
-
+import com.ssafit.model.dto.LoginForm;
 import com.ssafit.model.dto.User;
 
 public interface UserService {
@@ -17,7 +16,7 @@ public interface UserService {
 
 	// 로그인
 //	public boolean login(String id, String password);
-	public boolean login(Map<String, String> map);
+	public boolean login(LoginForm loginForm);
 
 	// 로그아웃
 	public boolean logout();
@@ -27,5 +26,5 @@ public interface UserService {
 
 	// 회원탈퇴
 //	public boolean deleteUser(String id, String password);
-	public boolean deleteUser(Map<String, String> map);
+	public boolean deleteUser(LoginForm loginForm);
 }

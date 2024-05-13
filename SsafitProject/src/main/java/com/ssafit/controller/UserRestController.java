@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafit.model.dto.LoginForm;
 import com.ssafit.model.dto.User;
 import com.ssafit.model.service.UserService;
 
@@ -43,25 +42,16 @@ public class UserRestController {
 
 	// 로그인
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody Map<String, String> map, HttpServletRequest request,
+	public ResponseEntity<String> login(@RequestBody LoginForm loginForm, HttpServletRequest request,
 			HttpServletResponse response) {
-		String userId = map.get("userId");
-		String userPassword = map.get("userPassword");
-
-//		System.out.println("session : " + session);
-//		System.out.println("session[Id] : " + session.getId());
-
-		Map<String, String> mapToService = new HashMap();
-		mapToService.put("userId", userId);
-		mapToService.put("userPassword", userPassword);
-		boolean result = userService.login(mapToService);
+		boolean result = userService.login(loginForm);
 		if (!result) {
 			return new ResponseEntity<String>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
 
 		String sessionId = UUID.randomUUID().toString();
 		HttpSession session = request.getSession();
-		session.setAttribute("sessionId", userId);
+		session.setAttribute("sessionId", loginForm.getUserId());
 		session.setMaxInactiveInterval(1800);
 
 		Cookie cookie = new Cookie("sessionId", sessionId);
@@ -95,11 +85,8 @@ public class UserRestController {
 
 	// 회원탈퇴
 	@DeleteMapping("/withdrawal")
-	public ResponseEntity<?> Withdrawal(@RequestParam String userId, @RequestParam String userPassword) {
-		Map<String, String> map = new HashMap();
-		map.put("userId", userId);
-		map.put("userPassword", userPassword);
-		boolean result = userService.deleteUser(map);
+	public ResponseEntity<?> Withdrawal(@RequestBody LoginForm loginForm) {
+		boolean result = userService.deleteUser(loginForm);
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
