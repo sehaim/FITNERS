@@ -24,8 +24,6 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-
 import { useUserStore } from "@/stores/user.js";
 
 const store = useUserStore();

@@ -28,7 +28,6 @@ export const useUserStore = defineStore("user", () => {
       })
       .catch((err) => {
         router.push({ name: "notFound" });
-        console.log(err);
       });
   };
 
@@ -39,10 +38,10 @@ export const useUserStore = defineStore("user", () => {
       data: user,
     })
       .then(() => {
-        router.push({ name: "login" }); 
+        router.push({ name: "login" });
       })
       .catch((err) => {
-        console.log(err);
+        router.push({ name: "notFound" });
       });
   };
 

@@ -77,7 +77,7 @@ public class UserRestController {
 
 	// 회원가입
 	@PostMapping("/signup")
-	public ResponseEntity<String> signup(@ModelAttribute User user) {
+	public ResponseEntity<String> signup(@RequestBody User user) {
 		boolean result = userService.signupUser(user);
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);

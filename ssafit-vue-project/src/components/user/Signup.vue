@@ -3,30 +3,30 @@
     <div id="field-name">회원가입</div>
     <div id="signup-form">
       <div id="signup-input">
-        <label for="id">아이디</label>
+        <label for="userId">아이디</label>
         <input
           type="text"
-          id="id"
-          v-model="user.id"
+          id="userId"
+          v-model="user.userId"
           placeholder=" 8~20자 (영문, 숫자)"
         />
       </div>
       <div id="signup-input">
-        <label for="name">이름</label>
+        <label for="userName">이름</label>
         <input
           type="text"
-          id="name"
-          v-model="user.name"
+          id="userName"
+          v-model="user.userName"
           placeholder=" 실명"
           required
         />
       </div>
       <div id="signup-input">
-        <label for="password">비밀번호</label>
+        <label for="userPassword">비밀번호</label>
         <input
           type="text"
-          id="password"
-          v-model="user.password"
+          id="userPassword"
+          v-model="user.userPassword"
           placeholder=" 8~20자 (영문, 숫자, 특수문자)"
           required
         />
@@ -36,8 +36,8 @@
         <input type="text" id="passwordCheck" v-model="user.passwordCheck" required>
       </div> -->
       <div id="signup-input">
-        <label for="type">회원 유형</label>
-        <select name="type" id="type" v-model="user.isManager">
+        <label for="isManager">회원 유형</label>
+        <select name="isManager" id="type" v-model="user.isManager">
           <option :value="false">일반 회원</option>
           <option :value="true">매니저</option>
         </select>
@@ -54,9 +54,9 @@ import { useUserStore } from "@/stores/user.js";
 const store = useUserStore();
 
 const user = ref({
-  id: "",
-  name: "",
-  password: "",
+  userId: "",
+  userName: "",
+  userPassword: "",
   isManager: "false",
 });
 
