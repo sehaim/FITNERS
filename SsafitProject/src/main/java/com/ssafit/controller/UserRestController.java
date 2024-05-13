@@ -2,12 +2,14 @@ package com.ssafit.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +20,9 @@ import com.ssafit.model.dto.User;
 import com.ssafit.model.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
@@ -39,19 +43,14 @@ public class UserRestController {
 
 	// 로그인
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody Map<String, String> map, HttpServletRequest request) {
+	public ResponseEntity<String> login(@RequestBody Map<String, String> map, HttpServletRequest request,
+			HttpServletResponse response) {
 		String userId = map.get("userId");
 		String userPassword = map.get("userPassword");
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("userId", userId);
-		session.setAttribute("userPassword", userPassword);
-		
+
 //		System.out.println("session : " + session);
 //		System.out.println("session[Id] : " + session.getId());
-//		System.out.println("session[userId] : " + session.getAttribute("userId"));
-//		System.out.println("session[userPassword] : " + session.getAttribute("userPassword"));
-		
+
 		Map<String, String> mapToService = new HashMap();
 		mapToService.put("userId", userId);
 		mapToService.put("userPassword", userPassword);
@@ -59,6 +58,15 @@ public class UserRestController {
 		if (!result) {
 			return new ResponseEntity<String>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
+
+		String sessionId = UUID.randomUUID().toString();
+		HttpSession session = request.getSession();
+		session.setAttribute("sessionId", userId);
+		session.setMaxInactiveInterval(1800);
+
+		Cookie cookie = new Cookie("sessionId", sessionId);
+		response.addCookie(cookie);
+
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
@@ -67,7 +75,7 @@ public class UserRestController {
 	public ResponseEntity<String> logout(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		session.invalidate();
-		
+
 		boolean result = userService.logout();
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
