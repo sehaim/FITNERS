@@ -1,12 +1,15 @@
 package com.ssafit.model.service;
 
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafit.model.dao.UserDao;
 import com.ssafit.model.dto.User;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -16,6 +19,12 @@ public class UserServiceImpl implements UserService {
 	public UserServiceImpl(UserDao userDao) {
 		this.userDao = userDao;
 	}
+	
+//	public HttpSession makeSession(String userId) {
+//		
+//		session.setAttribute("userId", UUID.randomUUID().toString());
+//		
+//	}
 
 	// 유저 이름 조회
 	@Transactional
@@ -52,7 +61,6 @@ public class UserServiceImpl implements UserService {
 		else if (!userId.equals(user.getUserId()) || !userPassword.equals(user.getUserPassword())) {
 			return false;
 		}
-		// 로그인 -> 세션 추가
 		return true;
 	}
 
@@ -60,8 +68,6 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	@Override
 	public boolean logout() {
-		// if) 로그인 상태(세션정보확인) -> 세션 제거(invalidate)
-		// else) ??
 		return true;
 	}
 

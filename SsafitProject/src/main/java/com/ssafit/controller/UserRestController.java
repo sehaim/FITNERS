@@ -17,6 +17,8 @@ import com.ssafit.model.dto.User;
 import com.ssafit.model.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/ssafit")
@@ -36,7 +38,16 @@ public class UserRestController {
 
 	// 로그인
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestParam String userId, @RequestParam String userPassword) {
+	public ResponseEntity<String> login(@RequestParam String userId, @RequestParam String userPassword, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("userId", userId);
+		session.setAttribute("userPassword", userPassword);
+		
+//		System.out.println("session : " + session);
+//		System.out.println("session[Id] : " + session.getId());
+//		System.out.println("session[userId] : " + session.getAttribute("userId"));
+//		System.out.println("session[userPassword] : " + session.getAttribute("userPassword"));
+		
 		Map<String, String> map = new HashMap();
 		map.put("userId", userId);
 		map.put("userPassword", userPassword);
@@ -49,7 +60,10 @@ public class UserRestController {
 
 	// 로그아웃
 	@PostMapping("/logout")
-	public ResponseEntity<String> logout() {
+	public ResponseEntity<String> logout(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		session.invalidate();
+		
 		boolean result = userService.logout();
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
