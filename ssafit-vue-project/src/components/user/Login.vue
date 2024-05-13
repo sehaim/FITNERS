@@ -4,22 +4,22 @@
     <hr />
     <div id="login-form">
       <div id="login-input">
-        <label for="id">아이디</label>
+        <label for="userId">아이디</label>
         <input
           type="text"
           class="form-check-input"
-          id="id"
-          v-model="user.id"
+          id="userId"
+          v-model="user.userId"
           required
         />
       </div>
       <div id="login-input">
-        <label for="password">비밀번호</label>
+        <label for="userPassword">비밀번호</label>
         <input
           type="text"
           class="form-check-input"
-          id="password"
-          v-model="user.password"
+          id="userPassword"
+          v-model="user.userPassword"
           required
         />
       </div>
@@ -35,8 +35,8 @@ import { useUserStore } from "@/stores/user.js";
 const store = useUserStore();
 
 const user = ref({
-  id: "",
-  password: "",
+  userId: "",
+  userPassword: "",
 });
 
 const login = function () {
