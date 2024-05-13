@@ -17,9 +17,6 @@ export const useUserStore = defineStore("user", () => {
   };
 
   const login = function (user) {
-    // sessionStorage.setItem("userId", user.id);
-    // getUser();
-    // router.push({ name: "home" });
     axios({
       url: REST_USER_API,
       method: "POST",
