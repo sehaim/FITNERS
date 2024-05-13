@@ -45,5 +45,19 @@ export const useUserStore = defineStore("user", () => {
       });
   };
 
-  return { login, signup, loginUser, getUser };
+  const logout = function () {
+    axios({
+      url: REST_USER_API + "/logout",
+      method: "POST",
+    })
+      .then(() => {
+        getUser();
+        router.push({ name: "home" });
+      })
+      .catch((err) => {
+        router.push({ name: "notFound" });
+      });
+  };
+
+  return { login, signup, loginUser, getUser, logout };
 });

@@ -1,7 +1,9 @@
 <template>
   <div id="container">
-    <div id="field-name">로그인</div>
-    <hr />
+    <div id="field-name">
+      <div>로그인</div>
+      <hr />
+    </div>
     <div id="login-form">
       <div id="login-input">
         <label for="userId">아이디</label>
@@ -16,7 +18,7 @@
       <div id="login-input">
         <label for="userPassword">비밀번호</label>
         <input
-          type="text"
+          type="password"
           class="form-check-input"
           id="userPassword"
           v-model="user.userPassword"
@@ -47,7 +49,7 @@ const login = function () {
 <style scoped>
 #container {
   width: 400px;
-  height: 450px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,6 +61,7 @@ const login = function () {
 
 #field-name {
   font-size: 25px;
+  text-align: center;
 }
 
 #login-form {
@@ -80,13 +83,16 @@ const login = function () {
 .form-check-input {
   height: 35px;
   width: 200px;
+  border-radius: 5px;
 }
 
 #login-btn {
   width: 200px;
   height: 40px;
   border-style: none;
-  font-size: 18px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #ffdb5c;
 }
 
 hr {
