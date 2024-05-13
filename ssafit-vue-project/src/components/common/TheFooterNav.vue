@@ -10,7 +10,7 @@
 
 <style scoped>
 #container {
-  height: 100px;
+  height: 80px;
   background-color: rgb(220, 220, 221);
   display: flex;
   flex-direction: row;
@@ -18,5 +18,6 @@
   justify-content: space-around;
   padding-left: 20%;
   padding-right: 20%;
+  font-size: 14px;
 }
 </style>
