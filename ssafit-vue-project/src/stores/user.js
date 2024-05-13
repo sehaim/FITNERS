@@ -21,7 +21,7 @@ export const useUserStore = defineStore("user", () => {
     // getUser();
     // router.push({ name: "home" });
     axios({
-      url: REST_USER_API,
+      url: REST_USER_API + "/login",
       method: "POST",
       data: user,
     })
@@ -37,12 +37,12 @@ export const useUserStore = defineStore("user", () => {
 
   const signup = function (user) {
     axios({
-      url: REST_USER_API,
+      url: REST_USER_API + "/signup",
       method: "POST",
       data: user,
     })
       .then(() => {
-        router.push({ name: login });
+        router.push({ name: "login" }); 
       })
       .catch((err) => {
         console.log(err);

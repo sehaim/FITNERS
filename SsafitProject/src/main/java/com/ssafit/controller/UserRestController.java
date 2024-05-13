@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +39,10 @@ public class UserRestController {
 
 	// 로그인
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestParam String userId, @RequestParam String userPassword, HttpServletRequest request) {
+	public ResponseEntity<String> login(@RequestBody Map<String, String> map, HttpServletRequest request) {
+		String userId = map.get("userId");
+		String userPassword = map.get("userPassword");
+		
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
 		session.setAttribute("userPassword", userPassword);
@@ -48,14 +52,14 @@ public class UserRestController {
 //		System.out.println("session[userId] : " + session.getAttribute("userId"));
 //		System.out.println("session[userPassword] : " + session.getAttribute("userPassword"));
 		
-		Map<String, String> map = new HashMap();
-		map.put("userId", userId);
-		map.put("userPassword", userPassword);
-		boolean result = userService.login(map);
+		Map<String, String> mapToService = new HashMap();
+		mapToService.put("userId", userId);
+		mapToService.put("userPassword", userPassword);
+		boolean result = userService.login(mapToService);
 		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<String>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
-		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	// 로그아웃
