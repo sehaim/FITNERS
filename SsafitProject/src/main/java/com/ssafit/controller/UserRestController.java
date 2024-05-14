@@ -32,8 +32,8 @@ public class UserRestController {
 	private static final String FAIL = "FAIL";
 	private static final String NONE = "NONE";
 
-//	@Autowired
-//	private JwtUtil jwtUtil;
+	@Autowired
+	private JwtUtil jwtUtil;
 
 	private final UserService userService;
 
@@ -60,7 +60,7 @@ public class UserRestController {
 		map.put("isManager", user.isManager());
 
 		// JWT 정보
-//		map.put("access-token", jwtUtil.createToken(user.getUserId()));
+		map.put("access-token", jwtUtil.createToken(user.getUserId()));
 
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}

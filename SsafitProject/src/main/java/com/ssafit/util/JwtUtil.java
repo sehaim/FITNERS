@@ -14,8 +14,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
-
-	private String key = "SSAFIT_PROJECT_JWT_KEY";
+	private String key = "PROJECT_SSAFIT_Studio_User_SecretKey";
 	private SecretKey secretKey = Keys.hmacShaKeyFor(key.getBytes(StandardCharsets.UTF_8));
 
 	public String createToken(String id) {
@@ -24,7 +23,6 @@ public class JwtUtil {
 				.compact();
 	}
 
-	// 실제로 확인하려고 하는 용도가 아니고 유효기간이 지났다면 알아서 에러를 발생시키려고 함.
 	public Jws<Claims> validate(String token) {
 		return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
 	}
