@@ -5,6 +5,9 @@ import java.util.List;
 import com.ssafit.model.dto.Club;
 
 public interface ClubDao {
+	// 전체 클럽 조회
+	public List<Club> selectAllClub();
+	
 	// 클럽 이름으로 클럽 목록 조회
 	public List<Club> selectClubListByName(String clubName);
 
