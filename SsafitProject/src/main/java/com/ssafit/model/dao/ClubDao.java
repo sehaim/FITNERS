@@ -5,14 +5,17 @@ import java.util.List;
 import com.ssafit.model.dto.Club;
 
 public interface ClubDao {
-	// 유저 이름 조회
-	public List<Club> selectClubByName(String clubName);
+	// 클럽 이름으로 클럽 목록 조회
+	public List<Club> selectClubListByName(String clubName);
 
-	// 매니저 아이디로 클럽 조회
-	public List<Club> selectClubByManager(String userId);
+	// 매니저 아이디로 클럽 목록 조회
+	public List<Club> selectClubListByManager(String userId);
 
-	// 클럽 조회
+	// 클럽아이디로 조회
 	public Club select(int clubId);
+	
+	// 클럽이름으로 조회
+	public Club selectClubByName(String clubName);
 
 	// 클럽개설
 	public int insertClub(Club club);

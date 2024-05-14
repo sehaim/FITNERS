@@ -8,14 +8,20 @@
 		FROM Club
 		WHERE club_id = ${clubId};
 	</select>
+	
+	<select id="selectClubByName" resultType="Club" parameterType="String">
+		SELECT club_id, club_name, club_description, user_id
+		FROM Club
+		WHERE club_name = #{clubName};
+	</select>
 
-	<select id="selectClubByManager" resultType="Club" parameterType="String">
+	<select id="selectClubListByManager" resultType="Club" parameterType="String">
 		SELECT club_id, club_name, club_description, user_id
 		FROM Club
 		WHERE user_id = #{userId};
 	</select>
 
-	<select id="selectClubByName" resultType="Club" parameterType="String">
+	<select id="selectClubListByName" resultType="Club" parameterType="String">
 		SELECT club_id, club_name, club_description, user_id
 		FROM Club
 		WHERE club_name LIKE CONCAT ('%', #{clubName}, '%');

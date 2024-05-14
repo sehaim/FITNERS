@@ -2,8 +2,8 @@ package com.ssafit.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,17 +11,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafit.model.dto.LoginForm;
 import com.ssafit.model.dto.User;
 import com.ssafit.model.service.UserService;
+import com.ssafit.util.JwtUtil;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
@@ -34,6 +32,9 @@ public class UserRestController {
 	private static final String FAIL = "FAIL";
 	private static final String NONE = "NONE";
 
+//	@Autowired
+//	private JwtUtil jwtUtil;
+
 	private final UserService userService;
 
 	public UserRestController(UserService userService) {
@@ -42,22 +43,26 @@ public class UserRestController {
 
 	// 로그인
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody LoginForm loginForm, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> login(@RequestBody LoginForm loginForm) {
 		boolean result = userService.login(loginForm);
 		if (!result) {
-			return new ResponseEntity<String>(FAIL, HttpStatus.UNAUTHORIZED);
+			Map<String, Object> map = new HashMap<>();
+			map.put("result", FAIL);
+			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
 		}
 
-		String sessionId = UUID.randomUUID().toString();
-		HttpSession session = request.getSession();
-		session.setAttribute("sessionId", loginForm.getUserId());
-		session.setMaxInactiveInterval(1800);
+		Map<String, Object> map = new HashMap<>();
+		map.put("result", SUCCESS);
 
-		Cookie cookie = new Cookie("sessionId", sessionId);
-		response.addCookie(cookie);
+		User user = userService.search(loginForm.getUserId());
+		map.put("userId", user.getUserId());
+		map.put("userName", user.getUserName());
+		map.put("isManager", user.isManager());
 
-		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		// JWT 정보
+//		map.put("access-token", jwtUtil.createToken(user.getUserId()));
+
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 	// 로그아웃
@@ -80,7 +85,7 @@ public class UserRestController {
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
-		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 
 	// 회원탈퇴
