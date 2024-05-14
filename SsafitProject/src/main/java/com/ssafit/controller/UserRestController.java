@@ -67,9 +67,7 @@ public class UserRestController {
 
 	// 로그아웃
 	@PostMapping("/logout")
-	public ResponseEntity<String> logout(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		session.invalidate();
+	public ResponseEntity<String> logout() {
 
 		boolean result = userService.logout();
 		if (!result) {
