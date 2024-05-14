@@ -23,7 +23,7 @@ export const useUserStore = defineStore("user", () => {
       .then((res) => {
         sessionStorage.setItem("access-token", res.data["access-token"]);
         loginUser.value.userId = res.data["userId"];
-        loginUser.value.userName = res.data["userPassword"];
+        loginUser.value.userName = res.data["userName"];
         loginUser.value.isManager = res.data["isManager"];
         router.push({ name: "home" });
       })
