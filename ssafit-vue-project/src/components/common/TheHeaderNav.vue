@@ -8,7 +8,7 @@
           <RouterLink to="/club">전체 클럽 목록</RouterLink>
           <RouterLink to="/mypage">MyPage</RouterLink>
         </div>
-        <div id="user-nav" v-if="store.loginUser.userId === ''">
+        <div id="user-nav" v-if="store.loginUser.userId === null">
           <RouterLink to="/login">로그인</RouterLink>
           <RouterLink to="/signup">회원가입</RouterLink>
         </div>

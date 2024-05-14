@@ -11,8 +11,7 @@
           type="text"
           class="form-check-input"
           id="userId"
-          v-model="user.userId"
-          required
+          v-model.trim="user.userId"
         />
       </div>
       <div id="login-input">
@@ -21,8 +20,7 @@
           type="password"
           class="form-check-input"
           id="userPassword"
-          v-model="user.userPassword"
-          required
+          v-model.trim="user.userPassword"
         />
       </div>
     </div>
@@ -42,14 +40,16 @@ const user = ref({
 });
 
 const login = function () {
-  store.login(user.value);
+  if (user.value.userId !== null && user.value.userPassword !== null) {
+    store.login(user.value);
+  }
 };
 </script>
 
 <style scoped>
 #container {
   width: 400px;
-  height: 500px;
+  height: 550px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,7 +65,7 @@ const login = function () {
 }
 
 #login-form {
-  height: 120px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

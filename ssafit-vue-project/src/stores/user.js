@@ -7,14 +7,12 @@ const REST_USER_API = `http://localhost:8080/ssafit`;
 
 export const useUserStore = defineStore("user", () => {
   const loginUser = ref({
-    userId: "",
-    userName: "",
+    userId: null,
+    userName: null,
+    isManager: false,
   });
 
-  const getUser = function () {
-    loginUser.value.userId = sessionStorage.getItem("userId");
-    loginUser.value.userName = sessionStorage.getItem("userName");
-  };
+  const loginErr = ref(false);
 
   const login = function (user) {
     axios({
@@ -22,14 +20,20 @@ export const useUserStore = defineStore("user", () => {
       method: "POST",
       data: user,
     })
-      .then(() => {
-        getUser();
+      .then((res) => {
+        sessionStorage.setItem("access-token", res.data["access-token"]);
+        loginUser.value.userId = res.data["userId"];
+        loginUser.value.userName = res.data["userPassword"];
+        loginUser.value.isManager = res.data["isManager"];
         router.push({ name: "home" });
       })
       .catch((err) => {
-        router.push({ name: "notFound" });
+        loginErr.value = true;
       });
   };
+
+  const signupErr = ref(false);
+  const activeSignupErrClass = ref("");
 
   const signup = function (user) {
     axios({
@@ -41,7 +45,8 @@ export const useUserStore = defineStore("user", () => {
         router.push({ name: "login" });
       })
       .catch((err) => {
-        router.push({ name: "notFound" });
+        signupErr.value = true;
+        activeSignupErrClass.value = "alert-danger";
       });
   };
 
@@ -59,5 +64,13 @@ export const useUserStore = defineStore("user", () => {
       });
   };
 
-  return { login, signup, loginUser, getUser, logout };
+  return {
+    login,
+    loginErr,
+    signup,
+    signupErr,
+    activeSignupErrClass,
+    loginUser,
+    logout,
+  };
 });
