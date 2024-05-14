@@ -8,15 +8,16 @@
           <RouterLink to="/club">전체 클럽 목록</RouterLink>
           <RouterLink to="/mypage">MyPage</RouterLink>
         </div>
-        <div id="user-nav" v-if="store.loginUser.userId === ''">
+        <div id="user-nav" v-if="store.loginUser.userId === null">
           <RouterLink to="/login">로그인</RouterLink>
           <RouterLink to="/signup">회원가입</RouterLink>
         </div>
         <div id="user-nav" v-else>
+          <div>{{ store.loginUser.userName }}님 환영합니다!</div>
           <i class="bi bi-person-fill"></i>
-          <RouterLink to="/home"
-            ><i class="bi bi-box-arrow-right"></i
-          ></RouterLink>
+          <button @click="store.logout">
+            <i class="bi bi-box-arrow-right"></i>
+          </button>
         </div>
       </nav>
     </header>
@@ -32,7 +33,7 @@ const store = useUserStore();
 <style scoped>
 * {
   font-size: 17px;
-  color: #276699;
+  color: black;
 }
 
 #container {
@@ -52,6 +53,7 @@ const store = useUserStore();
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 }
 
 #page-nav > * {
@@ -65,5 +67,15 @@ const store = useUserStore();
 .bi {
   font-size: 30px;
   color: #276699;
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+}
+
+nav a.router-link-exact-active {
+  color: #276699;
+  font-weight: 700;
 }
 </style>
