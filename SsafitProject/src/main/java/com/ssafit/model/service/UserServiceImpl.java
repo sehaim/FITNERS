@@ -1,15 +1,11 @@
 package com.ssafit.model.service;
 
-import java.util.Map;
-import java.util.UUID;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafit.model.dao.UserDao;
+import com.ssafit.model.dto.LoginForm;
 import com.ssafit.model.dto.User;
-
-import jakarta.servlet.http.HttpSession;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,12 +15,6 @@ public class UserServiceImpl implements UserService {
 	public UserServiceImpl(UserDao userDao) {
 		this.userDao = userDao;
 	}
-	
-//	public HttpSession makeSession(String userId) {
-//		
-//		session.setAttribute("userId", UUID.randomUUID().toString());
-//		
-//	}
 
 	// 유저 이름 조회
 	@Transactional
@@ -50,14 +40,14 @@ public class UserServiceImpl implements UserService {
 	// 로그인
 	@Transactional
 	@Override
-	public boolean login(Map<String, String> map) {
-		String userId = map.get("userId");
-		String userPassword = map.get("userPassword");
+	public boolean login(LoginForm loginForm) {
+		String userId = loginForm.getUserId();
+		String userPassword = loginForm.getUserPassword();
 		User user = userDao.select(userId);
 		if (user == null) {
 			return false;
-		} 
-		
+		}
+
 		else if (!userId.equals(user.getUserId()) || !userPassword.equals(user.getUserPassword())) {
 			return false;
 		}
@@ -87,9 +77,9 @@ public class UserServiceImpl implements UserService {
 	// 회원탈퇴
 	@Transactional
 	@Override
-	public boolean deleteUser(Map<String, String> map) {
-		String userId = map.get("userId");
-		String userPassword = map.get("userPassword");
+	public boolean deleteUser(LoginForm loginForm) {
+		String userId = loginForm.getUserId();
+		String userPassword = loginForm.getUserPassword();
 		User user = userDao.select(userId);
 		if (user == null) {
 			return false;
