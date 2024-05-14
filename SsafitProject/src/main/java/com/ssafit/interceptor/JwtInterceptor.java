@@ -33,7 +33,6 @@ public class JwtInterceptor implements HandlerInterceptor {
 		}
 
 		throw new Exception("유효하지 않은 접근");
-
 	}
 
 }
