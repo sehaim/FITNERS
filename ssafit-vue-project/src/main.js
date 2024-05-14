@@ -7,14 +7,13 @@ import { createPinia } from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
-import axios from "axios";
-
-// axios.defaults.baseURL = "http://localhost:8080";
-// axios.defaults.withCredentials = true;
+import piniaPersist from "pinia-plugin-persist";
 
 const app = createApp(App);
+const pinia = createPinia();
 
-app.use(createPinia());
+pinia.use(piniaPersist);
+app.use(pinia);
 app.use(router);
 
 app.mount("#app");
