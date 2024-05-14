@@ -68,7 +68,6 @@ public class UserRestController {
 	// 로그아웃
 	@PostMapping("/logout")
 	public ResponseEntity<String> logout() {
-
 		boolean result = userService.logout();
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);

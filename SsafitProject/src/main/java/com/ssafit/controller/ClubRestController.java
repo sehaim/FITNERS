@@ -12,4 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @CrossOrigin
 public class ClubRestController {
 
+	
+	
 }
