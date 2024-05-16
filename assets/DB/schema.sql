@@ -29,7 +29,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SSAFIT`.`Club` (
   `club_id` INT NOT NULL AUTO_INCREMENT,
   `club_name` VARCHAR(45) NOT NULL,
-  `club_discription` VARCHAR(200) NOT NULL,
+  `club_description` VARCHAR(200) NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`club_id`),
   CONSTRAINT `fk_Club_User1`
