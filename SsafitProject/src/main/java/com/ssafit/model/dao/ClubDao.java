@@ -3,11 +3,12 @@ package com.ssafit.model.dao;
 import java.util.List;
 
 import com.ssafit.model.dto.Club;
+import com.ssafit.model.dto.ClubSearchResult;
 
 public interface ClubDao {
 	// 전체 클럽 조회
-	public List<Club> selectAllClub();
-	
+	public List<ClubSearchResult> selectAllClub();
+
 	// 클럽 이름으로 클럽 목록 조회
 	public List<Club> selectClubListByName(String clubName);
 
@@ -16,9 +17,12 @@ public interface ClubDao {
 
 	// 클럽아이디로 조회
 	public Club select(int clubId);
-	
+
 	// 클럽이름으로 조회
 	public Club selectClubByName(String clubName);
+
+	// 유저아이디로 조회
+	public List<Club> selectClubListByUserId(String userId);
 
 	// 클럽개설
 	public int insertClub(Club club);
