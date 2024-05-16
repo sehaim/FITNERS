@@ -13,7 +13,12 @@
           <RouterLink to="/signup">회원가입</RouterLink>
         </div>
         <div id="user-nav" v-else>
-          <div>{{ store.loginUser.userName }}님 환영합니다!</div>
+          <div>
+            <strong style="color: #276699">{{
+              store.loginUser.userName
+            }}</strong>
+            님 환영합니다!
+          </div>
           <i class="bi bi-person-fill"></i>
           <button @click="store.logout">
             <i class="bi bi-box-arrow-right"></i>
