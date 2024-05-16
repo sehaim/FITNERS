@@ -77,7 +77,11 @@
           v-model.trim="passwordOK"
         />
       </div>
-      <div id="alert" v-if="passwordOK !== user.userPassword">
+      <div
+        id="alert"
+        :style="{ color: activeColor }"
+        v-if="passwordOK !== user.userPassword"
+      >
         비밀번호를 확인해주세요.
       </div>
       <div id="alert-ok" v-else>비밀번호가 일치합니다.</div>
@@ -113,7 +117,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useUserStore } from "@/stores/user.js";
 
 const store = useUserStore();
@@ -123,6 +127,11 @@ const user = ref({
   userName: null,
   userPassword: null,
   isManager: false,
+});
+
+onMounted(() => {
+  store.signupErr = false;
+  store.activeSignupErrClass = "";
 });
 
 const passwordOK = ref("");
@@ -254,8 +263,9 @@ const signup = function () {
 input,
 select {
   font-size: 13px;
-  width: 180px;
   height: 35px;
+  width: 200px;
+  border-radius: 5px;
 }
 
 #signup-btn {
@@ -265,13 +275,6 @@ select {
   font-size: 16px;
   border-radius: 5px;
   background-color: #ffdb5c;
-}
-
-.form-check-input,
-.form-select {
-  height: 35px;
-  width: 200px;
-  border-radius: 5px;
 }
 
 hr {
