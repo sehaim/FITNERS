@@ -25,3 +25,6 @@ INSERT INTO club_schedule (schedule_id, club_id, schedule)
 VALUES 
 (13, 4, '2024-05-29 08:00:00'),
 (14, 4, '2024-06-05 08:00:00');
+
+SELECT *
+FROM club_schedule;

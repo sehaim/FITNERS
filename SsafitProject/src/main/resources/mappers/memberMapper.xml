@@ -18,7 +18,7 @@
 	
 	<insert id="insertMember" parameterType="Map">
 		INSERT INTO Member (user_id, club_id, access)
-		VALUES (#{userId}, ${clubId}, 0);
+		VALUE (#{userId}, ${clubId}, 0);
 	</insert>
 
 	<update id="updateMember">

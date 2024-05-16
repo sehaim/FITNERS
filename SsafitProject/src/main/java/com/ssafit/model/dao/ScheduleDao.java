@@ -1,5 +1,6 @@
 package com.ssafit.model.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.ssafit.model.dto.ClubSchedule;
@@ -19,16 +20,22 @@ public interface ScheduleDao {
 	// 유저별 일정 조회
 	public List<UserSchedule> getUserSchedule(String userId);
 
+	// 클럽 일정 단일 조회
+	public ClubSchedule selectClubSchedule(int clubId, LocalDateTime schedule);
+
+	// 유저 일정 단일 조회
+	public UserSchedule selectUserSchedule(String userId, LocalDateTime schedule);
+
 	// 클럽 일정 추가
-	public int insertClubSchedule(int clubId);
+	public int insertClubSchedule(int clubId, LocalDateTime schedule);
 
 	// 유저 일정 추가
-	public int insertUserSchedule(String userId);
+	public int insertUserSchedule(String userId, LocalDateTime schedule);
 
 	// 클럽 일정 삭제
-	public int deleteClubSchedule(int clubId);
+	public int deleteClubSchedule(int scheduleId);
 
 	// 유저 일정 삭제
-	public int deleteUserSchedule(String userId);
+	public int deleteUserSchedule(int scheduleId);
 
 }
