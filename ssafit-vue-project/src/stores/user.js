@@ -5,45 +5,93 @@ import router from "@/router";
 
 const REST_USER_API = `http://localhost:8080/ssafit`;
 
-export const useUserStore = defineStore("user", () => {
-  const loginUser = ref({
-    userId: "",
-    userName: "",
-  });
+export const useUserStore = defineStore(
+  "user",
+  () => {
+    const loginUser = ref({
+      userId: null,
+      userName: null,
+      isManager: false,
+    });
 
-  const getUser = function () {
-    loginUser.value.userId = sessionStorage.getItem("userId");
-    loginUser.value.userName = sessionStorage.getItem("userName");
-  };
+    const setLoginUser = function (res) {
+      loginUser.value.userId = res.data["userId"];
+      loginUser.value.userName = res.data["userName"];
+      loginUser.value.isManager = res.data["isManager"];
+    };
 
-  const login = function (user) {
-    axios({
-      url: REST_USER_API + "/login",
-      method: "POST",
-      data: user,
-    })
-      .then(() => {
-        getUser();
-        router.push({ name: "home" });
+    const loginErr = ref(false);
+    const activeLoginErrClass = ref("");
+
+    const login = function (user) {
+      axios({
+        url: REST_USER_API + "/login",
+        method: "POST",
+        data: user,
       })
-      .catch((err) => {
-        router.push({ name: "notFound" });
-      });
-  };
+        .then((res) => {
+          sessionStorage.setItem("access-token", res.data["access-token"]);
+          setLoginUser(res);
+          router.push({ name: "home" });
+        })
+        .catch((err) => {
+          loginErr.value = true;
+          activeLoginErrClass.value = "alert-danger";
+        });
+    };
 
-  const signup = function (user) {
-    axios({
-      url: REST_USER_API + "/signup",
-      method: "POST",
-      data: user,
-    })
-      .then(() => {
-        router.push({ name: "login" });
+    const signupErr = ref(false);
+    const activeSignupErrClass = ref("");
+
+    const signup = function (user) {
+      axios({
+        url: REST_USER_API + "/signup",
+        method: "POST",
+        data: user,
       })
-      .catch((err) => {
-        router.push({ name: "notFound" });
-      });
-  };
+        .then(() => {
+          router.push({ name: "login" });
+        })
+        .catch((err) => {
+          signupErr.value = true;
+          activeSignupErrClass.value = "alert-danger";
+        });
+    };
 
-  return { login, signup, loginUser, getUser };
-});
+    const logout = function () {
+      axios({
+        url: REST_USER_API + "/logout",
+        method: "POST",
+      })
+        .then(() => {
+          sessionStorage.clear();
+          localStorage.clear();
+          loginUser.value.userId = null;
+          loginUser.value.userName = null;
+          loginUser.value.isManager = false;
+          router.push({ name: "home" });
+        })
+        .catch((err) => {
+          router.push({ name: "notFound" });
+        });
+    };
+
+    return {
+      login,
+      loginErr,
+      activeLoginErrClass,
+      loginUser,
+      setLoginUser,
+      signup,
+      signupErr,
+      activeSignupErrClass,
+      logout,
+    };
+  },
+  {
+    persist: {
+      enabled: true,
+      strategies: [{ storage: localStorage }],
+    },
+  }
+);

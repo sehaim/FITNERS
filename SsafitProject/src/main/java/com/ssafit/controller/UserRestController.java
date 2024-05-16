@@ -3,19 +3,20 @@ package com.ssafit.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafit.model.dto.LoginForm;
 import com.ssafit.model.dto.User;
 import com.ssafit.model.service.UserService;
+import com.ssafit.util.JwtUtil;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +32,9 @@ public class UserRestController {
 	private static final String FAIL = "FAIL";
 	private static final String NONE = "NONE";
 
+	@Autowired
+	private JwtUtil jwtUtil;
+
 	private final UserService userService;
 
 	public UserRestController(UserService userService) {
@@ -39,35 +43,31 @@ public class UserRestController {
 
 	// 로그인
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody Map<String, String> map, HttpServletRequest request) {
-		String userId = map.get("userId");
-		String userPassword = map.get("userPassword");
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("userId", userId);
-		session.setAttribute("userPassword", userPassword);
-		
-//		System.out.println("session : " + session);
-//		System.out.println("session[Id] : " + session.getId());
-//		System.out.println("session[userId] : " + session.getAttribute("userId"));
-//		System.out.println("session[userPassword] : " + session.getAttribute("userPassword"));
-		
-		Map<String, String> mapToService = new HashMap();
-		mapToService.put("userId", userId);
-		mapToService.put("userPassword", userPassword);
-		boolean result = userService.login(mapToService);
+	public ResponseEntity<Map<String, Object>> login(@RequestBody LoginForm loginForm) {
+		boolean result = userService.login(loginForm);
 		if (!result) {
-			return new ResponseEntity<String>(FAIL, HttpStatus.UNAUTHORIZED);
+			Map<String, Object> map = new HashMap<>();
+			map.put("result", FAIL);
+			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
 		}
-		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("result", SUCCESS);
+
+		User user = userService.search(loginForm.getUserId());
+		map.put("userId", user.getUserId());
+		map.put("userName", user.getUserName());
+		map.put("isManager", user.isManager());
+
+		// JWT 정보
+		map.put("access-token", jwtUtil.createToken(user.getUserId()));
+
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 	// 로그아웃
 	@PostMapping("/logout")
-	public ResponseEntity<String> logout(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		session.invalidate();
-		
+	public ResponseEntity<String> logout() {
 		boolean result = userService.logout();
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
@@ -82,16 +82,13 @@ public class UserRestController {
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
-		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 
 	// 회원탈퇴
 	@DeleteMapping("/withdrawal")
-	public ResponseEntity<?> Withdrawal(@RequestParam String userId, @RequestParam String userPassword) {
-		Map<String, String> map = new HashMap();
-		map.put("userId", userId);
-		map.put("userPassword", userPassword);
-		boolean result = userService.deleteUser(map);
+	public ResponseEntity<?> Withdrawal(@RequestBody LoginForm loginForm) {
+		boolean result = userService.deleteUser(loginForm);
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}

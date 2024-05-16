@@ -1,8 +1,5 @@
 package com.ssafit.model.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-@Schema(description = "User DTO")
 public class User {
 	private String userId;
 	private String userName;
