@@ -3,6 +3,22 @@
     <div id="field-name">
       <div>로그인</div>
       <hr />
+      <div
+        :class="store.activeLoginErrClass"
+        class="alert d-flex align-items-center"
+        role="alert"
+      >
+        <i
+          class="bi bi-exclamation-circle-fill flex-shrink-0 me-2"
+          width="10"
+          height="10"
+          aria-label="Warning:"
+          v-if="store.loginErr"
+        ></i>
+        <div id="alert-msg" v-if="store.loginErr">
+          아이디/비밀번호를 확인해주세요.
+        </div>
+      </div>
     </div>
     <div id="login-form">
       <div id="login-input">
@@ -29,7 +45,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useUserStore } from "@/stores/user.js";
 
 const store = useUserStore();
@@ -37,6 +53,11 @@ const store = useUserStore();
 const user = ref({
   userId: "",
   userPassword: "",
+});
+
+onMounted(() => {
+  store.loginErr = false;
+  store.activeLoginErrClass = "";
 });
 
 const login = function () {
@@ -49,7 +70,7 @@ const login = function () {
 <style scoped>
 #container {
   width: 400px;
-  height: 550px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,10 +86,12 @@ const login = function () {
 }
 
 #login-form {
-  height: 100px;
+  height: 110px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 5px 0;
+  margin-bottom: 40px;
 }
 
 #login-input {
@@ -86,6 +109,12 @@ const login = function () {
   border-radius: 5px;
 }
 
+input {
+  height: 35px;
+  width: 200px;
+  border-radius: 5px;
+}
+
 #login-btn {
   width: 200px;
   height: 40px;
@@ -97,5 +126,15 @@ const login = function () {
 
 hr {
   width: 300px;
+}
+
+.alert {
+  width: 300px;
+  height: 50px;
+  margin: 0;
+}
+
+#alert-msg {
+  font-size: 13px;
 }
 </style>

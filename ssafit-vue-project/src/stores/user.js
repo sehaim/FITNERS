@@ -21,6 +21,7 @@ export const useUserStore = defineStore(
     };
 
     const loginErr = ref(false);
+    const activeLoginErrClass = ref("");
 
     const login = function (user) {
       axios({
@@ -35,6 +36,7 @@ export const useUserStore = defineStore(
         })
         .catch((err) => {
           loginErr.value = true;
+          activeLoginErrClass.value = "alert-danger";
         });
     };
 
@@ -77,11 +79,12 @@ export const useUserStore = defineStore(
     return {
       login,
       loginErr,
+      activeLoginErrClass,
+      loginUser,
+      setLoginUser,
       signup,
       signupErr,
       activeSignupErrClass,
-      loginUser,
-      setLoginUser,
       logout,
     };
   },
