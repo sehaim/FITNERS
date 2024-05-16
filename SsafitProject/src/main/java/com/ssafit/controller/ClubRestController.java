@@ -6,14 +6,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafit.model.dto.Club;
 import com.ssafit.model.service.ClubService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -42,15 +43,6 @@ public class ClubRestController {
 	// 클럽 추가
 	@PostMapping
 	public ResponseEntity<?> addClub(@RequestBody Club club) {
-		System.out.println(club.toString());
-
-		System.out.println("controller : ");
-		System.out.println(club.getClubId());
-		System.out.println(club.getClubName());
-		System.out.println(club.getClubDescription());
-		System.out.println(club.getUserId());
-		System.out.println();
-
 		boolean result = clubService.addClub(club);
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
@@ -59,9 +51,11 @@ public class ClubRestController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 
-//	@GetMapping("")
-//	public ResponseEntity<?> addClub() {
-//
-//	}
+	@GetMapping("/{clubId}")
+	public ResponseEntity<?> getClub(@PathVariable("clubId") int clubId) {
+		Club club = clubService.searchClubById(clubId);
+
+		return new ResponseEntity<>(club, HttpStatus.OK);
+	}
 
 }

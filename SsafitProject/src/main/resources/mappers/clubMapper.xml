@@ -35,7 +35,7 @@
 
 	<insert id="insertClub" parameterType="Club">
 		INSERT INTO Club (club_id, club_name, club_description, user_id)
-		VALUES (#{clubId}, #{clubName}, #{clubDescripton}, ${userId});
+		VALUES (${clubId}, #{clubName}, #{clubDescription}, #{userId});
 	</insert>
 	
 	<delete id="deleteClub" parameterType="Map">
