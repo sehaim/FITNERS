@@ -3,11 +3,10 @@ package com.ssafit.model.dto;
 public class Club {
 	private int clubId;
 	private String clubName;
-	private String managerId;
-	private String clubDesciption;
+	private String userId;
+	private String clubDescription;
 
 	public Club() {
-		super();
 	}
 
 	public int getClubId() {
@@ -26,26 +25,26 @@ public class Club {
 		this.clubName = clubName;
 	}
 
-	public String getManagerId() {
-		return managerId;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setManagerId(String managerId) {
-		this.managerId = managerId;
+	public void setuserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getClubDesciption() {
-		return clubDesciption;
+	public String getClubDescription() {
+		return clubDescription;
 	}
 
-	public void setClubDesciption(String clubDesciption) {
-		this.clubDesciption = clubDesciption;
+	public void setClubDescription(String clubDescription) {
+		this.clubDescription = clubDescription;
 	}
 
 	@Override
 	public String toString() {
-		return "Club [clubId=" + clubId + ", clubName=" + clubName + ", managerId=" + managerId + ", clubDesciption="
-				+ clubDesciption + "]";
+		return "Club [clubId=" + clubId + ", clubName=" + clubName + ", userId=" + userId + ", clubDescription="
+				+ clubDescription + "]";
 	}
 
 }

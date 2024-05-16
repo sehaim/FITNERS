@@ -45,12 +45,18 @@ public class ClubServiceImpl implements ClubService {
 	@Transactional
 	@Override
 	public boolean addClub(Club club) {
+		
+		System.out.println("service : ");
+		System.out.println(club.getClubId());
+		System.out.println(club.getClubName());
+		System.out.println(club.getClubDescription());
+		System.out.println(club.getUserId());
+		System.out.println();
+		
 		int clubId = club.getClubId();
 		String clubName = club.getClubName();
 
-		if (clubDao.select(clubId) != null) {
-			return false;
-		} else if (clubDao.select(clubId).getClubName() == clubName) {
+		if (clubDao.select(clubId) != null || clubDao.selectClubByName(clubName) != null) {
 			return false;
 		}
 
@@ -65,7 +71,7 @@ public class ClubServiceImpl implements ClubService {
 
 		if (club == null) {
 			return false;
-		} else if (club.getManagerId() != userId) {
+		} else if (club.getUserId() != userId) {
 			return false;
 		}
 
