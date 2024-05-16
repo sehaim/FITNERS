@@ -4,8 +4,11 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafit.model.dao.ClubDao">
 	
-	<select id="selectAllClub" resultType="Club" parameterType="int">
-		SELECT club_id, club_name, club_description, user_id
+	<select id="selectAllClub" resultType="ClubSearchResult">
+		SELECT club_id, club_name, club_description, user_id,
+		(SELECT user_name
+		FROM user
+		WHERE user_id = club.user_id) AS user_name
 		FROM Club;
 	</select>
 
@@ -31,6 +34,12 @@
 		SELECT club_id, club_name, club_description, user_id
 		FROM Club
 		WHERE club_name LIKE CONCAT ('%', #{clubName}, '%');
+	</select>
+
+	<select id="selectClubListByUserId" resultType="Club" parameterType="String">
+		SELECT club_id, club_name, club_description, user_id
+		FROM Club
+		WHERE user_id = #{userId};
 	</select>
 
 	<insert id="insertClub" parameterType="Club">

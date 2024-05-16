@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafit.model.dto.Club;
+import com.ssafit.model.dto.ClubSearchResult;
 import com.ssafit.model.service.ClubService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,7 +37,7 @@ public class ClubRestController {
 	// 전체 클럽 조회
 	@GetMapping
 	public ResponseEntity<?> getAllClub() {
-		List<Club> list = clubService.searchClubList();
+		List<ClubSearchResult> list = clubService.searchClubList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
@@ -49,13 +50,6 @@ public class ClubRestController {
 		}
 
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
-	}
-
-	@GetMapping("/{clubId}")
-	public ResponseEntity<?> getClub(@PathVariable("clubId") int clubId) {
-		Club club = clubService.searchClubById(clubId);
-
-		return new ResponseEntity<>(club, HttpStatus.OK);
 	}
 
 }
