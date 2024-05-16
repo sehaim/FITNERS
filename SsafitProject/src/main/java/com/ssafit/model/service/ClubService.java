@@ -14,10 +14,13 @@ public interface ClubService {
 	// 클럽 이름으로 조회 (목록)
 	public List<Club> searchClubListByName(String clubName);
 
+	// 클럽 아이디로 조회
+	public Club searchClubById(int clubId);
+
 	// 클럽 등록
 	public boolean addClub(Club club);
 
 	// 클럽 삭제
-	public boolean deleteClub(String userId, String clubId);
+	public boolean deleteClub(String userId, String clubName);
 
 }

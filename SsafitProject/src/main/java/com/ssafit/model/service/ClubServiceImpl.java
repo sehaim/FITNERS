@@ -3,6 +3,7 @@ package com.ssafit.model.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafit.model.dao.ClubDao;
 import com.ssafit.model.dao.UserDao;
@@ -17,34 +18,58 @@ public class ClubServiceImpl implements ClubService {
 		this.clubDao = clubDao;
 	}
 
+	@Transactional
 	@Override
 	public List<Club> searchClubList() {
-
-		return null;
+		return clubDao.selectAllClub();
 	}
 
+	@Transactional
 	@Override
 	public Club searchClubByName(String clubName) {
-		// TODO Auto-generated method stub
-		return null;
+		return clubDao.selectClubByName(clubName);
 	}
 
+	@Transactional
 	@Override
 	public List<Club> searchClubListByName(String clubName) {
-		// TODO Auto-generated method stub
-		return null;
+		return clubDao.selectClubListByName(clubName);
 	}
 
+	@Transactional
+	@Override
+	public Club searchClubById(int clubId) {
+		return clubDao.select(clubId);
+	}
+
+	@Transactional
 	@Override
 	public boolean addClub(Club club) {
-		// TODO Auto-generated method stub
-		return false;
+		int clubId = club.getClubId();
+		String clubName = club.getClubName();
+
+		if (clubDao.select(clubId) != null || clubDao.selectClubByName(clubName) != null) {
+			return false;
+		}
+
+		clubDao.insertClub(club);
+		return true;
 	}
 
+	@Transactional
 	@Override
-	public boolean deleteClub(String userId, String clubId) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteClub(String userId, String clubName) {
+		Club club = clubDao.selectClubByName(clubName);
+
+		if (club == null) {
+			return false;
+		} else if (club.getUserId() != userId) {
+			return false;
+		}
+
+		clubDao.deleteClub(userId, clubName);
+
+		return true;
 	}
 
 }

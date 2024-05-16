@@ -28,9 +28,9 @@ public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	private JwtInterceptor jwtInterceptor;
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/ssafit/**",
-				"/swagger-ui/**", "/v3/api-docs/**");
-	}
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/ssafit/**",
+//				"/swagger-ui/**", "/v3/api-docs/**");
+//	}
 }
