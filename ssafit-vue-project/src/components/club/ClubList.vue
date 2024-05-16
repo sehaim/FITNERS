@@ -1,71 +1,54 @@
 <template>
-  <div id="container">
-    <div>
-      <RouterLink id="clubName" :to="`/club/${club.clubId}`">{{
-        club.clubName
-      }}</RouterLink>
-    </div>
-    <div id="main-img">
-      <img src="@/assets/icon/report.png" alt="" />
-      <div id="clubDescription">{{ club.clubDescription }}</div>
-      <div id="userName">
-        관리자 <strong>{{ club.userName }}</strong>
+  <div>
+    <div id="club-container">
+      <div id="page-title">
+        Club List
+        <hr />
+      </div>
+
+      <div id="club-list">
+        <ClubListItem
+          v-for="club in store.clubList"
+          :key="club.clubId"
+          :club="club"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useClubStore } from "@/stores/club";
+import ClubListItem from "@/components/club/ClubListItem.vue";
+
+import { useClubStore } from "@/stores/club.js";
+import { onMounted } from "vue";
 
 const store = useClubStore();
 
-defineProps({
-  club: Object,
+onMounted(() => {
+  store.getClubList();
 });
 </script>
 
-<style scoped>
-#container {
+<style>
+#club-container {
   display: flex;
   flex-direction: column;
-  width: 230px;
-  height: 280px;
-  border-radius: 10px;
-  padding: 15px;
-  margin: 15px;
-  box-shadow: 0px 0px 3px 1px #799dbb;
+  align-items: center;
 }
 
-#main-img {
-  position: relative;
+#page-title {
+  font-size: 30px;
+  width: 95%;
 }
 
-#clubName {
-  color: rgb(87, 86, 86);
-  font-size: 23px;
-  font-weight: 700;
+#club-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-#clubDescription {
-  font-size: 17px;
-  position: absolute;
-  top: 20%;
-}
-
-#userName {
-  text-align: right;
-  font-size: 15px;
-  position: absolute;
-  bottom: 10%;
-  right: 10%;
-  color: rgb(87, 86, 86);
-}
-
-img {
-  width: 210px;
-  height: 225px;
-  align-self: center;
-  opacity: 20%;
+hr {
+  width: 100%;
 }
 </style>
