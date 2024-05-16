@@ -8,19 +8,22 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ssafit.model.dao.ClubDao;
 import com.ssafit.model.dao.UserDao;
 import com.ssafit.model.dto.Club;
+import com.ssafit.model.dto.ClubSearchResult;
 
 @Service
 public class ClubServiceImpl implements ClubService {
 
 	private final ClubDao clubDao;
+	private final UserDao userDao;
 
-	public ClubServiceImpl(ClubDao clubDao) {
+	public ClubServiceImpl(ClubDao clubDao, UserDao userDao) {
 		this.clubDao = clubDao;
+		this.userDao = userDao;
 	}
 
 	@Transactional
 	@Override
-	public List<Club> searchClubList() {
+	public List<ClubSearchResult> searchClubList() {
 		return clubDao.selectAllClub();
 	}
 
@@ -44,11 +47,17 @@ public class ClubServiceImpl implements ClubService {
 
 	@Transactional
 	@Override
-	public boolean addClub(Club club) {
-		int clubId = club.getClubId();
-		String clubName = club.getClubName();
+	public List<Club> searchClubListByUserId(String userId) {
+		return clubDao.selectClubListByUserId(userId);
+	}
 
-		if (clubDao.select(clubId) != null || clubDao.selectClubByName(clubName) != null) {
+	@Transactional
+	@Override
+	public boolean addClub(Club club) {
+		String clubName = club.getClubName();
+		String userId = club.getUserId();
+
+		if (clubDao.selectClubByName(clubName) != null || userDao.select(userId) == null) {
 			return false;
 		}
 
