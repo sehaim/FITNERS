@@ -1,5 +1,10 @@
 <template>
-  <div>
-    <h2>club</h2>
+  <div id="container">
+    <div>클럽 목록</div>
+    <ClubList />
   </div>
 </template>
+
+<script setup>
+import ClubList from "@/components/club/ClubList.vue";
+</script>
