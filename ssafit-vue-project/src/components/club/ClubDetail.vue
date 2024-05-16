@@ -19,7 +19,7 @@ import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import ClubMemberNone from "@/components/club/ClubMemberNone.vue";
 import ClubMemberProceeding from "@/components/club/ClubMemberProceeding.vue";
-import ClubScheduleUser from "./ClubScheduleUser.vue";
+import ClubScheduleUser from "@/components/club/ClubScheduleUser.vue";
 
 const store = useClubStore();
 

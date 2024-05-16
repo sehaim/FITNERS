@@ -52,14 +52,6 @@ VALUES
 
 INSERT INTO Member (user_id, club_id, access)
 VALUES 
-("ssafy0004", 4, 1),
-("ssafy0005", 4, 1),
-("ssafy0009", 4, 1),
-("ssafy0019", 4, 1),
-("admin0004", 4, 1);
-
-INSERT INTO Member (user_id, club_id, access)
-VALUES 
 ("admin0003", 5, 1);
 
 INSERT INTO Member (user_id, club_id, access)

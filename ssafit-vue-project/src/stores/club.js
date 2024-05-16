@@ -35,7 +35,7 @@ export const useClubStore = defineStore("club", () => {
   const getClub = function (clubId) {
     if (userId.value !== null) {
       axios
-        .get(`${REST_CLUB_API}/${clubId}&${userId}`)
+        .get(`${REST_CLUB_API}/${clubId}&${userId.value}`)
         .then((res) => {
           club.value = res.data["club"];
           status.value = res.data["status"];
