@@ -77,7 +77,7 @@ const login = function () {
   justify-content: space-between;
   padding-top: 20px;
   padding-bottom: 20px;
-  margin: auto;
+  margin: 2% auto;
 }
 
 #field-name {

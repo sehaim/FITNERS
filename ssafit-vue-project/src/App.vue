@@ -21,7 +21,6 @@ import TheFooterNav from "@/components/common/TheFooterNav.vue";
 #content {
   height: 100%;
   min-height: 100%;
-  padding: 5%;
 }
 
 #footer {

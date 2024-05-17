@@ -6,7 +6,7 @@
       }}</RouterLink>
     </div>
     <div id="main-img">
-      <img src="@/assets/icon/club-item-icon.png" alt="" />
+      <!-- <img src="@/assets/icon/club-item-icon.png" alt="" /> -->
       <div id="clubDescription">{{ club.clubDescription }}</div>
       <div id="userName">
         관리자 <strong>{{ club.userName }}</strong>
