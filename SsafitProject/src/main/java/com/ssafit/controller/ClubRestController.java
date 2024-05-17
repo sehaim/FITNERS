@@ -1,5 +1,6 @@
 package com.ssafit.controller;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,7 @@ public class ClubRestController {
 	}
 
 	// 클럽 추가
+	// 마이페이지 컨트롤러로 이동 예정
 	@PostMapping
 	public ResponseEntity<?> addClub(@RequestBody Club club) {
 		boolean result = clubService.addClub(club);
@@ -77,7 +79,7 @@ public class ClubRestController {
 
 	// 클럽 일정 조회
 	@PostMapping("/{clubId}/schedule")
-	public ResponseEntity<List> getClubSchedule(@PathVariable("clubId") @RequestBody int clubId) {
+	public ResponseEntity<List> getClubSchedule(@PathVariable("clubId") int clubId) {
 		List<ClubSchedule> clubScheduleList = scheduleService.searchClubScheduleList(clubId);
 
 		return new ResponseEntity<>(clubScheduleList, HttpStatus.OK);
@@ -85,8 +87,41 @@ public class ClubRestController {
 
 	// 클럽 가입 요청
 	@PostMapping("/{clubId}&{userId}/regist")
-	public ResponseEntity<?> registClub(@RequestBody int clubId, @RequestBody String userId) {
+	public ResponseEntity<?> registClub(@PathVariable("clubId") int clubId, @PathVariable("userId") String userId) {
 		boolean result = memberService.applyMember(clubId, userId);
+		if (!result) {
+			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+		}
+
+		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+	}
+
+	// 개인 일정 추가
+	@PostMapping("/{clubId}&{userId}/schedule/add")
+	public ResponseEntity<?> addUserSchedule(@PathVariable("clubId") @RequestBody int clubId,
+			@PathVariable("userId") @RequestBody String userId, @RequestBody LocalDateTime schedule) {
+
+		if (scheduleService.searchClubSchedule(clubId, schedule) == null) {
+			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+		}
+
+		boolean result = scheduleService.insertUserSchedule(userId, schedule);
+		if (!result) {
+			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+		}
+
+		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+	}
+
+	// 클럽 일정 추가
+	@PostMapping("/{clubId}/schedule/add")
+	public ResponseEntity<?> addClubSchedule(@PathVariable("clubId") int clubId, @RequestBody LocalDateTime schedule) {
+
+		if (scheduleService.searchClubSchedule(clubId, schedule) != null) {
+			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+		}
+
+		boolean result = scheduleService.insertClubSchedule(clubId, schedule);
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
