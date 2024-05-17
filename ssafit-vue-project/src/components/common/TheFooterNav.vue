@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer id="container">
+    <footer id="footer-container">
       <div>이용약관</div>
       <div>개인정보 처리방침</div>
       <div>Copyright &#169; SSAFIT Studio All Rights reserved</div>
@@ -9,7 +9,7 @@
 </template>
 
 <style scoped>
-#container {
+#footer-container {
   height: 80px;
   background-color: rgb(220, 220, 221);
   display: flex;

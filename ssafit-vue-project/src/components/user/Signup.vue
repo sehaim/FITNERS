@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div id="signup-container">
     <div id="field-name">
       <div>회원가입</div>
       <hr />
@@ -226,7 +226,7 @@ const signup = function () {
 </script>
 
 <style scoped>
-#container {
+#signup-container {
   width: 400px;
   height: 600px;
   display: flex;
@@ -235,7 +235,7 @@ const signup = function () {
   justify-content: space-between;
   padding-top: 20px;
   padding-bottom: 20px;
-  margin: auto;
+  margin: 2% auto;
 }
 
 #field-name {

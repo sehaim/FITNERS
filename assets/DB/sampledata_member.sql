@@ -67,4 +67,3 @@ GROUP BY club_id;
 SELECT *
 FROM member
 WHERE access = 0;
-

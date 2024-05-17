@@ -21,27 +21,28 @@ export const useClubStore = defineStore("club", () => {
       });
   };
 
-  const loginUser = ref(JSON.parse(localStorage.getItem("user")));
-  const userId = ref(loginUser.value.loginUser.userId);
+  const user = ref({});
+  const loginUser = ref({})
 
-  const club = ref({
-    clubName: null,
-    clubDescription: null,
-    userName: null,
-  });
+  const getUser = function() {
+    user.value = JSON.parse(localStorage.getItem("user"));
+    loginUser.value = user.value.loginUser
+  }
+
+  const club = ref({});
   const status = ref({});
   const clubSchedule = ref([]);
 
   const getClub = function (clubId) {
-    if (userId.value !== null) {
+    if (loginUser.value.userId !== null) {
       axios
-        .get(`${REST_CLUB_API}/${clubId}&${userId.value}`)
+        .get(`${REST_CLUB_API}/${clubId}&${loginUser.value.userId}`)
         .then((res) => {
           club.value = res.data["club"];
           status.value = res.data["status"];
-          if ((status.value = "COMPLETED")) {
+          if ((status.value === "COMPLETED")) {
             axios({
-              url: REST_CLUB_API + "/`${clubId}`/detail",
+              url: REST_CLUB_API + "/" + `${clubId}` + "/schedule",
               method: "POST",
               data: clubId,
             })
@@ -51,6 +52,10 @@ export const useClubStore = defineStore("club", () => {
               .catch((err) => {
                 router.push({ name: "notFound" });
               });
+          } else {
+            if(loginUser.value.isManager) {
+              status.value = "MANAGER"
+            }
           }
         })
         .catch((err) => {
@@ -60,5 +65,25 @@ export const useClubStore = defineStore("club", () => {
       router.push({ name: "login" });
     }
   };
-  return { clubList, getClubList, club, getClub, userId, status, clubSchedule };
+
+  const signupClub = function (clubId) {
+    console.log(clubId)
+    axios({
+      url: REST_CLUB_API + "/" + `${clubId}` + "&" + `${loginUser.value.userId}` + "/regist",
+      method: "POST",
+      data: {
+        clubId: clubId,
+        userId: loginUser.value.userId
+      }
+    })
+    .then(() => {
+      status.value = "PROCEEDING"
+    })
+    .catch((err) => {
+      router.push({ name: "notFound"})
+    })
+  };
+
+
+  return { clubList, getClubList, club, getClub, loginUser, getUser, status, clubSchedule, signupClub };
 });

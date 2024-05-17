@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <nav id="container">
+      <nav id="header-container">
         <div id="page-nav">
           <RouterLink to="/">logo</RouterLink>
           <RouterLink to="/board">자유게시판</RouterLink>
@@ -41,7 +41,7 @@ const store = useUserStore();
   color: black;
 }
 
-#container {
+#header-container {
   height: 80px;
   min-height: 80px;
   display: flex;

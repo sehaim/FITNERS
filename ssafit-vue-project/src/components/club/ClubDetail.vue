@@ -1,32 +1,45 @@
 <template>
-  <div id="container">
+  <div>
     <div id="club-detail-header">
       <div>Welcome {{ store.club.clubName }}</div>
       <div>{{ store.club.clubDescription }}</div>
     </div>
-    <div>
-      <ClubMemberNone v-if="store.status === 'NONE'" />
+    <div id="club-detail-content">
+      <ClubMemberNone v-if="store.status === 'NONE'" :clubId = "clubId"/>
       <ClubMemberProceeding v-if="store.status === 'PROCEEDING'" />
-      <ClubScheduleUser v-if="store.status === 'COMPLETED'" />
+      <ClubSchedule v-if="store.status === 'COMPLETED'" />
+      <ClubManagerNone v-if="store.status === 'MANAGER'" />
     </div>
   </div>
 </template>
 
 <script setup>
 import { useClubStore } from "@/stores/club";
-import { onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import axios from "axios";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 import ClubMemberNone from "@/components/club/ClubMemberNone.vue";
 import ClubMemberProceeding from "@/components/club/ClubMemberProceeding.vue";
-import ClubScheduleUser from "@/components/club/ClubScheduleUser.vue";
+import ClubSchedule from "@/components/club/ClubSchedule.vue";
+import ClubManagerNone from "@/components/club/ClubManagerNone.vue";
 
 const store = useClubStore();
 
 const route = useRoute();
-const router = useRouter();
+
+const clubId = ref(route.params.clubId)
 
 onMounted(() => {
-  store.getClub(route.params.clubId);
+  store.getUser();
+  store.getClub(clubId.value);
 });
 </script>
+
+<style scoped>
+#club-detail-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+</style>
