@@ -16,10 +16,6 @@
 </template>
 
 <script setup>
-import { useClubStore } from "@/stores/club";
-
-const store = useClubStore();
-
 defineProps({
   club: Object,
 });

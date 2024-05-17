@@ -21,14 +21,15 @@ export const useClubStore = defineStore("club", () => {
       });
   };
 
-  const user = ref(JSON.parse(localStorage.getItem("user")));
-  const loginUser = ref(user.value.loginUser)
+  const user = ref({});
+  const loginUser = ref({})
 
-  const club = ref({
-    clubName: null,
-    clubDescription: null,
-    userName: null,
-  });
+  const getUser = function() {
+    user.value = JSON.parse(localStorage.getItem("user"));
+    loginUser.value = user.value.loginUser
+  }
+
+  const club = ref({});
   const status = ref({});
   const clubSchedule = ref([]);
 
@@ -53,7 +54,7 @@ export const useClubStore = defineStore("club", () => {
               });
           } else {
             if(loginUser.value.isManager) {
-              router.push({name: "notFound"})
+              status.value = "MANAGER"
             }
           }
         })
@@ -66,6 +67,7 @@ export const useClubStore = defineStore("club", () => {
   };
 
   const signupClub = function (clubId) {
+    console.log(clubId)
     axios({
       url: REST_CLUB_API + "/" + `${clubId}` + "&" + `${loginUser.value.userId}` + "/regist",
       method: "POST",
@@ -83,5 +85,5 @@ export const useClubStore = defineStore("club", () => {
   };
 
 
-  return { clubList, getClubList, club, getClub, loginUser, status, clubSchedule, signupClub };
+  return { clubList, getClubList, club, getClub, loginUser, getUser, status, clubSchedule, signupClub };
 });
