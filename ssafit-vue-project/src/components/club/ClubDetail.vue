@@ -1,13 +1,13 @@
 <template>
-  <div id="container">
+  <div>
     <div id="club-detail-header">
       <div>Welcome {{ store.club.clubName }}</div>
       <div>{{ store.club.clubDescription }}</div>
     </div>
     <div id="club-detail-content">
-      <ClubMemberNone v-if="store.status === 'NONE'" />
+      <ClubMemberNone v-if="store.status === 'NONE'" :clubId = "route.params.clubId"/>
       <ClubMemberProceeding v-if="store.status === 'PROCEEDING'" />
-      <ClubScheduleUser v-if="store.status === 'COMPLETED'" />
+      <ClubSchedule v-if="store.status === 'COMPLETED'" />
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@ import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 import ClubMemberNone from "@/components/club/ClubMemberNone.vue";
 import ClubMemberProceeding from "@/components/club/ClubMemberProceeding.vue";
-import ClubScheduleUser from "@/components/club/ClubScheduleUser.vue";
+import ClubSchedule from "@/components/club/ClubSchedule.vue";
 
 const store = useClubStore();
 

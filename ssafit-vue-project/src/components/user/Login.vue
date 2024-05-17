@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div id="login-container">
     <div id="field-name">
       <div>로그인</div>
       <hr />
@@ -68,7 +68,7 @@ const login = function () {
 </script>
 
 <style scoped>
-#container {
+#login-container {
   width: 400px;
   height: 600px;
   display: flex;
