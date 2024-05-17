@@ -77,19 +77,10 @@ public class ClubRestController {
 
 	// 클럽 일정 조회
 	@PostMapping("/{clubId}/schedule")
-	public ResponseEntity<Map<String, Object>> getClubSchedule(@RequestBody int clubId) {
-		Map<String, Object> map = new HashMap<>();
+	public ResponseEntity<List> getClubSchedule(@PathVariable("clubId") @RequestBody int clubId) {
+		List<ClubSchedule> clubScheduleList = scheduleService.searchClubScheduleList(clubId);
 
-		if (clubService.searchClubById(clubId) == null) {
-			map.put("result", FAIL);
-			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
-		}
-
-		List<ClubSchedule> list = scheduleService.searchClubScheduleList(clubId);
-		map.put("result", SUCCESS);
-		map.put("ClubSchedule", list);
-
-		return new ResponseEntity<>(map, HttpStatus.OK);
+		return new ResponseEntity<>(clubScheduleList, HttpStatus.OK);
 	}
 
 	// 클럽 가입 요청

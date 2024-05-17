@@ -13,7 +13,7 @@ public class MemberServiceImpl implements MemberService {
 
 	private final String NONE = "NONE";
 	private final String PROCEEDING = "PROCEEDING";
-	private final String COMPLETE = "COMPLETEED";
+	private final String COMPLETE = "COMPLETED";
 
 	private final MemberDao memberDao;
 
