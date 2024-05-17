@@ -1,5 +1,6 @@
 <template>
   <div id="club-signup-container">
+    <img src="@/assets/img/sad-icon.png" alt="sad-icon">
     <div id="content">클럽 회원만 볼 수 있습니다.</div>
     <button @click="signupClub">가입하기</button>
   </div>
@@ -25,23 +26,35 @@ const signupClub = function () {
 #club-signup-container {
   width: 400px;
   height: 350px;
-  background-color: skyblue;
+  padding: 5%;
   display: flex;
   flex-direction: column;
-  padding: 5%;
   align-items: center;
-
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px 1px #8d8c8a;
 }
 
+img {
+  width: 50px;
+  opacity: 70%;
+  margin-top: 10px;
+}
+
+
 #content {
-  font-size: 20px;
+  font-size: 18px;
   position: relative;
-  top: 40%;
+  top: 20%;
 }
 
 button {
   position: relative;
-  top: 70%;
+  top: 50%;
+  border-style: none;
+  border-radius: 5px;
+  width: 200px;
+  height: 40px;
+  font-size: 15px;
 }
 
 

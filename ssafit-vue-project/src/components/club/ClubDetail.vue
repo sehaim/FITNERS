@@ -41,5 +41,10 @@ onMounted(() => {
   justify-content: space-between;
 }
 
+#club-detail-content {
+  display: flex;
+  justify-content: center;
+  margin: 3%;
+}
 
 </style>
