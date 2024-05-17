@@ -1,7 +1,10 @@
 package com.ssafit.model.service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,7 +70,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 		if (scheduleDao.selectClubSchedule(clubId, schedule) != null || clubDao.select(clubId) == null) {
 			return false;
 		}
-		scheduleDao.insertClubSchedule(clubId, schedule);
+
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("clubId", clubId);
+
+		Timestamp timeStamp = Timestamp.valueOf(schedule);
+		map.put("schedule", timeStamp);
+
+		scheduleDao.insertClubSchedule(map);
 		return true;
 	}
 
@@ -77,7 +88,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 		if (scheduleDao.selectUserSchedule(userId, schedule) != null || userDao.select(userId) == null) {
 			return false;
 		}
-		scheduleDao.insertUserSchedule(userId, schedule);
+
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("userId", userId);
+
+		Timestamp timeStamp = Timestamp.valueOf(schedule);
+		map.put("schedule", timeStamp);
+
+		scheduleDao.insertClubSchedule(map);
+
+		scheduleDao.insertUserSchedule(map);
 		return true;
 	}
 

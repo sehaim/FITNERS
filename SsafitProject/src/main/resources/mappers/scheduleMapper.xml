@@ -29,35 +29,35 @@
 	<select id="selectClubSchedule" resultType="ClubSchedule" parameterType="map">
 		SELECT schedule_id, club_id, schedule
 		FROM Club_schedule
-		WHERE club_id = ${clubId} AND schedule = ${schedule};
+		WHERE club_id = ${clubId} AND schedule = #{schedule};
 	</select>
 
 	<select id="selectUserSchedule" resultType="UserSchedule" parameterType="map">
 		SELECT schedule_id, user_id, schedule
 		FROM User_schedule
-		WHERE user_id = #{userId} AND schedule = ${schedule};
+		WHERE user_id = #{userId} AND schedule = #{schedule};
 	</select>
 
 	<insert id="insertClubSchedule" parameterType="map">
 		INSERT INTO Club_schedule (club_id, schedule)
-		VALUE (${clubId}, ${schedule});
+		VALUE (${clubId}, #{schedule});
 	</insert>
 
 	<insert id="insertUserSchedule" parameterType="map">
 		INSERT INTO User_schedule (user_id, schedule)
-		VALUE (#{userId}, ${schedule});
+		VALUE (#{userId}, #{schedule});
 	</insert>
 
 	<delete id="deleteClubSchedule" parameterType="int">
 		DELETE
 		FROM Club_schedule
-		WHERE schedule_id = ${scheduleId};
+		WHERE schedule_id = #{scheduleId};
 	</delete>
 
 	<delete id="deleteUserSchedule" parameterType="int">
 		DELETE
 		FROM User_schedule
-		WHERE schedule_id = ${scheduleId};
+		WHERE schedule_id = #{scheduleId};
 	</delete>
 
 </mapper>
