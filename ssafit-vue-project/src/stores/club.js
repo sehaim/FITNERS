@@ -31,7 +31,7 @@ export const useClubStore = defineStore("club", () => {
 
   const club = ref({});
   const status = ref({});
-  const clubSchedule = ref([]);
+  const clubScheduleList = ref([]);
 
   const getClub = function (clubId) {
     if (loginUser.value.userId !== null) {
@@ -47,7 +47,7 @@ export const useClubStore = defineStore("club", () => {
               data: clubId,
             })
               .then((res) => {
-                clubSchedule.value = res.data;
+                clubScheduleList.value = res.data;
               })
               .catch((err) => {
                 router.push({ name: "notFound" });
@@ -67,7 +67,6 @@ export const useClubStore = defineStore("club", () => {
   };
 
   const signupClub = function (clubId) {
-    console.log(clubId)
     axios({
       url: REST_CLUB_API + "/" + `${clubId}` + "&" + `${loginUser.value.userId}` + "/regist",
       method: "POST",
@@ -85,5 +84,5 @@ export const useClubStore = defineStore("club", () => {
   };
 
 
-  return { clubList, getClubList, club, getClub, loginUser, getUser, status, clubSchedule, signupClub };
+  return { clubList, getClubList, club, getClub, loginUser, getUser, status, clubScheduleList, signupClub };
 });
