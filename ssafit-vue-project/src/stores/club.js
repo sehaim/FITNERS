@@ -39,9 +39,9 @@ export const useClubStore = defineStore("club", () => {
         .then((res) => {
           club.value = res.data["club"];
           status.value = res.data["status"];
-          if ((status.value = "COMPLETED")) {
+          if ((status.value === "COMPLETED")) {
             axios({
-              url: REST_CLUB_API + "/`${clubId}`/detail",
+              url: REST_CLUB_API + "/" + `${clubId}` + "/schedule",
               method: "POST",
               data: clubId,
             })
