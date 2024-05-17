@@ -98,9 +98,8 @@ public class ClubRestController {
 
 	// 개인 일정 추가
 	@PostMapping("/{clubId}&{userId}/schedule/add")
-	public ResponseEntity<?> addUserSchedule(@PathVariable("clubId") @RequestBody int clubId,
-			@PathVariable("userId") @RequestBody String userId, @RequestBody LocalDateTime schedule) {
-
+	public ResponseEntity<?> addUserSchedule(@PathVariable("clubId") int clubId, @PathVariable("userId") String userId,
+			@RequestBody LocalDateTime schedule) {
 		if (scheduleService.searchClubSchedule(clubId, schedule) == null) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
