@@ -18,7 +18,7 @@ import ClubScheduleItem from './ClubScheduleItem.vue';
 
 const store = useClubStore();
 
-defineProps({
+const props = defineProps({
   clubScheduleList: Object
 })
 
