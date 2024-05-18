@@ -1,7 +1,5 @@
 package com.ssafit.model.service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +72,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return scheduleDao.selectUserSchedule(map);
 	}
 
+
 	@Transactional
 	@Override
 	public boolean insertClubSchedule(int clubId, String schedule) {
@@ -108,14 +107,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public boolean deleteClubSchedule(int clubId, String schedule) {
-		Map<String, Object> selectMap = new HashMap<>();
-
-		selectMap.put("clubId", clubId);
-		selectMap.put("schedule", schedule);
-
-		ClubSchedule clubSchedule = scheduleDao.selectClubSchedule(selectMap);
-		int scheduleId = clubSchedule.getScheduleId();
+	public boolean deleteClubSchedule(int scheduleId) {
+		ClubSchedule clubSchedule = scheduleDao.selectClubScheduleById(scheduleId);
+		if (clubSchedule == null) {
+			return false;
+		}
 
 		scheduleDao.deleteClubSchedule(scheduleId);
 		return true;
@@ -123,14 +119,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public boolean deleteUserSchedule(String userId, String schedule) {
-		Map<String, Object> selectMap = new HashMap<>();
-
-		selectMap.put("userId", userId);
-		selectMap.put("schedule", schedule);
-
-		UserSchedule userSchedule = scheduleDao.selectUserSchedule(selectMap);
-		int scheduleId = userSchedule.getScheduleId();
+	public boolean deleteUserSchedule(int scheduleId) {
+		UserSchedule userSchedule = scheduleDao.selectUserScheduleById(scheduleId);
+		if (userSchedule == null) {
+			return false;
+		}
 
 		scheduleDao.deleteUserSchedule(scheduleId);
 		return true;

@@ -37,6 +37,18 @@
 		FROM User_schedule
 		WHERE user_id = #{userId} AND schedule = #{schedule};
 	</select>
+	
+	<select id="selectClubScheduleById" resultType="ClubSchedule" parameterType="int">
+		SELECT schedule_id, user_id, schedule
+		FROM Club_schedule
+		WHERE schedule_id = #{scheduleId};
+	</select>
+	
+	<select id="selectUserScheduleById" resultType="UserSchedule" parameterType="int">
+		SELECT schedule_id, user_id, schedule
+		FROM User_schedule
+		WHERE schedule_id = #{scheduleId};
+	</select>
 
 	<insert id="insertClubSchedule" parameterType="map">
 		INSERT INTO Club_schedule (club_id, schedule)
