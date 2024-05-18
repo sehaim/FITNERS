@@ -10,7 +10,7 @@
 
 <style scoped>
 #footer-container {
-  height: 80px;
+  height: 70px;
   background-color: rgb(220, 220, 221);
   display: flex;
   flex-direction: row;

@@ -1,12 +1,12 @@
 <template>
-  <div id="container">
+  <div id="club-list-item-container">
     <div>
       <RouterLink id="clubName" :to="`/club/${club.clubId}`">{{
         club.clubName
       }}</RouterLink>
     </div>
     <div id="main-img">
-      <!-- <img src="@/assets/icon/club-item-icon.png" alt="" /> -->
+      <img src="@/assets/img/club-list-icon.png" alt="club-list-icon" />
       <div id="clubDescription">{{ club.clubDescription }}</div>
       <div id="userName">
         관리자 <strong>{{ club.userName }}</strong>
@@ -22,7 +22,7 @@ defineProps({
 </script>
 
 <style scoped>
-#container {
+#club-list-item-container {
   display: flex;
   flex-direction: column;
   width: 230px;
@@ -62,6 +62,6 @@ img {
   width: 210px;
   height: 225px;
   align-self: center;
-  opacity: 20%;
+  opacity: 10%;
 }
 </style>
