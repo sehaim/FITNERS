@@ -1,10 +1,8 @@
 package com.ssafit.model.dto;
 
-import java.time.LocalDateTime;
-
 public class Schedule {
 	private int scheduleId;
-	private LocalDateTime schedule;
+	private String schedule;
 
 	public Schedule() {
 	}
@@ -17,11 +15,11 @@ public class Schedule {
 		this.scheduleId = scheduleId;
 	}
 
-	public LocalDateTime getSchedule() {
+	public String getSchedule() {
 		return schedule;
 	}
 
-	public void setSchedule(LocalDateTime schedule) {
+	public void setSchedule(String schedule) {
 		this.schedule = schedule;
 	}
 

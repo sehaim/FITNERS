@@ -23,7 +23,7 @@
 	<select id="getUserSchedule" resultType="UserSchedule" parameterType="String">
 		SELECT schedule_id, user_id, schedule
 		FROM User_schedule
-		WHERE user_id = ${userId};
+		WHERE user_id = #{userId};
 	</select>
 	
 	<select id="selectClubSchedule" resultType="ClubSchedule" parameterType="map">

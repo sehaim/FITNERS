@@ -1,6 +1,5 @@
 package com.ssafit.controller;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,31 +62,28 @@ public class ClubRestController {
 	}
 
 	// 클럽 아이디, 유저 아이디로 해당 유저가 클럽에 가입중인지 조회
-	@GetMapping("/{clubId}&{userId}")
-	public ResponseEntity<Map<String, Object>> getStatus(@PathVariable("clubId") int clubId,
-			@PathVariable("userId") String userId) {
+	@GetMapping("/{clubId}/{userId}")
+	public ResponseEntity<String> getStatus(@PathVariable("clubId") int clubId, @PathVariable("userId") String userId) {
 		Map<String, Object> map = new HashMap<>();
 
 		String searchResult = memberService.getMember(clubId, userId);
-		map.put("status", searchResult);
 
-		Club club = clubService.searchClubById(clubId);
-		map.put("club", club);
-
-		return new ResponseEntity<>(map, HttpStatus.OK);
+		return new ResponseEntity<>(searchResult, HttpStatus.OK);
 	}
 
 	// 클럽 일정 조회
-	@PostMapping("/{clubId}/schedule")
-	public ResponseEntity<List> getClubSchedule(@PathVariable("clubId") int clubId) {
-		List<ClubSchedule> clubScheduleList = scheduleService.searchClubScheduleList(clubId);
+	@PostMapping("/schedule")
+	public ResponseEntity<List> getClubSchedule(@RequestBody Map<String, Integer> clubIdMap) {
+		List<ClubSchedule> clubScheduleList = scheduleService.searchClubScheduleList(clubIdMap.get("clubId"));
 
 		return new ResponseEntity<>(clubScheduleList, HttpStatus.OK);
 	}
 
 	// 클럽 가입 요청
-	@PostMapping("/{clubId}&{userId}/regist")
-	public ResponseEntity<?> registClub(@PathVariable("clubId") int clubId, @PathVariable("userId") String userId) {
+	@PostMapping("/regist")
+	public ResponseEntity<?> registClub(@RequestBody Map<String, Object> map) {
+		int clubId = (int) map.get("clubId");
+		String userId = (String) map.get("userId");
 		boolean result = memberService.applyMember(clubId, userId);
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
@@ -96,16 +92,17 @@ public class ClubRestController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 
-	// 개인 일정 추가
-	@PostMapping("/{clubId}&{userId}/schedule/add")
-	public ResponseEntity<?> addUserSchedule(@PathVariable("clubId") @RequestBody int clubId,
-			@PathVariable("userId") @RequestBody String userId, @RequestBody LocalDateTime schedule) {
+	// 클럽 일정 추가
+	@PostMapping("/schedule/add")
+	public ResponseEntity<?> addClubSchedule(@RequestBody Map<String, Object> map) {
+		int clubId = (int) map.get("clubId");
+		String schedule = (String) map.get("schedule");
 
-		if (scheduleService.searchClubSchedule(clubId, schedule) == null) {
+		if (scheduleService.searchClubSchedule(clubId, schedule) != null) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
 
-		boolean result = scheduleService.insertUserSchedule(userId, schedule);
+		boolean result = scheduleService.insertClubSchedule(clubId, schedule);
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
@@ -113,15 +110,18 @@ public class ClubRestController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 
-	// 클럽 일정 추가
-	@PostMapping("/{clubId}/schedule/add")
-	public ResponseEntity<?> addClubSchedule(@PathVariable("clubId") int clubId, @RequestBody LocalDateTime schedule) {
+	// 개인 일정 추가
+	@PostMapping("/user/schedule/add")
+	public ResponseEntity<?> addUserSchedule(@RequestBody Map<String, Object> map) {
+		int clubId = (int) map.get("clubId");
+		String userId = (String) map.get("userId");
+		String schedule = (String) map.get("schedule");
 
-		if (scheduleService.searchClubSchedule(clubId, schedule) != null) {
+		if (scheduleService.searchClubSchedule(clubId, schedule) == null) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
 
-		boolean result = scheduleService.insertClubSchedule(clubId, schedule);
+		boolean result = scheduleService.insertUserSchedule(userId, schedule);
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
