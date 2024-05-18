@@ -9,14 +9,14 @@
       <ClubScheduleRegist v-if="isActive" @close-event="close"/>
     </div>
     <div id="club-schedule-list">
-      <ClubScheduleItem v-for="clubSchedule in clubScheduleList" :key="clubSchedule.scheduleId" :clubSchedule="clubSchedule"/>
+      <ClubScheduleManagerItem v-for="clubSchedule in clubScheduleList" :key="clubSchedule.scheduleId" :clubSchedule="clubSchedule"/>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import ClubScheduleItem from './ClubScheduleItem.vue';
+import ClubScheduleManagerItem from './ClubScheduleManagerItem.vue';
 import ClubScheduleRegist from "./ClubScheduleRegist.vue";
 
 const props = defineProps({

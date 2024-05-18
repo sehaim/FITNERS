@@ -5,8 +5,6 @@
         <img src="@/assets/img/schedule-icon.png" alt="schedule-icon">
         <div>Club Schedule</div>
       </div>
-      <button @click="addSchedule">+</button>
-      <ClubScheduleRegist v-if="isActive" @close-event="close"/>
     </div>
     <div id="club-schedule-list">
       <ClubScheduleItem v-for="clubSchedule in clubScheduleList" :key="clubSchedule.scheduleId" :clubSchedule="clubSchedule"/>
@@ -16,8 +14,10 @@
 
 <script setup>
 import { ref } from "vue";
-import ClubScheduleItem from './ClubScheduleItem.vue';
-import ClubScheduleRegist from "./ClubScheduleRegist.vue";
+import { useClubStore } from "@/stores/club";
+import ClubScheduleItem from './ClubScheduleManagerItem.vue';
+
+const store = useClubStore();
 
 const props = defineProps({
   clubScheduleList: Object

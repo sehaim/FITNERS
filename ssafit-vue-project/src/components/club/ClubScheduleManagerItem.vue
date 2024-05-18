@@ -1,5 +1,5 @@
 <template>
-  <div id="club-schedule-item">
+  <div id="club-schedule-manager-item">
     <div id="date"><strong>{{ sliceDate(clubSchedule.schedule) }}</strong></div>
     <div id="time">{{ sliceHour(clubSchedule.schedule) }}시 {{ sliceMinute(clubSchedule.schedule) }}분</div>
   </div>
@@ -24,7 +24,7 @@ const sliceMinute = function (schedule) {
 </script>
 
 <style scoped>
-#club-schedule-item {
+#club-schedule-manager-item {
   height: 50px;
   min-height: 50px;
   width: 70%;
