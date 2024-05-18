@@ -10,7 +10,6 @@ import com.ssafit.model.dto.ClubSearchResult;
 public interface ClubService {
 	// 전체 클럽 조회
 	public List<ClubSearchResult> searchClubList();
-//	public List<Club> searchClubList();
 
 	// 클럽 이름으로 조회 (1개의 클럽)
 	public Club searchClubByName(String clubName);
@@ -20,6 +19,9 @@ public interface ClubService {
 
 	// 클럽 아이디로 조회
 	public Club searchClubById(int clubId);
+
+	// 매니저 아이디로 조회
+	public List<Club> searchClubListByManager(String userId);
 
 	// 유저 아이디로 조회
 	public List<Club> searchClubListByUserId(String userId);

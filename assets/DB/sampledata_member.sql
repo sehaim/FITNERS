@@ -77,11 +77,3 @@ VALUES
 ("ssafy0003", 3, 0),
 ("ssafy0003", 4, 0),
 ("ssafy0014", 5, 0);
-
-SELECT count(user_id), club_id, (SELECT club_name FROM club WHERE club_id = member.club_id) AS club_name
-FROM member
-GROUP BY club_id;
-
-SELECT *
-FROM member
-WHERE access = 0;

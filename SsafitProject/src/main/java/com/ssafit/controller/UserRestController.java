@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/ssafit")
-@Tag(name = "UserRestController", description = "User 관련 서비스/로그인, 로그아웃, 회원가입 API")
+@Tag(name = "Controller - User", description = "사용자 관련 기능\n 로그인, 로그아웃, 회원가입 API")
 @CrossOrigin
 public class UserRestController {
 

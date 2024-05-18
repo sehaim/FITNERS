@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/ssafit/club")
-@Tag(name = "ClubRestController", description = "Club 관련 서비스/클럽 조회, 등록, 삭제 API")
+@Tag(name = "Controller - Club", description = "클럽 페이지 기능")
 @CrossOrigin
 public class ClubRestController {
 
@@ -47,18 +47,6 @@ public class ClubRestController {
 	public ResponseEntity<?> getAllClub() {
 		List<ClubSearchResult> list = clubService.searchClubList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
-	}
-
-	// 클럽 추가
-	// 마이페이지 컨트롤러로 이동 예정
-	@PostMapping
-	public ResponseEntity<?> addClub(@RequestBody Club club) {
-		boolean result = clubService.addClub(club);
-		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
-		}
-
-		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 
 	// 클럽 아이디, 유저 아이디로 해당 유저가 클럽에 가입중인지 조회

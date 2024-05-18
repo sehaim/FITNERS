@@ -11,12 +11,6 @@
 		WHERE user_id = club.user_id) AS user_name
 		FROM Club;
 	</select>
-
-	<select id="select" resultType="Club" parameterType="int">
-		SELECT club_id, club_name, club_description, user_id
-		FROM Club
-		WHERE club_id = ${clubId};
-	</select>
 	
 	<select id="selectClubByName" resultType="Club" parameterType="String">
 		SELECT club_id, club_name, club_description, user_id
@@ -24,10 +18,10 @@
 		WHERE club_name = #{clubName};
 	</select>
 
-	<select id="selectClubListByManager" resultType="Club" parameterType="String">
+	<select id="select" resultType="Club" parameterType="int">
 		SELECT club_id, club_name, club_description, user_id
 		FROM Club
-		WHERE user_id = #{userId};
+		WHERE club_id = ${clubId};
 	</select>
 
 	<select id="selectClubListByName" resultType="Club" parameterType="String">
@@ -36,10 +30,19 @@
 		WHERE club_name LIKE CONCAT ('%', #{clubName}, '%');
 	</select>
 
-	<select id="selectClubListByUserId" resultType="Club" parameterType="String">
+	<select id="selectClubListByManager" resultType="Club" parameterType="String">
 		SELECT club_id, club_name, club_description, user_id
 		FROM Club
 		WHERE user_id = #{userId};
+	</select>
+
+	<select id="selectClubListByUserId" resultType="Club" parameterType="String">
+		SELECT club_id, club_name, club_description, user_id
+		FROM Club
+		WHERE club_id IN 
+		(SELECT member.club_id
+		FROM Member, User
+		WHERE member.user_id = #{userId} AND member.access = 1 AND user.isManager = 0);
 	</select>
 
 	<insert id="insertClub" parameterType="Club">

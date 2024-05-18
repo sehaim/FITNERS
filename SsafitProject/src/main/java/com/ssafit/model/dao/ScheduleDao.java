@@ -20,11 +20,17 @@ public interface ScheduleDao {
 	// 유저별 일정 조회
 	public List<UserSchedule> getUserSchedule(String userId);
 
-	// 클럽 일정 단일 조회
+	// 클럽 일정 단일 조회 - clubId, schedule로 조회
 	public ClubSchedule selectClubSchedule(Map<String, Object> map);
 
-	// 유저 일정 단일 조회
+	// 유저 일정 단일 조회 - userId, schedule로 조회
 	public UserSchedule selectUserSchedule(Map<String, Object> map);
+
+	// 클럽 일정 단일 조회 - scheduleId로 조회
+	public ClubSchedule selectClubScheduleById(int scheduleId);
+	
+	// 유저 일정 단일 조회 - scheduleId로 조회
+	public UserSchedule selectUserScheduleById(int scheduleId);
 
 	// 클럽 일정 추가
 	public int insertClubSchedule(Map<String, Object> map);

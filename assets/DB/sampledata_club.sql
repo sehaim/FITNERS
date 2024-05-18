@@ -10,12 +10,3 @@ VALUES
 (3, "6630", "6630 Algorithm study", "admin0003"), 
 (4, "아침부터 모하닝", "싸피 7반 알고리즘 스터디입니다.", "admin0004"),
 (5, "7반 자치회", "싸피 7반 자치회", "admin0003");
-
-SELECT *
-FROM club;
-
-SELECT club_id, club_name, club_description, 
-(SELECT user_name
-FROM user
-WHERE user_id = club.user_id) AS user_name
-FROM Club;
