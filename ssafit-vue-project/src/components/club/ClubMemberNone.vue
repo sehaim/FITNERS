@@ -32,6 +32,7 @@ const signupClub = function () {
   align-items: center;
   border-radius: 10px;
   box-shadow: 0px 0px 3px 1px #8d8c8a;
+  margin-top: 3%;
 }
 
 img {
