@@ -35,6 +35,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 2%;
 }
 
 #page-title {

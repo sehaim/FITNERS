@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ClubScheduleManager v-if="store.loginUser.isManager" />
-    <ClubScheduleUser v-else />
+    <ClubScheduleManager v-if="store.loginUser.isManager" :clubScheduleList="store.clubScheduleList"/>
+    <ClubScheduleUser v-else :clubScheduleList="store.clubScheduleList "/>
   </div>
 </template>
 

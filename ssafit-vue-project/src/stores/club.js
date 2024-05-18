@@ -31,23 +31,29 @@ export const useClubStore = defineStore("club", () => {
 
   const club = ref({});
   const status = ref({});
-  const clubSchedule = ref([]);
+  const clubScheduleList = ref([]);
 
   const getClub = function (clubId) {
     if (loginUser.value.userId !== null) {
+      clubList.value.forEach((el) => {
+        if(el.clubId == clubId) {
+          club.value = el
+        }
+      })
       axios
-        .get(`${REST_CLUB_API}/${clubId}&${loginUser.value.userId}`)
+        .get(`${REST_CLUB_API}/${clubId}/${loginUser.value.userId}`)
         .then((res) => {
-          club.value = res.data["club"];
-          status.value = res.data["status"];
+          status.value = res.data
           if ((status.value === "COMPLETED")) {
             axios({
-              url: REST_CLUB_API + "/" + `${clubId}` + "/schedule",
+              url: REST_CLUB_API + "/schedule",
               method: "POST",
-              data: clubId,
+              data: {
+                clubId: clubId
+              },
             })
               .then((res) => {
-                clubSchedule.value = res.data;
+                clubScheduleList.value = res.data;
               })
               .catch((err) => {
                 router.push({ name: "notFound" });
@@ -67,9 +73,8 @@ export const useClubStore = defineStore("club", () => {
   };
 
   const signupClub = function (clubId) {
-    console.log(clubId)
     axios({
-      url: REST_CLUB_API + "/" + `${clubId}` + "&" + `${loginUser.value.userId}` + "/regist",
+      url: REST_CLUB_API + "/regist",
       method: "POST",
       data: {
         clubId: clubId,
@@ -79,11 +84,36 @@ export const useClubStore = defineStore("club", () => {
     .then(() => {
       status.value = "PROCEEDING"
     })
-    .catch((err) => {
+    .catch(() => {
       router.push({ name: "notFound"})
     })
   };
 
+  const registSchedule = function (schedule) {
+    axios({
+      url: REST_CLUB_API + "/schedule/add",
+      method: "POST",
+      data: {
+        clubId: club.value.clubId,
+        schedule: schedule.value
+      }
+    })
+    .then(() => {
+      location.reload()
+    })
+    .catch(() => {
+      
+      router.push({ name: "notFound"})
+    })
+  }
 
-  return { clubList, getClubList, club, getClub, loginUser, getUser, status, clubSchedule, signupClub };
-});
+
+  return { clubList, getClubList, club, getClub, loginUser, getUser, status, clubScheduleList, signupClub, registSchedule };
+},
+{
+  persist: {
+    enabled: true,
+    strategies: [{ storage: localStorage }],
+  },
+}
+);

@@ -20,20 +20,20 @@ public interface ScheduleService {
 	public List<UserSchedule> searchUserScheduleList(String userId);
 
 	// 클럽 일정 단일 조회 - clubId / schedule로 조회
-	public ClubSchedule searchClubSchedule(int clubId, LocalDateTime schedule);
+	public ClubSchedule searchClubSchedule(int clubId, String schedule);
 
 	// 유저 일정 단일 조회 - userId / schedule로 조회
-	public UserSchedule searchUserSchedule(String userId, LocalDateTime schedule);
+	public UserSchedule searchUserSchedule(String userId, String schedule);
 
 	// 클럽 일정 추가
-	public boolean insertClubSchedule(int clubId, LocalDateTime schedule);
+	public boolean insertClubSchedule(int clubId, String schedule);
 
 	// 유저 일정 추가
-	public boolean insertUserSchedule(String userId, LocalDateTime schedule);
+	public boolean insertUserSchedule(String userId, String schedule);
 
 	// 클럽 일정 삭제
-	public boolean deleteClubSchedule(int clubId, LocalDateTime schedule);
+	public boolean deleteClubSchedule(int clubId, String schedule);
 
 	// 유저 일정 삭제
-	public boolean deleteUserSchedule(String userId, LocalDateTime schedule);
+	public boolean deleteUserSchedule(String userId, String schedule);
 }
