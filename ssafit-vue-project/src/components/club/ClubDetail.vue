@@ -8,7 +8,7 @@
     <div id="club-detail-content">
       <ClubMemberNone v-if="store.status === 'NONE'" :clubId = "clubId"/>
       <ClubMemberProceeding v-if="store.status === 'PROCEEDING'" />
-      <ClubSchedule v-if="store.status === 'COMPLETED'" />
+      <ClubSchedule id="club-schedule-content" v-if="store.status === 'COMPLETED'" />
       <ClubManagerNone v-if="store.status === 'MANAGER'" />
     </div>
   </div>
@@ -54,10 +54,6 @@ onMounted(() => {
     );
 }
 
-#club-detail-content {
-  display: flex;
-  justify-content: center;
-}
 
 #club-welcome {
   font-size: 30px;

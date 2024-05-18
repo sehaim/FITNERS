@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <div>스케줄 매니저</div>
-    <div>
-      <ClubScheduleItem v-for="clubSchedule in clubScheduleList" :key="clubSchedule.scheduleId" :clubSchedule="clubSchedule"/>
+  <div id="club-schedule-container">
+    <div id="title">Club Schedule</div>
+    <div id="club-content">
+      <div id="club-schedule-list">
+        <ClubScheduleItem v-for="clubSchedule in clubScheduleList" :key="clubSchedule.scheduleId" :clubSchedule="clubSchedule"/>
+      </div>
     </div>
     <div>
       <input type="datetime-local" v-model="schedule">
@@ -29,3 +31,18 @@ const registSchedule = function() {
 }
 
 </script>
+
+<style scoped>
+#club-schedule-container {
+  display: flex;
+  flex-direction: row;
+  padding: 3%;
+}
+
+#club-schedule-list {
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+</style>

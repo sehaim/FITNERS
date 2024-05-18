@@ -11,5 +11,4 @@ import ClubScheduleManager from './ClubScheduleManager.vue';
 import ClubScheduleUser from './ClubScheduleUser.vue';
 
 const store = useClubStore()
-
 </script>
