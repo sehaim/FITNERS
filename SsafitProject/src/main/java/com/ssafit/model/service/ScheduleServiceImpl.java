@@ -54,29 +54,37 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public ClubSchedule searchClubSchedule(int clubId, LocalDateTime schedule) {
-		return scheduleDao.selectClubSchedule(clubId, schedule);
-	}
-
-	@Transactional
-	@Override
-	public UserSchedule searchUserSchedule(String userId, LocalDateTime schedule) {
-		return scheduleDao.selectUserSchedule(userId, schedule);
-	}
-
-	@Transactional
-	@Override
-	public boolean insertClubSchedule(int clubId, LocalDateTime schedule) {
-		if (scheduleDao.selectClubSchedule(clubId, schedule) != null || clubDao.select(clubId) == null) {
-			return false;
-		}
-
+	public ClubSchedule searchClubSchedule(int clubId, String schedule) {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("clubId", clubId);
+		map.put("schedule", schedule);
 
-		Timestamp timeStamp = Timestamp.valueOf(schedule);
-		map.put("schedule", timeStamp);
+		return scheduleDao.selectClubSchedule(map);
+	}
+
+	@Transactional
+	@Override
+	public UserSchedule searchUserSchedule(String userId, String schedule) {
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("userId", userId);
+		map.put("schedule", schedule);
+
+		return scheduleDao.selectUserSchedule(map);
+	}
+
+	@Transactional
+	@Override
+	public boolean insertClubSchedule(int clubId, String schedule) {
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("clubId", clubId);
+		map.put("schedule", schedule);
+
+		if (scheduleDao.selectClubSchedule(map) != null || clubDao.select(clubId) == null) {
+			return false;
+		}
 
 		scheduleDao.insertClubSchedule(map);
 		return true;
@@ -84,19 +92,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public boolean insertUserSchedule(String userId, LocalDateTime schedule) {
-		if (scheduleDao.selectUserSchedule(userId, schedule) != null || userDao.select(userId) == null) {
-			return false;
-		}
-
+	public boolean insertUserSchedule(String userId, String schedule) {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("userId", userId);
+		map.put("schedule", schedule);
 
-		Timestamp timeStamp = Timestamp.valueOf(schedule);
-		map.put("schedule", timeStamp);
-
-		scheduleDao.insertClubSchedule(map);
+		if (scheduleDao.selectUserSchedule(map) != null || userDao.select(userId) == null) {
+			return false;
+		}
 
 		scheduleDao.insertUserSchedule(map);
 		return true;
@@ -104,8 +108,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public boolean deleteClubSchedule(int clubId, LocalDateTime schedule) {
-		ClubSchedule clubSchedule = scheduleDao.selectClubSchedule(clubId, schedule);
+	public boolean deleteClubSchedule(int clubId, String schedule) {
+		Map<String, Object> selectMap = new HashMap<>();
+
+		selectMap.put("clubId", clubId);
+		selectMap.put("schedule", schedule);
+
+		ClubSchedule clubSchedule = scheduleDao.selectClubSchedule(selectMap);
 		int scheduleId = clubSchedule.getScheduleId();
 
 		scheduleDao.deleteClubSchedule(scheduleId);
@@ -114,8 +123,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public boolean deleteUserSchedule(String userId, LocalDateTime schedule) {
-		UserSchedule userSchedule = scheduleDao.selectUserSchedule(userId, schedule);
+	public boolean deleteUserSchedule(String userId, String schedule) {
+		Map<String, Object> selectMap = new HashMap<>();
+
+		selectMap.put("userId", userId);
+		selectMap.put("schedule", schedule);
+
+		UserSchedule userSchedule = scheduleDao.selectUserSchedule(selectMap);
 		int scheduleId = userSchedule.getScheduleId();
 
 		scheduleDao.deleteUserSchedule(scheduleId);
