@@ -54,7 +54,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public ClubSchedule searchClubSchedule(int clubId, LocalDateTime schedule) {
+	public ClubSchedule searchClubSchedule(int clubId, String schedule) {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("clubId", clubId);
@@ -65,7 +65,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public UserSchedule searchUserSchedule(String userId, LocalDateTime schedule) {
+	public UserSchedule searchUserSchedule(String userId, String schedule) {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("userId", userId);
@@ -76,7 +76,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public boolean insertClubSchedule(int clubId, LocalDateTime schedule) {
+	public boolean insertClubSchedule(int clubId, String schedule) {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("clubId", clubId);
@@ -92,7 +92,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public boolean insertUserSchedule(String userId, LocalDateTime schedule) {
+	public boolean insertUserSchedule(String userId, String schedule) {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("userId", userId);
@@ -108,7 +108,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public boolean deleteClubSchedule(int clubId, LocalDateTime schedule) {
+	public boolean deleteClubSchedule(int clubId, String schedule) {
 		Map<String, Object> selectMap = new HashMap<>();
 
 		selectMap.put("clubId", clubId);
@@ -123,7 +123,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public boolean deleteUserSchedule(String userId, LocalDateTime schedule) {
+	public boolean deleteUserSchedule(String userId, String schedule) {
 		Map<String, Object> selectMap = new HashMap<>();
 
 		selectMap.put("userId", userId);
