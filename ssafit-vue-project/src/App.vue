@@ -18,11 +18,6 @@ import TheFooterNav from "@/components/common/TheFooterNav.vue";
   min-height: 100vh;
 }
 
-#content {
-  height: 100%;
-  min-height: 100%;
-}
-
 #footer {
   margin-top: auto;
 }

@@ -1,6 +1,6 @@
 <template>
   <div id="club-schedule-item">
-    <div id="date">{{ sliceDate(clubSchedule.schedule) }}</div>
+    <div id="date"><strong>{{ sliceDate(clubSchedule.schedule) }}</strong></div>
     <div id="time">{{ sliceHour(clubSchedule.schedule) }}시 {{ sliceMinute(clubSchedule.schedule) }}분</div>
   </div>
 </template>
@@ -26,17 +26,20 @@ const sliceMinute = function (schedule) {
 <style scoped>
 #club-schedule-item {
   height: 50px;
-  width: 250px;
+  min-height: 50px;
+  width: 70%;
+  min-width: 300px;
+  max-width: 350px;
   display: flex;
   flex-direction: row;
   align-items: center;
   box-shadow: 0px 0px 3px 1px #799dbb;
-  margin: 20px;
+  margin: 10px;
   border-radius: 10px;
-  padding: 0 20px;
+  padding: 0 30px;
 }
 
 #time {
-  margin-left: 20px;
+  margin-left: 30px;
 }
 </style>

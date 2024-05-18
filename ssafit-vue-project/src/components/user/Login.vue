@@ -121,7 +121,7 @@ input {
   border-style: none;
   font-size: 16px;
   border-radius: 5px;
-  background-color: #ffdb5c;
+  background-color: #ffdc5cc3;
 }
 
 hr {
