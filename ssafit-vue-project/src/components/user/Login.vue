@@ -122,6 +122,7 @@ input {
   font-size: 16px;
   border-radius: 5px;
   background-color: #ffdc5cc3;
+  color: rgb(139, 137, 137);
 }
 
 hr {
