@@ -7,7 +7,7 @@
       </div>
     </div>
     <div id="club-schedule-list">
-      <ClubScheduleItem v-for="clubSchedule in clubScheduleList" :key="clubSchedule.scheduleId" :clubSchedule="clubSchedule"/>
+      <ClubScheduleUserItem v-for="clubSchedule in clubScheduleList" :key="clubSchedule.scheduleId" :clubSchedule="clubSchedule"/>
     </div>
   </div>
 </template>
@@ -15,19 +15,13 @@
 <script setup>
 import { ref } from "vue";
 import { useClubStore } from "@/stores/club";
-import ClubScheduleItem from './ClubScheduleManagerItem.vue';
+import ClubScheduleUserItem from './ClubScheduleUserItem.vue';
 
 const store = useClubStore();
 
 const props = defineProps({
   clubScheduleList: Object
 })
-
-const isActive = ref(false)
-
-const addSchedule = function() {
-  isActive.value = true;
-}
 
 const close = function() {
   isActive.value = false;

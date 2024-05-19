@@ -34,7 +34,7 @@ export const useUserStore = defineStore(
           setLoginUser(res);
           router.push({ name: "home" });
         })
-        .catch((err) => {
+        .catch(() => {
           loginErr.value = true;
           activeLoginErrClass.value = "alert-danger";
         });
@@ -52,7 +52,7 @@ export const useUserStore = defineStore(
         .then(() => {
           router.push({ name: "login" });
         })
-        .catch((err) => {
+        .catch(() => {
           signupErr.value = true;
           activeSignupErrClass.value = "alert-danger";
         });
@@ -71,7 +71,7 @@ export const useUserStore = defineStore(
           loginUser.value.isManager = false;
           router.push({ name: "home" });
         })
-        .catch((err) => {
+        .catch(() => {
           router.push({ name: "notFound" });
         });
     };

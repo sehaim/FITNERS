@@ -16,7 +16,7 @@ export const useClubStore = defineStore("club", () => {
       .then((res) => {
         clubList.value = res.data;
       })
-      .catch((err) => {
+      .catch(() => {
         router.push({ name: "notFound" });
       });
   };
@@ -55,7 +55,7 @@ export const useClubStore = defineStore("club", () => {
               .then((res) => {
                 clubScheduleList.value = res.data;
               })
-              .catch((err) => {
+              .catch(() => {
                 router.push({ name: "notFound" });
               });
           } else {
@@ -64,7 +64,7 @@ export const useClubStore = defineStore("club", () => {
             }
           }
         })
-        .catch((err) => {
+        .catch(() => {
           router.push({ name: "notFound" });
         });
     } else {
@@ -102,13 +102,30 @@ export const useClubStore = defineStore("club", () => {
       location.reload()
     })
     .catch(() => {
-      
+      // 이미 등록된 일정입니다. 만들기
       router.push({ name: "notFound"})
     })
   }
 
+  const addMySchedule = function () {
+    axios({
+      url: REST_CLUB_API + "/user/schedule/add",
+      method: "POST",
+      data: {
 
-  return { clubList, getClubList, club, getClub, loginUser, getUser, status, clubScheduleList, signupClub, registSchedule };
+      }
+    })
+    .then(() => {
+      // 등록되었습니다. 확인하기 창 -> 마이페이지로 이동
+    })
+    .catch(() => {
+      // 이미 등록된 일정입니다.
+      router.push({name: "notFound"})
+    })
+  }
+
+
+  return { clubList, getClubList, club, getClub, loginUser, getUser, status, clubScheduleList, signupClub, registSchedule, addMySchedule };
 },
 {
   persist: {
