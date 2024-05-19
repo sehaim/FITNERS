@@ -26,7 +26,7 @@
 		VALUE (${clubId}, #{title}, #{content});
 	</insert>
 
-	<update id="upDateClubBoard" parameterType="ClubBoard">
+	<update id="updateClubBoard" parameterType="ClubBoard">
 		UPDATE Club_board
 		SET title = #{title}, content = #{content}
 		WHERE club_id = ${clubId};
