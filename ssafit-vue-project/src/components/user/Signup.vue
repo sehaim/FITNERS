@@ -274,7 +274,8 @@ select {
   border-style: none;
   font-size: 16px;
   border-radius: 5px;
-  background-color: #ffdb5c;
+  background-color: #ffdc5cc3;
+  color: rgb(95, 94, 94);
 }
 
 hr {
