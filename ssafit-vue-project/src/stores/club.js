@@ -26,7 +26,9 @@ export const useClubStore = defineStore("club", () => {
 
   const getUser = function() {
     user.value = JSON.parse(localStorage.getItem("user"));
-    loginUser.value = user.value.loginUser
+    if(user.value != null) {
+      loginUser.value = user.value.loginUser
+    }
   }
 
   const club = ref({});
@@ -34,39 +36,43 @@ export const useClubStore = defineStore("club", () => {
   const clubScheduleList = ref([]);
 
   const getClub = function (clubId) {
-    if (loginUser.value.userId !== null) {
-      clubList.value.forEach((el) => {
-        if(el.clubId == clubId) {
-          club.value = el
-        }
-      })
-      axios
-        .get(`${REST_CLUB_API}/${clubId}/${loginUser.value.userId}`)
-        .then((res) => {
-          status.value = res.data
-          if ((status.value === "COMPLETED")) {
-            axios({
-              url: REST_CLUB_API + "/schedule",
-              method: "POST",
-              data: {
-                clubId: clubId
-              },
-            })
-              .then((res) => {
-                clubScheduleList.value = res.data;
-              })
-              .catch(() => {
-                router.push({ name: "notFound" });
-              });
-          } else {
-            if(loginUser.value.isManager) {
-              status.value = "MANAGER"
-            }
+    if (user.value != null) {
+      if (user.value.loginUser.userId != null) {
+        clubList.value.forEach((el) => {
+          if(el.clubId == clubId) {
+            club.value = el
           }
         })
-        .catch(() => {
-          router.push({ name: "notFound" });
-        });
+        axios
+          .get(`${REST_CLUB_API}/${clubId}/${loginUser.value.userId}`)
+          .then((res) => {
+            status.value = res.data
+            if ((status.value === "COMPLETED")) {
+              axios({
+                url: REST_CLUB_API + "/schedule",
+                method: "POST",
+                data: {
+                  clubId: clubId
+                },
+              })
+                .then((res) => {
+                  clubScheduleList.value = res.data;
+                })
+                .catch(() => {
+                  router.push({ name: "notFound" });
+                });
+            } else {
+              if(loginUser.value.isManager) {
+                status.value = "MANAGER"
+              }
+            }
+          })
+          .catch(() => {
+            router.push({ name: "notFound" });
+          });
+      } else {
+        router.push({ name: "login" });
+      }
     } else {
       router.push({ name: "login" });
     }

@@ -1,5 +1,18 @@
 <template>
   <div>
-    <h2>mypage</h2>
+    <MyPage v-if="store.getUser"/>
   </div>
 </template>
+
+<script setup>
+import { onMounted } from "vue";
+import { useMypageStore } from "@/stores/mypage.js";
+import MyPage from '@/components/mypage/MyPage.vue';
+
+const store = useMypageStore();
+
+onMounted(() => {
+  store.getUser();
+})
+
+</script>
