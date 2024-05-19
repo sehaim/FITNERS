@@ -109,7 +109,7 @@ public class ClubRestController {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
 
-		boolean result = scheduleService.insertUserSchedule(userId, schedule);
+		boolean result = scheduleService.insertUserSchedule(userId, schedule, clubId);
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}

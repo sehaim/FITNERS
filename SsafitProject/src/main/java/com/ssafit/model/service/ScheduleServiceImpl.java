@@ -12,6 +12,7 @@ import com.ssafit.model.dao.ScheduleDao;
 import com.ssafit.model.dao.UserDao;
 import com.ssafit.model.dto.ClubSchedule;
 import com.ssafit.model.dto.UserSchedule;
+import com.ssafit.model.dto.UserScheduleSearchResult;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -46,7 +47,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public List<UserSchedule> searchUserScheduleList(String userId) {
+	public List<UserScheduleSearchResult> searchUserScheduleList(String userId) {
 		return scheduleDao.getUserSchedule(userId);
 	}
 
@@ -91,11 +92,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public boolean insertUserSchedule(String userId, String schedule) {
+	public boolean insertUserSchedule(String userId, String schedule, int clubId) {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("userId", userId);
 		map.put("schedule", schedule);
+		map.put("clubId", clubId);
 
 		if (scheduleDao.selectUserSchedule(map) != null || userDao.select(userId) == null) {
 			return false;
