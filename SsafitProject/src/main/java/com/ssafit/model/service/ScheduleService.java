@@ -32,8 +32,8 @@ public interface ScheduleService {
 	public boolean insertUserSchedule(String userId, String schedule);
 
 	// 클럽 일정 삭제
-	public boolean deleteClubSchedule(int clubId, String schedule);
+	public boolean deleteClubSchedule(int scheduleId);
 
 	// 유저 일정 삭제
-	public boolean deleteUserSchedule(String userId, String schedule);
+	public boolean deleteUserSchedule(int scheduleId);
 }

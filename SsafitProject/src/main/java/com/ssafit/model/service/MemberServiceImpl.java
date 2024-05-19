@@ -30,6 +30,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Transactional
 	@Override
+	public List<Member> getClubRegistList(String userId) {
+		List<Member> list = memberDao.selectClubRegistList(userId);
+		return list;
+	}
+
+	@Transactional
+	@Override
 	public String getMember(int clubId, String userId) {
 		Member member = memberDao.select(clubId, userId);
 		if (member == null) {
@@ -68,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public boolean declineMember(int clubId, String userId) {
-		if (memberDao.select(clubId, userId) == null || !memberDao.select(clubId, userId).isAccess()) {
+		if (memberDao.select(clubId, userId) == null || memberDao.select(clubId, userId).isAccess()) {
 			return false;
 		}
 

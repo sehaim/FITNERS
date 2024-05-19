@@ -10,6 +10,16 @@
 		WHERE club_id = ${club_id};
 	</select>
 	
+	<select id="selectClubRegistList" resultType="Member" parameterType="String">
+		SELECT club_id, user_id, access
+		FROM member
+		WHERE 
+		club_id IN
+		(SELECT club_id
+		FROM club
+		WHERE user_id = #{userId} AND access = 0);
+	</select>
+	
 	<select id="select" resultType="Member" parameterType="Map">
 		SELECT club_id, user_id, access
 		FROM Member
