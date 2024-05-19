@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ssafit.model.dto.ClubSchedule;
 import com.ssafit.model.dto.UserSchedule;
+import com.ssafit.model.dto.UserScheduleSearchResult;
 
 public interface ScheduleService {
 	// 전체 클럽 일정 조회
@@ -17,7 +18,7 @@ public interface ScheduleService {
 	public List<ClubSchedule> searchClubScheduleList(int clubId);
 
 	// 유저별 일정 조회
-	public List<UserSchedule> searchUserScheduleList(String userId);
+	public List<UserScheduleSearchResult> searchUserScheduleList(String userId);
 
 	// 클럽 일정 단일 조회 - clubId / schedule로 조회
 	public ClubSchedule searchClubSchedule(int clubId, String schedule);
@@ -29,7 +30,7 @@ public interface ScheduleService {
 	public boolean insertClubSchedule(int clubId, String schedule);
 
 	// 유저 일정 추가
-	public boolean insertUserSchedule(String userId, String schedule);
+	public boolean insertUserSchedule(String userId, String schedule, int clubId);
 
 	// 클럽 일정 삭제
 	public boolean deleteClubSchedule(int scheduleId);

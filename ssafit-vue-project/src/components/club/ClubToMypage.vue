@@ -1,27 +1,21 @@
 <template>
-  <div id="club-schedule-regist-container">
+  <div id="club-to-mypage-container">
     <button id="close-button" @click="$emit('closeEvent')">x</button>
-    <input type="datetime-local" v-model="schedule">
-    <button id="regist-button" @click="registSchedule">등록</button>
+    <div id="content">
+      <img src="@/assets/img/add-check-icon.png" alt="">
+      <div>My Schedule에 추가되었습니다.</div>
+    </div>
+    <RouterLink to="/mypage"><button id="move-button">My Page 이동</button></RouterLink>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useClubStore } from "@/stores/club";
 
-const store = useClubStore();
-
-const schedule = ref("")
-
-const registSchedule = function() {
-  store.registSchedule(schedule)
-}
 
 </script>
 
 <style scoped>
-#club-schedule-regist-container {
+#club-to-mypage-container {
   width: 400px;
   height: 200px;
   display: flex;
@@ -37,14 +31,6 @@ const registSchedule = function() {
   padding: 1%;
 }
 
-input {
-  width: 220px;
-  height: 30px;
-  border-radius: 5px;
-  border-color: #8d8c8a83;
-  color: #8d8c8a;
-}
-
 #close-button {
   font-size: 20px;
   background-color: transparent;
@@ -53,9 +39,21 @@ input {
   margin-left: 90%;
 }
 
-#regist-button {
-  width: 60px;
-  min-width: 60px;
+img {
+  width: 25px;
+  margin-right: 10px;
+}
+
+#content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: rgb(71, 69, 69);
+}
+
+#move-button {
+  width: 100px;
+  min-width: 100px;
   height: 30px;
   min-height: 30px;
   border-style: none;

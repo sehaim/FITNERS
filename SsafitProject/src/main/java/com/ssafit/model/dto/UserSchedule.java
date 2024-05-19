@@ -2,9 +2,9 @@ package com.ssafit.model.dto;
 
 public class UserSchedule extends Schedule {
 	private String userId;
+	private int clubId;
 
 	public UserSchedule() {
-		super();
 	}
 
 	public String getUserId() {
@@ -15,9 +15,17 @@ public class UserSchedule extends Schedule {
 		this.userId = userId;
 	}
 
+	public int getClubId() {
+		return clubId;
+	}
+
+	public void setClubId(int clubId) {
+		this.clubId = clubId;
+	}
+
 	@Override
 	public String toString() {
-		return "UserSchedule [userId=" + userId + "]";
+		return "UserSchedule [userId=" + userId + ", clubId=" + clubId + "]";
 	}
 
 }

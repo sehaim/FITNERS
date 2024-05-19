@@ -19,6 +19,7 @@ import com.ssafit.model.dto.Club;
 import com.ssafit.model.dto.Member;
 import com.ssafit.model.dto.Schedule;
 import com.ssafit.model.dto.UserSchedule;
+import com.ssafit.model.dto.UserScheduleSearchResult;
 import com.ssafit.model.service.ClubService;
 import com.ssafit.model.service.MemberService;
 import com.ssafit.model.service.ScheduleService;
@@ -48,20 +49,27 @@ public class MyPageRestController {
 		this.scheduleService = scheduleService;
 	}
 
-	// 유저 아이디로 클럽 조회 - 일반 사용자
-	@GetMapping("/user/{userId}/club")
-	public ResponseEntity<?> getUserClubList(@PathVariable("userId") String userId) {
+	// 유저 아이디로 클럽 조회
+	@GetMapping("/{userId}/club")
+	public ResponseEntity<?> getManagerClubList(@PathVariable("userId") String userId) {
 		Map<String, Object> map = new HashMap<>();
-		if (userService.search(userId) == null || userService.checkUserType(userId)) {
+
+		if (userService.search(userId) == null) {
 			map.put("result", FAIL);
 			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
 		}
 
-		List<Club> list = clubService.searchClubListByUserId(userId);
+		if (!userService.checkUserType(userId)) {
+			List<Club> list = clubService.searchClubListByUserId(userId);
 
-		map.put("result", SUCCESS);
-		map.put("clubList", list);
+			map.put("result", SUCCESS);
+			map.put("clubList", list);
+		} else {
+			List<Club> list = clubService.searchClubListByManager(userId);
 
+			map.put("result", SUCCESS);
+			map.put("clubList", list);
+		}
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
@@ -74,7 +82,7 @@ public class MyPageRestController {
 			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
 		}
 
-		List<UserSchedule> list = scheduleService.searchUserScheduleList(userId);
+		List<UserScheduleSearchResult> list = scheduleService.searchUserScheduleList(userId);
 
 		map.put("result", SUCCESS);
 		map.put("scheduleList", list);
@@ -91,23 +99,6 @@ public class MyPageRestController {
 		}
 
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
-	}
-
-	// 유저 아이디로 클럽 조회 - 매니저
-	@GetMapping("/manager/{userId}/club")
-	public ResponseEntity<?> getManagerClubList(@PathVariable("userId") String userId) {
-		Map<String, Object> map = new HashMap<>();
-		if (userService.search(userId) == null || !userService.checkUserType(userId)) {
-			map.put("result", FAIL);
-			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
-		}
-
-		List<Club> list = clubService.searchClubListByManager(userId);
-
-		map.put("result", SUCCESS);
-		map.put("clubList", list);
-
-		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 	// 매니저가 담당하는 클럽의 가입 요청 목록 조회
@@ -166,7 +157,7 @@ public class MyPageRestController {
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
-		
+
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 

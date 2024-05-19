@@ -10,7 +10,7 @@
 	</select>
 
 	<select id="getAllUserSchedule" resultType="UserSchedule">
-		SELECT schedule_id, user_id, schedule
+		SELECT schedule_id, user_id, club_id, schedule
 		FROM User_schedule;
 	</select>
 
@@ -22,10 +22,12 @@
 		
 	</select>
 
-	<select id="getUserSchedule" resultType="UserSchedule" parameterType="String">
-		SELECT schedule_id, user_id, schedule
+	<select id="getUserSchedule" resultType="UserScheduleSearchResult" parameterType="String">
+		SELECT schedule_id, User_schedule.user_id, schedule, club.club_name
 		FROM User_schedule
-		WHERE user_id = #{userId};
+		JOIN Club
+		ON User_schedule.club_id = club.club_id
+		WHERE User_schedule.user_id = #{userId};
 	</select>
 	
 	<select id="selectClubSchedule" resultType="ClubSchedule" parameterType="map">
@@ -35,7 +37,7 @@
 	</select>
 
 	<select id="selectUserSchedule" resultType="UserSchedule" parameterType="map">
-		SELECT schedule_id, user_id, schedule
+		SELECT schedule_id, user_id, club_id, schedule
 		FROM User_schedule
 		WHERE user_id = #{userId} AND schedule = #{schedule};
 	</select>
@@ -47,7 +49,7 @@
 	</select>
 	
 	<select id="selectUserScheduleById" resultType="UserSchedule" parameterType="int">
-		SELECT schedule_id, user_id, schedule
+		SELECT schedule_id, user_id, club_id, schedule
 		FROM User_schedule
 		WHERE schedule_id = #{scheduleId};
 	</select>
@@ -58,8 +60,8 @@
 	</insert>
 
 	<insert id="insertUserSchedule" parameterType="map">
-		INSERT INTO User_schedule (user_id, schedule)
-		VALUE (#{userId}, #{schedule});
+		INSERT INTO User_schedule (user_id, schedule, club_id)
+		VALUE (#{userId}, #{schedule}, ${clubId});
 	</insert>
 
 	<delete id="deleteClubSchedule" parameterType="int">

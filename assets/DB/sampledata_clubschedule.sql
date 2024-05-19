@@ -25,3 +25,18 @@ INSERT INTO club_schedule (schedule_id, club_id, schedule)
 VALUES 
 (13, 4, '2024-05-29 08:00:00'),
 (14, 4, '2024-06-05 08:00:00');
+
+
+
+
+
+INSERT INTO user_schedule (user_id, club_id, schedule)
+VALUE ("ssafy0002", 1, '2024-05-24 16:00:00');
+
+
+
+SELECT schedule_id, user_schedule.user_id, schedule, club.club_name
+FROM User_schedule
+JOIN club
+ON user_schedule.club_id = club.club_id
+WHERE user_schedule.user_id = "ssafy0002";
