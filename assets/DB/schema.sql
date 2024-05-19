@@ -46,13 +46,10 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SSAFIT`.`Club_board` (
   `board_id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `view_cnt` INT NOT NULL,
   `content` TEXT NOT NULL,
-  `writer_type` VARCHAR(10) NOT NULL,
-  `user_name` VARCHAR(10) NOT NULL,
-  `user_id` VARCHAR(20) NOT NULL,
   `club_id` INT NOT NULL,
+  `user_id` VARCHAR(20) NOT NULL,
+  `created_at` TIMESTAMP DEFAULT now(),
   PRIMARY KEY (`board_id`),
   CONSTRAINT `fk_Club_board_Club1`
     FOREIGN KEY (`club_id`)
@@ -73,11 +70,10 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SSAFIT`.`Board` (
   `board_id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `view_cnt` INT NOT NULL,
   `content` TEXT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
-  `user_name` VARCHAR(10) NOT NULL,
+  `view_cnt` INT DEFAULT 0,
+  `created_at` TIMESTAMP NOT NULL DEFAULT now(),
   PRIMARY KEY (`board_id`),
   CONSTRAINT `fk_Board_User1`
     FOREIGN KEY (`user_id`)

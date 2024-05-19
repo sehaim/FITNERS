@@ -7,7 +7,6 @@ public class ClubBoard {
 	private String content;
 	private int clubId;
 	private String userId;
-	private int viewCnt;
 	private String createdAt;
 
 	public ClubBoard() {
@@ -51,14 +50,6 @@ public class ClubBoard {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public int getViewCnt() {
-		return viewCnt;
-	}
-
-	public void setViewCnt(int viewCnt) {
-		this.viewCnt = viewCnt;
 	}
 
 	public String getCreatedAt() {
