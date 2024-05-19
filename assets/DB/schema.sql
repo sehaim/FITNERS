@@ -103,11 +103,17 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SSAFIT`.`User_schedule` (
   `schedule_id` INT NOT NULL AUTO_INCREMENT,
   `user_id` VARCHAR(20) NOT NULL,
+  `club_id` INT NOT NULL,
   `schedule` DATETIME NOT NULL,
   PRIMARY KEY (`schedule_id`),
   CONSTRAINT `fk_User_schedule_User1`
     FOREIGN KEY (`user_id`)
     REFERENCES `SSAFIT`.`User` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_User_schedule_Club1`
+    FOREIGN KEY (`club_id`)
+    REFERENCES `SSAFIT`.`Club` (`club_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ssafit.model.dto.ClubSchedule;
 import com.ssafit.model.dto.UserSchedule;
+import com.ssafit.model.dto.UserScheduleSearchResult;
 
 public interface ScheduleDao {
 
@@ -18,7 +19,7 @@ public interface ScheduleDao {
 	public List<ClubSchedule> getClubSchedule(int clubId);
 
 	// 유저별 일정 조회
-	public List<UserSchedule> getUserSchedule(String userId);
+	public List<UserScheduleSearchResult> getUserSchedule(String userId);
 
 	// 클럽 일정 단일 조회 - clubId, schedule로 조회
 	public ClubSchedule selectClubSchedule(Map<String, Object> map);
