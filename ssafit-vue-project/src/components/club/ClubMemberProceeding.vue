@@ -17,7 +17,7 @@
   padding: 8% 1%;
   border-radius: 10px;
   box-shadow: 0px 0px 3px 1px #8d8c8a;
-  margin-top: 3%;
+  margin: 5% auto;
 }
 
 img {

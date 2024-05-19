@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="club-detail-container">
     <div id="club-detail-header">
       <div id="club-welcome">Welcome <span id="club-name">{{ store.club.clubName }}</span> !</div>
       <div id="club-description">{{ store.club.clubDescription }}</div>
@@ -8,7 +8,7 @@
     <div id="club-detail-content">
       <ClubMemberNone v-if="store.status === 'NONE'" :clubId = "clubId"/>
       <ClubMemberProceeding v-if="store.status === 'PROCEEDING'" />
-      <ClubSchedule v-if="store.status === 'COMPLETED'" />
+      <ClubMemberDetail id="club-member-detail" v-if="store.status === 'COMPLETED'" />
       <ClubManagerNone v-if="store.status === 'MANAGER'" />
     </div>
   </div>
@@ -20,8 +20,8 @@ import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import ClubMemberNone from "@/components/club/ClubMemberNone.vue";
 import ClubMemberProceeding from "@/components/club/ClubMemberProceeding.vue";
-import ClubSchedule from "@/components/club/ClubSchedule.vue";
 import ClubManagerNone from "@/components/club/ClubManagerNone.vue";
+import ClubMemberDetail from "./ClubMemberDetail.vue";
 
 const store = useClubStore();
 
@@ -56,7 +56,7 @@ onMounted(() => {
 
 #club-detail-content {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 }
 
 #club-welcome {
@@ -70,6 +70,11 @@ onMounted(() => {
 
 #club-description {
   font-size: 20px;
+}
+
+#club-member-detail {
+  display: flex;
+  flex-direction: row;
 }
 
 </style>

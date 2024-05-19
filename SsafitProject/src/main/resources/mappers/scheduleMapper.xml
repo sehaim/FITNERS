@@ -17,7 +17,9 @@
 	<select id="getClubSchedule" resultType="ClubSchedule" parameterType="int">
 		SELECT schedule_id, club_id, schedule
 		FROM Club_schedule
-		WHERE club_id = ${clubId};
+		WHERE club_id = ${clubId}
+		ORDER BY schedule;
+		
 	</select>
 
 	<select id="getUserSchedule" resultType="UserSchedule" parameterType="String">
