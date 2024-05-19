@@ -19,5 +19,5 @@ public interface ClubBoardDao {
 
 	// 클럽 게시글(공지사항) 삭제
 	public int deleteClubBoard(int clubId);
-
+	
 }
