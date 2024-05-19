@@ -107,16 +107,20 @@ export const useClubStore = defineStore("club", () => {
     })
   }
 
-  const addMySchedule = function () {
+  const addIsActive = ref(false);
+
+  const addMySchedule = function (clubId, schedule) {
     axios({
       url: REST_CLUB_API + "/user/schedule/add",
       method: "POST",
       data: {
-
+        clubId: clubId,
+        userId: loginUser.value.userId,
+        schedule: schedule
       }
     })
     .then(() => {
-      // 등록되었습니다. 확인하기 창 -> 마이페이지로 이동
+      return addIsActive.value = true;
     })
     .catch(() => {
       // 이미 등록된 일정입니다.
@@ -125,7 +129,7 @@ export const useClubStore = defineStore("club", () => {
   }
 
 
-  return { clubList, getClubList, club, getClub, loginUser, getUser, status, clubScheduleList, signupClub, registSchedule, addMySchedule };
+  return { clubList, getClubList, club, getClub, loginUser, getUser, status, clubScheduleList, signupClub, registSchedule, addMySchedule, addIsActive };
 },
 {
   persist: {
