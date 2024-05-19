@@ -44,24 +44,14 @@ ENGINE = InnoDB;
 -- Table `SSAFIT`.`Club_board`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SSAFIT`.`Club_board` (
-  `board_id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(50) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `view_cnt` INT NOT NULL,
-  `content` TEXT NOT NULL,
-  `writer_type` VARCHAR(10) NOT NULL,
-  `user_name` VARCHAR(10) NOT NULL,
-  `user_id` VARCHAR(20) NOT NULL,
   `club_id` INT NOT NULL,
-  PRIMARY KEY (`board_id`),
+  `title` VARCHAR(50) NOT NULL,
+  `content` TEXT NOT NULL,
+  `created_at` TIMESTAMP DEFAULT now(),
+  PRIMARY KEY (`club_id`),
   CONSTRAINT `fk_Club_board_Club1`
     FOREIGN KEY (`club_id`)
     REFERENCES `SSAFIT`.`Club` (`club_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Club_board_User1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `SSAFIT`.`User` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -73,11 +63,10 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SSAFIT`.`Board` (
   `board_id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `view_cnt` INT NOT NULL,
   `content` TEXT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
-  `user_name` VARCHAR(10) NOT NULL,
+  `view_cnt` INT DEFAULT 0,
+  `created_at` TIMESTAMP NOT NULL DEFAULT now(),
   PRIMARY KEY (`board_id`),
   CONSTRAINT `fk_Board_User1`
     FOREIGN KEY (`user_id`)
