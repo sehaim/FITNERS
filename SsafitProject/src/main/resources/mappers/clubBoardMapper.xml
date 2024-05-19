@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafit.model.dao.ClubBoardDao">
+
+	<select id="selectClubBoard" resultType="ClubBoard" parameterType="int">
+		SELECT club_id, title, content, created_at
+		FROM Club_board
+		WHERE club_id = #{clubId};
+	</select>
+	
+	<select id="selectClubBoardDetail" resultType="ClubBoardSearchResult" parameterType="int">
+		SELECT club_id, title, content, created_at,
+		(SELECT user.user_name
+		FROM user
+		JOIN club
+		ON user.user_id = club.user_id
+		WHERE club_id = ${clubId}) AS user_name
+		FROM Club_board
+		WHERE club_id = #{clubId};
+	</select>
+
+	<insert id="insertClubBoard" parameterType="ClubBoard">
+		INSERT INTO Club_board (club_id, title, content)
+		VALUE (${clubId}, #{title}, #{content});
+	</insert>
+
+	<update id="upDateClubBoard" parameterType="ClubBoard">
+		UPDATE Club_board
+		SET title = #{title}, content = #{content}
+		WHERE club_id = ${clubId};
+	</update>
+
+	<delete id="deleteClubBoard" parameterType="int">
+		DELETE
+		FROM Club_board
+		WHERE club_id = ${clubId};
+	</delete>
+
+</mapper>

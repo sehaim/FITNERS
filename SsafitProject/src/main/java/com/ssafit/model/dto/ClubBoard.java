@@ -2,22 +2,12 @@ package com.ssafit.model.dto;
 
 public class ClubBoard {
 
-	private int boardId;
+	private int clubId;
 	private String title;
 	private String content;
-	private int clubId;
-	private String userId;
 	private String createdAt;
 
 	public ClubBoard() {
-	}
-
-	public int getBoardId() {
-		return boardId;
-	}
-
-	public void setBoardId(int boardId) {
-		this.boardId = boardId;
 	}
 
 	public String getTitle() {
@@ -44,14 +34,6 @@ public class ClubBoard {
 		this.clubId = clubId;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
 	public String getCreatedAt() {
 		return createdAt;
 	}
@@ -62,8 +44,8 @@ public class ClubBoard {
 
 	@Override
 	public String toString() {
-		return "ClubBoard [boardId=" + boardId + ", title=" + title + ", content=" + content + ", clubId=" + clubId
-				+ ", userId=" + userId + ", viewCnt=" + viewCnt + ", createdAt=" + createdAt + "]";
+		return "ClubBoard [clubId=" + clubId + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt
+				+ "]";
 	}
 
 }

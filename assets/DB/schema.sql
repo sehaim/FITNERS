@@ -44,21 +44,14 @@ ENGINE = InnoDB;
 -- Table `SSAFIT`.`Club_board`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SSAFIT`.`Club_board` (
-  `board_id` INT NOT NULL AUTO_INCREMENT,
+  `club_id` INT NOT NULL,
   `title` VARCHAR(50) NOT NULL,
   `content` TEXT NOT NULL,
-  `club_id` INT NOT NULL,
-  `user_id` VARCHAR(20) NOT NULL,
   `created_at` TIMESTAMP DEFAULT now(),
-  PRIMARY KEY (`board_id`),
+  PRIMARY KEY (`club_id`),
   CONSTRAINT `fk_Club_board_Club1`
     FOREIGN KEY (`club_id`)
     REFERENCES `SSAFIT`.`Club` (`club_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Club_board_User1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `SSAFIT`.`User` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
