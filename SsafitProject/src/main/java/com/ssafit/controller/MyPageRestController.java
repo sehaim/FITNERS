@@ -140,6 +140,7 @@ public class MyPageRestController {
 	public ResponseEntity<?> approveRegist(@RequestBody Map<String, Object> map) {
 		int clubId = (int) map.get("clubId");
 		String userId = (String) map.get("userId");
+		System.out.println(clubId);
 		boolean result = memberService.approveMember(clubId, userId);
 		if (!result) {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);

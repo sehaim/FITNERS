@@ -13,8 +13,6 @@
   </div>
 </template>
 
-<script setup></script>
-
 <style scoped>
 #club-to-mypage-container {
   width: 400px;

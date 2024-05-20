@@ -1,5 +1,7 @@
 package com.ssafit.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,7 +39,15 @@ public class ClubBoardRestController {
 	@GetMapping("/board/{clubId}")
 	public ResponseEntity<?> searchClubBoard(@PathVariable("clubId") int clubId) {
 		ClubBoardSearchResult clubBoardSearchResult = clubBoardService.getClubBoardDetail(clubId);
-
+		
+		if (clubBoardSearchResult == null) {
+			clubBoardSearchResult = new ClubBoardSearchResult();
+			clubBoardSearchResult.setClubId(clubId);
+			clubBoardSearchResult.setContent("아직 공지사항이 없습니다.");
+			LocalDateTime dateTime = LocalDateTime.now();
+			clubBoardSearchResult.setCreatedAt(dateTime.toString());
+		}
+		
 		return new ResponseEntity<>(clubBoardSearchResult, HttpStatus.OK);
 	}
 

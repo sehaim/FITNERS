@@ -41,7 +41,6 @@ export const useMypageStore = defineStore("mypage", () => {
       .get(`${REST_MYPAGE_API}/user/${loginUser.value.userId}/schedule`)
       .then((res) => {
         myScheduleList.value = res.data["scheduleList"];
-        console.log(myScheduleList.value);
       })
       .catch(() => {
         router.push({ name: "notFound" });
@@ -65,7 +64,7 @@ export const useMypageStore = defineStore("mypage", () => {
   const registMember = function (userId, clubId) {
     console.log(userId + " " + clubId);
     axios({
-      URL: REST_MYPAGE_API + "/manager/member/accepted",
+      url: REST_MYPAGE_API + "/manager/member/accepted",
       method: "POST",
       data: {
         clubId: clubId,
@@ -81,9 +80,8 @@ export const useMypageStore = defineStore("mypage", () => {
   };
 
   const declineMember = function (userId, clubId) {
-    console.log(userId + " " + clubId);
     axios({
-      URL: REST_MYPAGE_API + "/manager/member/denied",
+      url: REST_MYPAGE_API + "/manager/member/denied",
       method: "POST",
       data: {
         clubId: clubId,
