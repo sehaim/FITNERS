@@ -29,33 +29,18 @@
                     &nbsp;
                 </div>
                 <div class="board-list-button-wrapper">
-                    <button @click="" class="board-list-button">
+                    <button v-if="store.board.userId == store.loginUser.userId" @click="moveUpdate" class="board-update-button">
+                        수정
+                    </button>
+                    <button v-if="store.board.userId == store.loginUser.userId" @click="deleteBoard" class="board-delete-button">
+                        삭제
+                    </button>
+                    <button @click="moveList" class="board-list-button">
                         목록
                     </button>
                 </div>
                 <div class="board-content-line">
                     &nbsp;
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center">
-            <div class="card" style="width: 30rem">
-                <div class="card-body">
-                    <div class="mb-3 d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">{{ store.board.title }} <span class="badge bg-danger">{{ store.board.viewCnt
-                        }}</span></h4>
-                        <div class="d-flex justify-content-end">
-                            <h6 class="card-subtitle mx-3 text-body-secondary">{{ store.board.userId }}</h6>
-                            <h6 class="card-subtitle text-body-secondary">{{ store.board.createdAt }}</h6>
-                        </div>
-                    </div>
-                    <p class="card-text ">
-                        {{ store.board.content }}
-                    </p>
-                    <div class="d-flex justify-content-center">
-                        <button class="mx-3 btn btn-outline-success" @click="moveUpdate">수정</button>
-                        <button class="mx-3 btn btn-outline-danger" @click="deleteBoard">삭제</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -67,6 +52,7 @@ import { useRoute, useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import { useBoardStore } from "@/stores/board";
 import axios from "axios";
+import BoardList from "./BoardList.vue";
 const route = useRoute();
 const router = useRouter();
 const store = useBoardStore();
@@ -86,6 +72,10 @@ const deleteBoard = function () {
             router.push({ name: "boardList" });
         })
         .catch(() => { });
+};
+
+const moveList = function () {
+    router.push({ name: "boardList" });
 };
 </script>
   
@@ -184,14 +174,36 @@ const deleteBoard = function () {
     box-sizing: border-box;
 }
 
+.board-update-button {
+    border: 1px solid rgba(0, 0, 0, 0);
+    background: #FFFFFF;
+    color: #1b359c;
+    border-color: #1b359c;
+}
+
+
+.board-delete-button {
+    border: 1px solid rgba(0, 0, 0, 0);
+    background: #FFFFFF;
+    color: #d12424;
+    border-color: #d12424;
+}
+
 .board-list-button {
+    border: 1px solid rgba(0, 0, 0, 0);
+    background: #FFFFFF;
+    color: #929397;
+    border-color: #929397;
+
+}
+
+.board-update-button, .board-delete-button, .board-list-button {
     display: inline-block;
     margin-bottom: 0;
     padding: 6px 14px;
     outline: 0px;
     border: 1px solid rgba(0, 0, 0, 0);
     background: #FFFFFF;
-    color: #929397;
     border-color: #929397;
     text-align: center;
     cursor: pointer;

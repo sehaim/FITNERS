@@ -37,7 +37,7 @@ public class ClubBoardRestController {
 	@GetMapping("/board/{clubId}")
 	public ResponseEntity<?> searchClubBoard(@PathVariable("clubId") int clubId) {
 		ClubBoardSearchResult clubBoardSearchResult = clubBoardService.getClubBoardDetail(clubId);
-
+		
 		return new ResponseEntity<>(clubBoardSearchResult, HttpStatus.OK);
 	}
 
