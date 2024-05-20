@@ -63,9 +63,8 @@ export const useMypageStore = defineStore("mypage", () => {
   };
 
   const registMember = function (userId, clubId) {
-    console.log(userId + " " + clubId);
     axios({
-      URL: REST_MYPAGE_API + "/manager/member/accepted",
+      url: REST_MYPAGE_API + "/manager/member/accepted",
       method: "POST",
       data: {
         clubId: clubId,
@@ -81,9 +80,8 @@ export const useMypageStore = defineStore("mypage", () => {
   };
 
   const declineMember = function (userId, clubId) {
-    console.log(userId + " " + clubId);
     axios({
-      URL: REST_MYPAGE_API + "/manager/member/denied",
+      url: REST_MYPAGE_API + "/manager/member/denied",
       method: "POST",
       data: {
         clubId: clubId,
