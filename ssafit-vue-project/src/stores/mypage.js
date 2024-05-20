@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 import router from "@/router";
@@ -6,15 +6,16 @@ import router from "@/router";
 const REST_MYPAGE_API = `http://localhost:8080/ssafit/mypage`;
 
 export const useMypageStore = defineStore("mypage", () => {
-  const loginUser = ref({});
+  const loginUser = ref(null);
+  const isMypageActive = ref(false);
 
   const getUser = function () {
     loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
-    if (loginUser.value !== null) {
-      return true;
-    } else {
+    if (loginUser.value === null) {
       router.push({ name: "login" });
-      return false;
+      isMypageActive.value = false;
+    } else {
+      isMypageActive.value = true;
     }
   };
 
@@ -32,5 +33,82 @@ export const useMypageStore = defineStore("mypage", () => {
       });
   };
 
-  return { loginUser, getUser, myClubList, getMyClubList };
+  const myScheduleList = ref([]);
+
+  const getMyScheduleList = function () {
+    loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
+    axios
+      .get(`${REST_MYPAGE_API}/user/${loginUser.value.userId}/schedule`)
+      .then((res) => {
+        myScheduleList.value = res.data["scheduleList"];
+        console.log(myScheduleList.value);
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  };
+
+  const memberRegistList = ref([]);
+
+  const getMemberRegistList = function () {
+    loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
+    axios
+      .get(`${REST_MYPAGE_API}/manager/${loginUser.value.userId}/registList`)
+      .then((res) => {
+        memberRegistList.value = res.data["clubRegistList"];
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  };
+
+  const registMember = function (userId, clubId) {
+    console.log(userId + " " + clubId);
+    axios({
+      URL: REST_MYPAGE_API + "/manager/member/accepted",
+      method: "POST",
+      data: {
+        clubId: clubId,
+        userId: userId,
+      },
+    })
+      .then(() => {
+        location.reload();
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  };
+
+  const declineMember = function (userId, clubId) {
+    console.log(userId + " " + clubId);
+    axios({
+      URL: REST_MYPAGE_API + "/manager/member/denied",
+      method: "POST",
+      data: {
+        clubId: clubId,
+        userId: userId,
+      },
+    })
+      .then(() => {
+        location.reload();
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  };
+
+  return {
+    loginUser,
+    getUser,
+    myClubList,
+    getMyClubList,
+    myScheduleList,
+    getMyScheduleList,
+    isMypageActive,
+    memberRegistList,
+    getMemberRegistList,
+    registMember,
+    declineMember,
+  };
 });

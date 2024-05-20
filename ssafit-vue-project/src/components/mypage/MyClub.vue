@@ -1,11 +1,12 @@
 <template>
-  <div id="myclub-container">
-    <div id="myclub-container-header">
+  <div id="my-club-container">
+    <div id="my-club-container-header">
       <div id="title">
         <img src="@/assets/img/myclub-icon.png" alt="myclub-icon" />
         <div>My Club</div>
       </div>
     </div>
+    <hr />
     <MyClubList />
   </div>
 </template>
@@ -15,17 +16,17 @@ import MyClubList from "@/components/mypage/MyClubList.vue";
 </script>
 
 <style scoped>
-#myclub-container {
+#my-club-container {
   height: 100%;
   min-height: 100%;
-  width: 50vw;
-  min-width: 50vw;
+  width: 50%;
+  min-width: 50%;
   padding: 20px;
   display: flex;
   flex-direction: column;
 }
 
-#myclub-container-header {
+#my-club-container-header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -43,5 +44,10 @@ import MyClubList from "@/components/mypage/MyClubList.vue";
 img {
   width: 40px;
   margin-right: 20px;
+  opacity: 80%;
+}
+
+hr {
+  width: 90%;
 }
 </style>

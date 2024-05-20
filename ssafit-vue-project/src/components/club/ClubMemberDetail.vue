@@ -6,13 +6,15 @@
 </template>
 
 <script setup>
-import ClubSchedule from './ClubSchedule.vue';
-import ClubBoard from './ClubBoard.vue';
+import ClubSchedule from "./ClubSchedule.vue";
+import ClubBoard from "./ClubBoard.vue";
 </script>
 
 <style scoped>
 #club-member-detail-container {
   display: flex;
   flex-direction: row;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 </style>

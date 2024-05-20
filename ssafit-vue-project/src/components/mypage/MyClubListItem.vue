@@ -1,5 +1,5 @@
 <template>
-  <div id="myclub-item-container">
+  <div id="my-club-item-container">
     <div id="club-name">{{ myClub.clubName }}</div>
   </div>
 </template>
@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <style scoped>
-#myclub-item-container {
+#my-club-item-container {
   height: 50px;
   min-height: 50px;
   width: 70%;
