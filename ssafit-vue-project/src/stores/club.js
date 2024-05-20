@@ -130,6 +130,19 @@ export const useClubStore = defineStore(
       addIsActive.value = false;
     };
 
+    const clubBoard = ref({});
+
+    const getClubBoard = function () {
+      loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
+      axios.get(`${REST_CLUB_API}/board/${club.value.clubId}`)
+      .then((res) => {
+        clubBoard.value = res.data
+      })
+      .catch(() => {
+        router.push({ name: "notFound" })
+      })
+    }
+
     return {
       clubList,
       getClubList,
@@ -143,6 +156,8 @@ export const useClubStore = defineStore(
       addMySchedule,
       addIsActive,
       close,
+      clubBoard,
+      getClubBoard
     };
   },
   {

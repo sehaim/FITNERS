@@ -88,5 +88,6 @@ button {
 img {
   width: 40px;
   margin-right: 20px;
+  opacity: 80%;
 }
 </style>
