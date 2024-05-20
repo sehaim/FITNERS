@@ -79,5 +79,7 @@ onMounted(() => {
 #club-member-detail {
   display: flex;
   flex-direction: row;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 </style>

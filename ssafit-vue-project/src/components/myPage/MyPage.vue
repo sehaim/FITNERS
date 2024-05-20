@@ -12,12 +12,17 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
 import { useMypageStore } from "@/stores/mypage.js";
 import MyClub from "./MyClub.vue";
 import MySchedule from "./MySchedule.vue";
 import MyMember from "./MyMember.vue";
 
 const store = useMypageStore();
+
+onMounted(() => {
+  store.getUser();
+});
 </script>
 
 <style scoped>
@@ -47,5 +52,7 @@ const store = useMypageStore();
 #mypage-content-container {
   display: flex;
   flex-direction: row;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 </style>

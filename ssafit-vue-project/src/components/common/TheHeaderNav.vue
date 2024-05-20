@@ -3,7 +3,7 @@
     <header>
       <nav id="header-container">
         <div id="page-nav">
-          <RouterLink to="/">logo</RouterLink>
+          <RouterLink to="/" id="logo">SSAFIT</RouterLink>
           <RouterLink to="/board">자유게시판</RouterLink>
           <RouterLink to="/club">전체 클럽 목록</RouterLink>
           <RouterLink to="/mypage">MyPage</RouterLink>
@@ -30,7 +30,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { useUserStore } from "@/stores/user.js";
 
 const store = useUserStore();
@@ -72,6 +71,14 @@ const store = useUserStore();
 
 .bi {
   font-size: 30px;
+  color: #276699;
+}
+
+#logo {
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
   color: #276699;
 }
 

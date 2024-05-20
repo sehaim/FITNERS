@@ -64,6 +64,10 @@ const close = function () {
   overflow-y: scroll;
 }
 
+#club-schedule-list::-webkit-scrollbar {
+  display: none;
+}
+
 #title {
   display: flex;
   flex-direction: row;
