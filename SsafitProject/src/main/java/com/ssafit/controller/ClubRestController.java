@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafit.model.dto.Club;
 import com.ssafit.model.dto.ClubSchedule;
 import com.ssafit.model.dto.ClubSearchResult;
 import com.ssafit.model.service.ClubService;
@@ -70,7 +69,7 @@ public class ClubRestController {
 	// 클럽 가입 요청
 	@PostMapping("/regist")
 	public ResponseEntity<?> registClub(@RequestBody Map<String, Object> map) {
-		int clubId = (int) map.get("clubId");
+		int clubId = Integer.valueOf(map.get("clubId").toString());
 		String userId = (String) map.get("userId");
 		boolean result = memberService.applyMember(clubId, userId);
 		if (!result) {
@@ -83,7 +82,7 @@ public class ClubRestController {
 	// 클럽 일정 추가
 	@PostMapping("/schedule/add")
 	public ResponseEntity<?> addClubSchedule(@RequestBody Map<String, Object> map) {
-		int clubId = (int) map.get("clubId");
+		int clubId = Integer.valueOf(map.get("clubId").toString());
 		String schedule = (String) map.get("schedule");
 
 		if (scheduleService.searchClubSchedule(clubId, schedule) != null) {
@@ -101,7 +100,7 @@ public class ClubRestController {
 	// 개인 일정 추가
 	@PostMapping("/user/schedule/add")
 	public ResponseEntity<?> addUserSchedule(@RequestBody Map<String, Object> map) {
-		int clubId = (int) map.get("clubId");
+		int clubId = Integer.valueOf(map.get("clubId").toString());
 		String userId = (String) map.get("userId");
 		String schedule = (String) map.get("schedule");
 

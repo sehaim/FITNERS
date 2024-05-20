@@ -5,9 +5,6 @@ import com.ssafit.model.dto.ClubBoardSearchResult;
 
 public interface ClubBoardService {
 
-	// 클럽 게시글(공지사항) 조회
-	public ClubBoard getClubBoard(int clubId);
-
 	// 클럽 게시글(공지사항) 상세조회
 	public ClubBoardSearchResult getClubBoardDetail(int clubId);
 
@@ -15,7 +12,7 @@ public interface ClubBoardService {
 	public boolean writeClubBoard(ClubBoard clubBoard);
 
 	// 클럽 게시글(공지사항) 수정
-	public boolean modifyClubBoard(ClubBoard clubBoard);
+	public boolean modifyClubBoard(int clubId, ClubBoard clubBoard);
 
 	// 클럽 게시글(공지사항) 삭제
 	public boolean removeClubBoard(int clubId);

@@ -18,12 +18,6 @@ public class ClubBoardServiceImpl implements ClubBoardService {
 
 	@Transactional
 	@Override
-	public ClubBoard getClubBoard(int clubId) {
-		return clubBoardDao.selectClubBoard(clubId);
-	}
-
-	@Transactional
-	@Override
 	public ClubBoardSearchResult getClubBoardDetail(int clubId) {
 		return clubBoardDao.selectClubBoardDetail(clubId);
 	}
@@ -43,12 +37,12 @@ public class ClubBoardServiceImpl implements ClubBoardService {
 
 	@Transactional
 	@Override
-	public boolean modifyClubBoard(ClubBoard clubBoard) {
-		int clubId = clubBoard.getClubId();
-
+	public boolean modifyClubBoard(int clubId, ClubBoard clubBoard) {
 		if (clubBoardDao.selectClubBoard(clubId) == null) {
 			return false;
 		}
+
+		clubBoard.setClubId(clubId);
 
 		clubBoardDao.updateClubBoard(clubBoard);
 		return true;
@@ -57,7 +51,7 @@ public class ClubBoardServiceImpl implements ClubBoardService {
 	@Transactional
 	@Override
 	public boolean removeClubBoard(int clubId) {
-		if (clubBoardDao.selectClubBoard(clubId) != null) {
+		if (clubBoardDao.selectClubBoard(clubId) == null) {
 			return false;
 		}
 
