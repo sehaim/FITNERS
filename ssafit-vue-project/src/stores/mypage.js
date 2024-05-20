@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 import router from "@/router";
@@ -48,6 +48,20 @@ export const useMypageStore = defineStore("mypage", () => {
       });
   };
 
+  const memberRegistList = ref([]);
+
+  const getMemberRegistList = function () {
+    loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
+    axios
+      .get(`${REST_MYPAGE_API}/manager/${loginUser.value.userId}/registList`)
+      .then((res) => {
+        memberRegistList.value = res.data["clubRegistList"];
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  };
+
   return {
     loginUser,
     getUser,
@@ -56,5 +70,7 @@ export const useMypageStore = defineStore("mypage", () => {
     myScheduleList,
     getMyScheduleList,
     isMypageActive,
+    memberRegistList,
+    getMemberRegistList,
   };
 });

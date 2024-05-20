@@ -6,7 +6,6 @@
         <div>My Member</div>
       </div>
     </div>
-    <hr />
     <MyMemberList />
   </div>
 </template>
