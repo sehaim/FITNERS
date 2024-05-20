@@ -5,8 +5,20 @@
       <hr />
     </div>
     <div id="board-list">
-      <div class="search">
-        <h5>검색창을 만들 자리입니다</h5>
+      <div class="board-header">
+        <div v-if="store.loginUser !== null" class="insert">
+          <button @click="" class="board-write-button">
+            게시글 등록
+          </button>
+        </div>
+        <div class="search">
+          <div>
+            <input type="text" class="input-keyword" placeholder="제목으로 검색" v-model="search.title">
+            <button @click="searchBoardList" class="board-search-button">
+              검색
+            </button>
+          </div>
+        </div>
       </div>
       <div>
         <div class="board-list-items">
@@ -56,6 +68,15 @@ const sliceDateTime = function (schedule) {
   return schedule.slice(2, 16);
 };
 
+const search = ref({
+  title: ""
+})
+
+const searchBoardList = function () {
+  console.log(search.value.title)
+  store.searchBoardList(search.value.title);
+}
+
 onMounted(() => {
   store.getBoardList();
 });
@@ -86,10 +107,62 @@ hr {
   width: 100%;
 }
 
-.search {
+.board-content-line {
+  clear: both;
+  width: 100%;
+  height: 1px;
+  background: #ccc;
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.search,
+.insert {
   text-align: center;
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+  margin: 10px;
+}
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+}
+
+.input-keyword {
+  display: inline-block;
+  margin-bottom: 0;
+  margin-right: 5px;
+  padding: 6px 14px;
+  outline: 0px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background: #FFFFFF;
+  border-color: #929397;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.board-write-button,
+.board-search-button {
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 6px 14px;
+  outline: 0px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background: #FFFFFF;
+  border-color: #929397;
+  text-align: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
 
 .board-list-items {

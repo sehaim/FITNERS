@@ -29,6 +29,12 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.updateViewCnt(BoardId);
 		return boardDao.selectOne(BoardId);
 	}
+	
+	@Transactional
+	@Override
+	public List<Board> searchBoardListByTitle(String title) {
+		return boardDao.selectBoardListByTitle(title);
+	}
 
 	@Transactional
 	@Override

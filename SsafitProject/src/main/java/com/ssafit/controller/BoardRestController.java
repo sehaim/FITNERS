@@ -35,7 +35,7 @@ public class BoardRestController {
 		this.boardService = boardService;
 	}
 
-	// 게시글 (검색) 조회
+	// 게시글 전체 조회
 	@GetMapping
 	public ResponseEntity<?> list() {
 		List<Board> list = boardService.searchBoardList();
@@ -51,6 +51,15 @@ public class BoardRestController {
 		if (board != null)
 			return new ResponseEntity<Board>(board, HttpStatus.OK);
 		return new ResponseEntity<Board>(HttpStatus.NOT_FOUND);
+	}
+
+	// 게시글 제목으로 검색
+	@GetMapping("/search/{title}")
+	public ResponseEntity<?> detail(@PathVariable("title") String title) {
+		List<Board> list = boardService.searchBoardListByTitle(title);
+		if (list == null || list.size() == 0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
 	}
 
 	// 인기 게시글 조회

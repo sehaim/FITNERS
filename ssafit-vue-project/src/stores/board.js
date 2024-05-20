@@ -11,6 +11,7 @@ export const useBoardStore = defineStore('board', () => {
   const boardList = ref([])
 
   const getBoardList = function () {
+    loginUser.value = JSON.parse(localStorage.getItem("loginUser"))
     axios({
       url: REST_BOARD_API,
       method: "GET",
@@ -67,6 +68,19 @@ export const useBoardStore = defineStore('board', () => {
       });
   }
 
-  
-  return { boardList, getBoardList, board, createBoard, getBoard, updateBoard, loginUser }
+  const searchBoardList = function (title) {
+    axios({
+      url: REST_BOARD_API + "/search/`${title}`",
+      method: 'GET'
+    })
+      .then((response) => {
+        boardList.value = response.data
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  }
+
+
+  return { boardList, getBoardList, board, createBoard, getBoard, updateBoard, searchBoardList, loginUser }
 })
