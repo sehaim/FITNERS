@@ -1,11 +1,16 @@
 <template>
   <div id="club-schedule-manager-item">
     <div id="date-time">
-      <div id="date"><strong>{{ sliceDate(clubSchedule.schedule) }}</strong></div>
-      <div id="time">{{ sliceHour(clubSchedule.schedule) }}시 {{ sliceMinute(clubSchedule.schedule) }}분</div>
+      <div id="date">
+        <strong>{{ sliceDate(clubSchedule.schedule) }}</strong>
+      </div>
+      <div id="time">
+        {{ sliceHour(clubSchedule.schedule) }}시
+        {{ sliceMinute(clubSchedule.schedule) }}분
+      </div>
     </div>
     <button @click="addMySchedule">+</button>
-    <ClubToMypage v-if="addIsActive" @close-event="close"/>
+    <ClubToMypage v-if="addIsActive" @close-event="close" />
   </div>
 </template>
 
@@ -17,32 +22,31 @@ import ClubToMypage from "./ClubToMypage.vue";
 const store = useClubStore();
 
 const props = defineProps({
-  clubSchedule: Object
-})
+  clubSchedule: Object,
+});
 
 const sliceDate = function (schedule) {
   return schedule.slice(0, 10);
-}
+};
 
 const sliceHour = function (schedule) {
-  return schedule.slice(12, 13);
-}
+  return schedule.slice(11, 13);
+};
 
 const sliceMinute = function (schedule) {
-  return schedule.slice(15,16);
-}
+  return schedule.slice(14, 16);
+};
 
 const addIsActive = ref(false);
 
-const addMySchedule = function() {
+const addMySchedule = function () {
   store.addMySchedule(props.clubSchedule.clubId, props.clubSchedule.schedule);
   addIsActive.value = store.addIsActive;
-}
+};
 
 const close = function () {
   addIsActive.value = false;
-}
-
+};
 </script>
 
 <style scoped>

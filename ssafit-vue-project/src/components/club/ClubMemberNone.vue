@@ -1,6 +1,6 @@
 <template>
   <div id="club-signup-container">
-    <img src="@/assets/img/sad-icon.png" alt="sad-icon">
+    <img src="@/assets/img/sad-icon.png" alt="sad-icon" />
     <div id="content">클럽 회원만 볼 수 있습니다.</div>
     <button @click="signupClub">가입하기</button>
   </div>
@@ -9,17 +9,15 @@
 <script setup>
 import { useClubStore } from "@/stores/club";
 
-const store = useClubStore()
+const store = useClubStore();
 
 const props = defineProps({
   clubId: Number,
 });
 
-
 const signupClub = function () {
-  store.signupClub(props.clubId)
-}
-
+  store.signupClub(props.clubId);
+};
 </script>
 
 <style scoped>
@@ -41,7 +39,6 @@ img {
   margin-top: 10px;
 }
 
-
 #content {
   font-size: 18px;
   position: relative;
@@ -57,6 +54,4 @@ button {
   height: 40px;
   font-size: 15px;
 }
-
-
 </style>

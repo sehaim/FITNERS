@@ -1,14 +1,19 @@
 <template>
   <div id="club-detail-container">
     <div id="club-detail-header">
-      <div id="club-welcome">Welcome <span id="club-name">{{ store.club.clubName }}</span> !</div>
+      <div id="club-welcome">
+        Welcome <span id="club-name">{{ store.club.clubName }}</span> !
+      </div>
       <div id="club-description">{{ store.club.clubDescription }}</div>
       <div id="club-manager-name">{{ store.club.userName }}</div>
     </div>
     <div id="club-detail-content">
-      <ClubMemberNone v-if="store.status === 'NONE'" :clubId = "clubId"/>
+      <ClubMemberNone v-if="store.status === 'NONE'" :clubId="clubId" />
       <ClubMemberProceeding v-if="store.status === 'PROCEEDING'" />
-      <ClubMemberDetail id="club-member-detail" v-if="store.status === 'COMPLETED'" />
+      <ClubMemberDetail
+        id="club-member-detail"
+        v-if="store.status === 'COMPLETED'"
+      />
       <ClubManagerNone v-if="store.status === 'MANAGER'" />
     </div>
   </div>
@@ -27,10 +32,9 @@ const store = useClubStore();
 
 const route = useRoute();
 
-const clubId = ref(route.params.clubId)
+const clubId = ref(route.params.clubId);
 
 onMounted(() => {
-  store.getUser();
   store.getClub(clubId.value);
 });
 </script>
@@ -45,13 +49,13 @@ onMounted(() => {
   padding-right: 3%;
   padding-left: 3%;
   background: linear-gradient(
-      to top,
-      rgba(67, 85, 197, 0) 10%,
-      rgba(67, 85, 197, 0.03) 30%,
-      rgba(67, 85, 197, 0.06) 50%,
-      rgba(67, 85, 197, 0.09) 75%,
-      rgba(67, 85, 197, 0.1) 100%
-    );
+    to top,
+    rgba(67, 85, 197, 0) 10%,
+    rgba(67, 85, 197, 0.03) 30%,
+    rgba(67, 85, 197, 0.06) 50%,
+    rgba(67, 85, 197, 0.09) 75%,
+    rgba(67, 85, 197, 0.1) 100%
+  );
 }
 
 #club-detail-content {
@@ -76,5 +80,4 @@ onMounted(() => {
   display: flex;
   flex-direction: row;
 }
-
 </style>
