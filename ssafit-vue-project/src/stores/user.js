@@ -18,7 +18,12 @@ export const useUserStore = defineStore(
       loginUser.value.userId = res.data["userId"];
       loginUser.value.userName = res.data["userName"];
       loginUser.value.isManager = res.data["isManager"];
+      localStorage.setItem("loginUser", JSON.stringify(loginUser.value));
     };
+
+    const getLoginUser = function (el) {
+      return JSON.parse(localStorage.getItem("loginUser")).el;
+    }
 
     const loginErr = ref(false);
     const activeLoginErrClass = ref("");
@@ -82,16 +87,11 @@ export const useUserStore = defineStore(
       activeLoginErrClass,
       loginUser,
       setLoginUser,
+      getLoginUser,
       signup,
       signupErr,
       activeSignupErrClass,
       logout,
     };
-  },
-  {
-    persist: {
-      enabled: true,
-      strategies: [{ storage: localStorage }],
-    },
   }
 );

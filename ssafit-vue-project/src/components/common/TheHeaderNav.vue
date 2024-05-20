@@ -8,14 +8,14 @@
           <RouterLink to="/club">전체 클럽 목록</RouterLink>
           <RouterLink to="/mypage">MyPage</RouterLink>
         </div>
-        <div id="user-nav" v-if="store.loginUser.userId === null">
+        <div id="user-nav" v-if="store.getLoginUser === null">
           <RouterLink to="/login">로그인</RouterLink>
           <RouterLink to="/signup">회원가입</RouterLink>
         </div>
         <div id="user-nav" v-else>
           <div>
             <strong style="color: #276699">{{
-              store.loginUser.userName
+              store.getLoginUse(userName)
             }}</strong>
             님 환영합니다!
           </div>
@@ -33,6 +33,8 @@
 import { useUserStore } from "@/stores/user.js";
 
 const store = useUserStore();
+
+
 </script>
 
 <style scoped>
