@@ -147,15 +147,15 @@ export const useClubStore = defineStore(
       close,
     };
   },
-  {
-    persist: {
-      enabled: true,
-      strategies: [
-        {
-          storage: localStorage,
-          paths: ["clubList"],
-        },
-      ],
-    },
-  }
+  // {
+  //   persist: {
+  //     enabled: true,
+  //     strategies: [
+  //       {
+  //         storage: localStorage,
+  //         paths: ["clubList"],
+  //       },
+  //     ],
+  //   },
+  //}
 );
