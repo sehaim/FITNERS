@@ -52,8 +52,7 @@ const props = defineProps({
 }
 
 #club-schedule-list::-webkit-scrollbar {
-  width: 5px;
-  border-radius: 10px;
+  display: none;
 }
 
 #title {

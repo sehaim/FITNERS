@@ -12,6 +12,7 @@
 	<select id="getAllUserSchedule" resultType="UserSchedule">
 		SELECT schedule_id, user_id, club_id, schedule
 		FROM User_schedule;
+		
 	</select>
 
 	<select id="getClubSchedule" resultType="ClubSchedule" parameterType="int">
@@ -27,7 +28,8 @@
 		FROM User_schedule
 		JOIN Club
 		ON User_schedule.club_id = club.club_id
-		WHERE User_schedule.user_id = #{userId};
+		WHERE User_schedule.user_id = #{userId}
+		ORDER BY schedule;
 	</select>
 	
 	<select id="selectClubSchedule" resultType="ClubSchedule" parameterType="map">
