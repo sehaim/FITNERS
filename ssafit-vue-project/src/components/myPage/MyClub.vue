@@ -2,7 +2,7 @@
   <div id="myclub-container">
     <div id="myclub-container-header">
       <div id="title">
-        <img src="@/assets/icon/myclub-icon.png" alt="myclub-icon" />
+        <img src="@/assets/img/myclub-icon.png" alt="myclub-icon" />
         <div>My Club</div>
       </div>
     </div>
