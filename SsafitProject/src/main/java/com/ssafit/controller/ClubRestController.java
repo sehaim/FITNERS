@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafit.model.dto.Club;
 import com.ssafit.model.dto.ClubSchedule;
 import com.ssafit.model.dto.ClubSearchResult;
 import com.ssafit.model.service.ClubService;

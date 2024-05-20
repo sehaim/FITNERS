@@ -21,6 +21,28 @@ const router = createRouter({
       path: "/board",
       name: "board",
       component: BoardView,
+      children: [
+        {
+          path: '',
+          name: 'boardList',
+          component: BoardList
+        },
+        {
+          path: 'create',
+          name: 'boardCreate',
+          component: BoardCreate
+        },
+        {
+          path: 'update',
+          name: 'boardUpdate',
+          component: BoardUpdate
+        },
+        {
+          path: ':id',
+          name: 'boardDetail',
+          component: BoardDetail
+        },
+      ]
     },
     {
       path: "/club",
