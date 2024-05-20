@@ -1,22 +1,29 @@
 <template>
   <div id="my-club-list-container">
-    <!-- <MyClubListItem v-for="myClub in myClubList :key="myClub" :myClub="myClub"/> -->
+    <MyClubListItem
+      v-for="myClub in store.myClubList"
+      :key="myClub.clubId"
+      :myClub="myClub"
+    />
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useMypageStore } from "@/stores/mypage.js";
-import MyClubListItem from './MyClubListItem.vue';
+import MyClubListItem from "./MyClubListItem.vue";
 
 const store = useMypageStore();
 
-defineProps({
-  myClubList: Object
-})
-
-// onMounted(() => {
-//   store.getMyClubList();
-// })
-
+onMounted(() => {
+  store.getMyClubList();
+});
 </script>
+
+<style scoped>
+#myclub-list-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+</style>

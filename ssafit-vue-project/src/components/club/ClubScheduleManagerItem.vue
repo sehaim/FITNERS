@@ -1,26 +1,31 @@
 <template>
   <div id="club-schedule-manager-item">
-    <div id="date"><strong>{{ sliceDate(clubSchedule.schedule) }}</strong></div>
-    <div id="time">{{ sliceHour(clubSchedule.schedule) }}시 {{ sliceMinute(clubSchedule.schedule) }}분</div>
+    <div id="date">
+      <strong>{{ sliceDate(clubSchedule.schedule) }}</strong>
+    </div>
+    <div id="time">
+      {{ sliceHour(clubSchedule.schedule) }}시
+      {{ sliceMinute(clubSchedule.schedule) }}분
+    </div>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({
-  clubSchedule: Object
-})
+  clubSchedule: Object,
+});
 
 const sliceDate = function (schedule) {
   return schedule.slice(0, 10);
-}
+};
 
 const sliceHour = function (schedule) {
-  return schedule.slice(12, 13);
-}
+  return schedule.slice(11, 13);
+};
 
 const sliceMinute = function (schedule) {
-  return schedule.slice(15,16);
-}
+  return schedule.slice(14, 16);
+};
 </script>
 
 <style scoped>

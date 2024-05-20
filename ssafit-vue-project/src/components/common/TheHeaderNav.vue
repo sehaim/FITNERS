@@ -15,7 +15,7 @@
         <div id="user-nav" v-else>
           <div>
             <strong style="color: #276699">{{
-              store.getLoginUse(userName)
+              store.getLoginUser.userName
             }}</strong>
             님 환영합니다!
           </div>
@@ -30,11 +30,10 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { useUserStore } from "@/stores/user.js";
 
 const store = useUserStore();
-
-
 </script>
 
 <style scoped>

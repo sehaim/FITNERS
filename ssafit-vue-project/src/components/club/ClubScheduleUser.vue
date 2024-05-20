@@ -2,30 +2,26 @@
   <div id="club-schedule-user-container">
     <div id="club-schedule-container-header">
       <div id="title">
-        <img src="@/assets/img/schedule-icon.png" alt="schedule-icon">
+        <img src="@/assets/img/schedule-icon.png" alt="schedule-icon" />
         <div>Club Schedule</div>
       </div>
     </div>
     <div id="club-schedule-list">
-      <ClubScheduleUserItem v-for="clubSchedule in clubScheduleList" :key="clubSchedule.scheduleId" :clubSchedule="clubSchedule"/>
+      <ClubScheduleUserItem
+        v-for="clubSchedule in clubScheduleList"
+        :key="clubSchedule.scheduleId"
+        :clubSchedule="clubSchedule"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useClubStore } from "@/stores/club";
-import ClubScheduleUserItem from './ClubScheduleUserItem.vue';
-
-const store = useClubStore();
+import ClubScheduleUserItem from "./ClubScheduleUserItem.vue";
 
 const props = defineProps({
-  clubScheduleList: Object
-})
-
-const close = function() {
-  isActive.value = false;
-}
+  clubScheduleList: Object,
+});
 </script>
 
 <style scoped>
@@ -36,7 +32,6 @@ const close = function() {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  
 }
 
 #club-schedule-container-header {
@@ -54,6 +49,11 @@ const close = function() {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+}
+
+#club-schedule-list::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 10px;
 }
 
 #title {

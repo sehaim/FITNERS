@@ -4,22 +4,20 @@
       <div id="title">My Page</div>
     </div>
     <div id="mypage-content-container">
-      <!-- <MyClub v-if="store.getUser"/>
+      <MyClub />
       <MySchedule v-if="!store.loginUser.isManager" />
-      <MyMember v-else /> -->
+      <MyMember v-else />
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
 import { useMypageStore } from "@/stores/mypage.js";
-import MyClub from "@/components/mypage/MyClub.vue";
-import MySchedule from "@/components/mypage/MySchedule.vue";
-import MyMember from "@/components/mypage/MyMember.vue";
+import MyClub from "./MyClub.vue";
+import MySchedule from "./MySchedule.vue";
+import MyMember from "./MyMember.vue";
 
 const store = useMypageStore();
-
 </script>
 
 <style scoped>
@@ -32,13 +30,13 @@ const store = useMypageStore();
   padding-right: 3%;
   padding-left: 3%;
   background: linear-gradient(
-      to top,
-      rgba(67, 85, 197, 0) 10%,
-      rgba(67, 85, 197, 0.03) 30%,
-      rgba(67, 85, 197, 0.06) 50%,
-      rgba(67, 85, 197, 0.09) 75%,
-      rgba(67, 85, 197, 0.1) 100%
-    );
+    to top,
+    rgba(67, 85, 197, 0) 10%,
+    rgba(67, 85, 197, 0.03) 30%,
+    rgba(67, 85, 197, 0.06) 50%,
+    rgba(67, 85, 197, 0.09) 75%,
+    rgba(67, 85, 197, 0.1) 100%
+  );
 }
 
 #title {

@@ -2,36 +2,40 @@
   <div id="club-schedule-manager-container">
     <div id="club-schedule-container-header">
       <div id="title">
-        <img src="@/assets/img/schedule-icon.png" alt="schedule-icon">
+        <img src="@/assets/img/schedule-icon.png" alt="schedule-icon" />
         <div>Club Schedule</div>
       </div>
       <button @click="addSchedule">+</button>
-      <ClubScheduleRegist v-if="isActive" @close-event="close"/>
+      <ClubScheduleRegist v-if="isActive" @close-event="close" />
     </div>
     <div id="club-schedule-list">
-      <ClubScheduleManagerItem v-for="clubSchedule in clubScheduleList" :key="clubSchedule.scheduleId" :clubSchedule="clubSchedule"/>
+      <ClubScheduleManagerItem
+        v-for="clubSchedule in clubScheduleList"
+        :key="clubSchedule.scheduleId"
+        :clubSchedule="clubSchedule"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import ClubScheduleManagerItem from './ClubScheduleManagerItem.vue';
+import ClubScheduleManagerItem from "./ClubScheduleManagerItem.vue";
 import ClubScheduleRegist from "./ClubScheduleRegist.vue";
 
 const props = defineProps({
-  clubScheduleList: Object
-})
+  clubScheduleList: Object,
+});
 
-const isActive = ref(false)
+const isActive = ref(false);
 
-const addSchedule = function() {
+const addSchedule = function () {
   isActive.value = true;
-}
+};
 
-const close = function() {
+const close = function () {
   isActive.value = false;
-}
+};
 </script>
 
 <style scoped>
