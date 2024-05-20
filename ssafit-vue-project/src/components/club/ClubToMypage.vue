@@ -2,17 +2,18 @@
   <div id="club-to-mypage-container">
     <button id="close-button" @click="$emit('closeEvent')">x</button>
     <div id="content">
-      <img src="@/assets/img/add-check-icon.png" alt="">
+      <img src="@/assets/img/add-check-icon.png" alt="" />
       <div>My Schedule에 추가되었습니다.</div>
     </div>
-    <RouterLink to="/mypage"><button id="move-button">My Page 이동</button></RouterLink>
+    <RouterLink to="/mypage"
+      ><button id="move-button" @click="$emit('closeEvent')">
+        My Page 이동
+      </button></RouterLink
+    >
   </div>
 </template>
 
-<script setup>
-
-
-</script>
+<script setup></script>
 
 <style scoped>
 #club-to-mypage-container {
@@ -63,5 +64,4 @@ img {
   color: rgb(71, 69, 69);
   font-size: 14px;
 }
-
 </style>

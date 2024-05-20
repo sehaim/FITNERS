@@ -120,12 +120,16 @@ export const useClubStore = defineStore(
         },
       })
         .then(() => {
-          return (addIsActive.value = true);
+          addIsActive.value = true;
         })
         .catch(() => {
           // 이미 등록된 일정입니다.
           router.push({ name: "notFound" });
         });
+    };
+
+    const close = function () {
+      addIsActive.value = false;
     };
 
     return {
@@ -140,6 +144,7 @@ export const useClubStore = defineStore(
       registSchedule,
       addMySchedule,
       addIsActive,
+      close,
     };
   },
   {

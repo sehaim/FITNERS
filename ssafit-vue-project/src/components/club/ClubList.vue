@@ -1,18 +1,16 @@
 <template>
-  <div>
-    <div id="club-container">
-      <div id="page-title">
-        Club List
-        <hr />
-      </div>
+  <div id="club-container">
+    <div id="page-title">
+      Club List
+      <hr />
+    </div>
 
-      <div id="club-list">
-        <ClubListItem
-          v-for="club in store.clubList"
-          :key="club.clubId"
-          :club="club"
-        />
-      </div>
+    <div id="club-list">
+      <ClubListItem
+        v-for="club in store.clubList"
+        :key="club.clubId"
+        :club="club"
+      />
     </div>
   </div>
 </template>

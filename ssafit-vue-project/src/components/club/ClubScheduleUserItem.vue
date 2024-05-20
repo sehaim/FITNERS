@@ -10,7 +10,7 @@
       </div>
     </div>
     <button @click="addMySchedule">+</button>
-    <ClubToMypage v-if="addIsActive" @close-event="close" />
+    <ClubToMypage v-if="store.addIsActive" @close-event="close" />
   </div>
 </template>
 
@@ -37,15 +37,13 @@ const sliceMinute = function (schedule) {
   return schedule.slice(14, 16);
 };
 
-const addIsActive = ref(false);
-
 const addMySchedule = function () {
   store.addMySchedule(props.clubSchedule.clubId, props.clubSchedule.schedule);
-  addIsActive.value = store.addIsActive;
+  console.log(store.addIsActive);
 };
 
 const close = function () {
-  addIsActive.value = false;
+  store.close();
 };
 </script>
 
