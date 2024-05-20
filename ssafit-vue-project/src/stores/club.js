@@ -71,8 +71,6 @@ export const useClubStore = defineStore(
 
     const signupClub = function (clubId) {
       loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
-      console.log(clubId);
-      console.log(loginUser.value);
       axios({
         url: REST_CLUB_API + "/regist",
         method: "POST",
@@ -147,15 +145,15 @@ export const useClubStore = defineStore(
       close,
     };
   },
-  // {
-  //   persist: {
-  //     enabled: true,
-  //     strategies: [
-  //       {
-  //         storage: localStorage,
-  //         paths: ["clubList"],
-  //       },
-  //     ],
-  //   },
-  //}
+  {
+    persist: {
+      enabled: true,
+      strategies: [
+        {
+          storage: localStorage,
+          paths: ["clubList"],
+        },
+      ],
+    },
+  }
 );
