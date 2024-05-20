@@ -41,7 +41,6 @@ export const useMypageStore = defineStore("mypage", () => {
       .get(`${REST_MYPAGE_API}/user/${loginUser.value.userId}/schedule`)
       .then((res) => {
         myScheduleList.value = res.data["scheduleList"];
-        console.log(myScheduleList.value);
       })
       .catch(() => {
         router.push({ name: "notFound" });

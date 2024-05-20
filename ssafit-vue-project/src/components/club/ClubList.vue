@@ -16,10 +16,10 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
+import { useClubStore } from "@/stores/club.js";
 import ClubListItem from "@/components/club/ClubListItem.vue";
 
-import { useClubStore } from "@/stores/club.js";
-import { onMounted } from "vue";
 
 const store = useClubStore();
 

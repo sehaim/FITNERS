@@ -5,7 +5,7 @@
         Welcome <span id="club-name">{{ store.club.clubName }}</span> !
       </div>
       <div id="club-description">{{ store.club.clubDescription }}</div>
-      <div id="club-manager-name">{{ store.club.userName }}</div>
+      <div id="club-manager-name">관리자 &nbsp &nbsp<strong id="name">{{ store.club.userName }}</strong></div>
     </div>
     <div id="club-detail-content">
       <ClubMemberNone v-if="store.status === 'NONE'" :clubId="clubId" />
@@ -74,6 +74,14 @@ onMounted(() => {
 
 #club-description {
   font-size: 20px;
+}
+
+#club-manager-name {
+  font-size: 15px;
+}
+
+#name {
+  font-size: 17px;
 }
 
 #club-member-detail {
