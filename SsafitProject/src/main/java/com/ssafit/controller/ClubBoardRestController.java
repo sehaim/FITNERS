@@ -39,7 +39,7 @@ public class ClubBoardRestController {
 	@GetMapping("/board/{clubId}")
 	public ResponseEntity<?> searchClubBoard(@PathVariable("clubId") int clubId) {
 		ClubBoardSearchResult clubBoardSearchResult = clubBoardService.getClubBoardDetail(clubId);
-		
+
 		if (clubBoardSearchResult == null) {
 			clubBoardSearchResult = new ClubBoardSearchResult();
 			clubBoardSearchResult.setClubId(clubId);

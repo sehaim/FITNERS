@@ -6,6 +6,8 @@ import router from '@/router'
 const REST_BOARD_API = `http://localhost:8080/ssafit/board`
 
 export const useBoardStore = defineStore('board', () => {
+  const loginUser = ref({})
+
   const boardList = ref([])
 
   const getBoardList = function () {
@@ -24,6 +26,7 @@ export const useBoardStore = defineStore('board', () => {
   const board = ref({})
 
   const getBoard = function (boardId) {
+    loginUser.value = JSON.parse(localStorage.getItem("loginUser"))
     axios({
       url: REST_BOARD_API + "/" + `${boardId}`,
       method: 'GET'
@@ -65,5 +68,5 @@ export const useBoardStore = defineStore('board', () => {
   }
 
   
-  return { boardList, getBoardList, board, createBoard, getBoard, updateBoard }
+  return { boardList, getBoardList, board, createBoard, getBoard, updateBoard, loginUser }
 })
