@@ -62,6 +62,42 @@ export const useMypageStore = defineStore("mypage", () => {
       });
   };
 
+  const registMember = function (userId, clubId) {
+    console.log(userId + " " + clubId);
+    axios({
+      URL: REST_MYPAGE_API + "/manager/member/accepted",
+      method: "POST",
+      data: {
+        clubId: clubId,
+        userId: userId,
+      },
+    })
+      .then(() => {
+        location.reload();
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  };
+
+  const declineMember = function (userId, clubId) {
+    console.log(userId + " " + clubId);
+    axios({
+      URL: REST_MYPAGE_API + "/manager/member/denied",
+      method: "POST",
+      data: {
+        clubId: clubId,
+        userId: userId,
+      },
+    })
+      .then(() => {
+        location.reload();
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  };
+
   return {
     loginUser,
     getUser,
@@ -72,5 +108,7 @@ export const useMypageStore = defineStore("mypage", () => {
     isMypageActive,
     memberRegistList,
     getMemberRegistList,
+    registMember,
+    declineMember,
   };
 });

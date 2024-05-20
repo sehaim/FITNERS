@@ -2,8 +2,8 @@
   <div id="my-member-item-container" v-if="clubId == myMember.clubId">
     <div id="member">{{ myMember.userId }}</div>
     <div id="btn">
-      <button id="regist">수락</button>
-      <button id="deny">거절</button>
+      <button id="regist" @click="registMember">수락</button>
+      <button id="decline" @click="declineMember">거절</button>
     </div>
   </div>
 </template>
@@ -13,10 +13,18 @@ import { useMypageStore } from "@/stores/mypage.js";
 
 const store = useMypageStore();
 
-defineProps({
+const props = defineProps({
   clubId: Number,
   myMember: Object,
 });
+
+const registMember = function () {
+  store.registMember(props.myMember.userId, props.clubId);
+};
+
+const declineMember = function () {
+  store.declineMember(props.myMember.userId, props.clubId);
+};
 </script>
 
 <style scoped>
@@ -54,7 +62,7 @@ button {
   color: white;
 }
 
-#deny {
+#decline {
   background-color: rgb(231, 134, 131);
   color: white;
 }
