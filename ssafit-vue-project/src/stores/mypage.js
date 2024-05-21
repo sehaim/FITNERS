@@ -112,6 +112,19 @@ export const useMypageStore = defineStore("mypage", () => {
       });
   };
 
+  const deleteMySchedule = function (userId, scheduleId) {
+    axios({
+      url: REST_MYPAGE_API + "/user/" + `${userId}` + "/schedule/" + `${scheduleId}`,
+      method: 'DELETE'
+    })
+      .then(() => {
+        location.reload();
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  }
+
   return {
     loginUser,
     getUser,
@@ -127,5 +140,6 @@ export const useMypageStore = defineStore("mypage", () => {
     addClubIsActive,
     addClub,
     registClub,
+    deleteMySchedule,
   };
 });

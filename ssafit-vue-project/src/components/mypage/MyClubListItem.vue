@@ -1,6 +1,7 @@
 <template>
   <div id="my-club-item-container">
-    <div id="club-name">{{ myClub.clubName }}</div>
+    <RouterLink id="club-name" :to="`/club/${myClub.clubId}`">
+    {{ myClub.clubName }}</RouterLink>
   </div>
 </template>
 
@@ -30,5 +31,6 @@ defineProps({
 #club-name {
   margin: auto;
   font-size: 16px;
+  color: rgb(52, 50, 50)
 }
 </style>
