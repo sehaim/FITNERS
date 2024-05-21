@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafit.model.dto.Club;
-import com.ssafit.model.dto.Member;
-import com.ssafit.model.dto.Schedule;
-import com.ssafit.model.dto.UserSchedule;
+import com.ssafit.model.dto.MemberRegist;
 import com.ssafit.model.dto.UserScheduleSearchResult;
 import com.ssafit.model.service.ClubService;
 import com.ssafit.model.service.MemberService;
@@ -110,7 +108,7 @@ public class MyPageRestController {
 			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
 		}
 
-		List<Member> list = memberService.getClubRegistList(userId);
+		List<MemberRegist> list = memberService.getClubRegistList(userId);
 
 		map.put("result", SUCCESS);
 		map.put("clubRegistList", list);
@@ -127,7 +125,7 @@ public class MyPageRestController {
 		}
 
 		Club tmp = clubService.searchClubByName(club.getClubName());
-		
+
 		int clubId = tmp.getClubId();
 		String userId = tmp.getUserId();
 

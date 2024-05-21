@@ -65,14 +65,10 @@ public class BoardRestController {
 	// 인기 게시글 조회
 	@GetMapping("/popular")
 	public ResponseEntity<?> getPopularBoardList() {
-		System.out.println("controller");
 		LocalDate today = LocalDate.now();
 		String startDate = today.minusDays(7).toString() + " 00:00:00";
 
-		System.out.println("brfore service : " + startDate);
 		List<Board> list = boardService.searchPopularBoard(startDate);
-		System.out.println("aafter service : " + startDate);
-		System.out.println(list.toString());
 		if (list == null || list.size() == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<Board>>(list, HttpStatus.OK);

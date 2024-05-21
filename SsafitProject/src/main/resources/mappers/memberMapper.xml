@@ -10,14 +10,13 @@
 		WHERE club_id = ${club_id};
 	</select>
 	
-	<select id="selectClubRegistList" resultType="Member" parameterType="String">
-		SELECT club_id, user_id, access
-		FROM member
-		WHERE 
-		club_id IN
-		(SELECT club_id
-		FROM club
-		WHERE user_id = #{userId} AND access = 0);
+	<select id="selectClubRegistList" resultType="MemberRegist" parameterType="String">
+		SELECT c.club_id, m.user_id, m.access, u.user_name
+		FROM Club c
+		JOIN Member m ON c.club_id = m.club_id
+		JOIN User u ON m.user_id = u.user_id
+		WHERE
+		c.user_id = #{userId} AND m.access = 0; 
 	</select>
 	
 	<select id="select" resultType="Member" parameterType="Map">
