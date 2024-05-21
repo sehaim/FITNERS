@@ -6,11 +6,6 @@
     </div>
     <div id="board-list">
       <div class="board-header">
-        <div v-if="store.loginUser !== null" class="insert">
-          <button @click="" class="board-write-button">
-            게시글 등록
-          </button>
-        </div>
         <div class="search">
           <div>
             <input type="text" class="input-keyword" placeholder="제목으로 검색" v-model="search.title">
@@ -19,10 +14,29 @@
             </button>
           </div>
         </div>
+        <div v-if="store.loginUser !== null" class="insert">
+          <button @click="moveCreateBoard" class="board-write-button">
+            게시글 등록
+          </button>
+        </div>
+      </div>
+      <div v-if="store.doSearch" class="board-header-search">
+        <div class="search-notice">
+          <span>
+            검색 결과
+          </span>
+        </div>
       </div>
       <div>
         <div class="board-list-items">
-          <div class="board-list-name">
+          <div v-if="store.doSearch && store.noSearchResult" class="board-list-nosearchresult">
+            <div class="search-notice-result">
+              <span>
+                검색 결과가 없습니다.
+              </span>
+            </div>
+          </div>
+          <div v-if="store.boardList.length > 0" class="board-list-name">
             <div class="board-item-title">
               제목
             </div>
@@ -61,8 +75,11 @@
 <script setup>
 import { useBoardStore } from "@/stores/board.js";
 import { onMounted, ref } from "vue";
+import { useRouter } from 'vue-router';
 
 const store = useBoardStore();
+
+const router = useRouter();
 
 const sliceDateTime = function (schedule) {
   return schedule.slice(2, 16);
@@ -73,8 +90,18 @@ const search = ref({
 })
 
 const searchBoardList = function () {
-  console.log(search.value.title)
+  if (search.value.title.trim() === "") {
+    alert("검색어를 입력하세요.");
+    return;
+  }
   store.searchBoardList(search.value.title);
+}
+
+const moveCreateBoard = function () {
+  router.push({
+    name: 'boardCreate',
+    query: { userId: store.loginUser.userId }
+  });
 }
 
 onMounted(() => {
@@ -128,9 +155,24 @@ hr {
 
 .board-header {
   display: flex;
+  flex-direction: row-reverse;
   justify-content: space-between;
   margin-top: 10px;
   margin-bottom: 5px;
+}
+
+.board-header-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.search-notice,
+.search-notice-result {
+  padding-bottom: 5px;
+  font-size: 20px;
 }
 
 .input-keyword {
@@ -163,6 +205,18 @@ hr {
   font-weight: normal;
   font-style: normal;
   text-decoration: none;
+}
+
+.board-list-nosearchresult {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .board-list-items {
