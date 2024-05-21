@@ -11,20 +11,16 @@
       <div>
         <div class="board-list-items">
           <div class="board-list-name">
-            <div class="board-item-title">
-              제목
-            </div>
-            <div class="board-item-writer">
-              작성자
-            </div>
-            <div class="board-item-datetime">
-              작성일
-            </div>
-            <div class="board-item-view-count">
-              조회수
-            </div>
+            <div class="board-item-title">제목</div>
+            <div class="board-item-writer">작성자</div>
+            <div class="board-item-datetime">작성일</div>
+            <div class="board-item-view-count">조회수</div>
           </div>
-          <div v-for="board in store.boardList" :key="board.boardId" class="board-list-item">
+          <div
+            v-for="board in store.boardList"
+            :key="board.boardId"
+            class="board-list-item"
+          >
             <div class="board-item-title">
               <RouterLink :to="`/board/${board.boardId}`">
                 {{ board.title }}
@@ -78,7 +74,6 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  flex-wrap: wrap;
   width: 70%;
 }
 
@@ -122,15 +117,27 @@ hr {
   box-sizing: border-box;
 }
 
-.board-list-name>div {
+.board-list-name > div {
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .board-list-item {
-  background-image: -webkit-linear-gradient(left, #b4b4b4, #b4b4b4 1px, transparent 1px, transparent 3px);
-  background-image: linear-gradient(to right, #b4b4b4, #b4b4b4 1px, transparent 1px, transparent 3px);
+  background-image: -webkit-linear-gradient(
+    left,
+    #b4b4b4,
+    #b4b4b4 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  background-image: linear-gradient(
+    to right,
+    #b4b4b4,
+    #b4b4b4 1px,
+    transparent 1px,
+    transparent 3px
+  );
   background-repeat: repeat-x;
   background-position: left top;
   background-size: 4px 1px;
@@ -152,7 +159,7 @@ hr {
   padding-left: 15px;
 }
 
-.board-item-title>a {
+.board-item-title > a {
   padding-left: 5px;
 }
 
