@@ -7,6 +7,7 @@
       :key="mySchedule.scheduleId"
       :clubName="myClub.clubName"
       :mySchedule="mySchedule"
+      :loginUser="loginUser"
     />
   </div>
 </template>
@@ -15,6 +16,7 @@
 import MyScheduleListItem from "./MyScheduleListItem.vue";
 
 defineProps({
+  loginUser: Object,
   myClub: Object,
   myScheduleList: Object,
 });

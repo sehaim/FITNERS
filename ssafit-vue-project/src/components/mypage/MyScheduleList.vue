@@ -5,6 +5,7 @@
       :key="myClub.clubId"
       :myClub="myClub"
       :myScheduleList="store.myScheduleList"
+      :loginUser="loginUser"
     />
   </div>
 </template>
