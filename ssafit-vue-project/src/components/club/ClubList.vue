@@ -1,7 +1,7 @@
 <template>
   <div id="club-container">
     <div id="page-title">
-      Club List
+      전체 클럽 목록
       <hr />
     </div>
 
@@ -44,6 +44,7 @@ onMounted(() => {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding: 0 2%;
 }
 
 hr {
