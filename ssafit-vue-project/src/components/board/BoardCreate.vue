@@ -1,7 +1,7 @@
 <template>
     <div id="board-container">
         <div id="page-title">
-            게시글 등록
+            자유게시판
             <hr />
         </div>
         <div class="board-create-view-body">
@@ -53,6 +53,25 @@ const props = defineProps({
 
 const writeTime = ref("");
 
+const monthNamesToNumbers = {
+    "January": "01",
+    "February": "02",
+    "March": "03",
+    "April": "04",
+    "May": "05",
+    "June": "06",
+    "July": "07",
+    "August": "08",
+    "September": "09",
+    "October": "10",
+    "November": "11",
+    "December": "12"
+};
+
+function convertMonthNameToNumber(monthName) {
+    return monthNamesToNumbers[monthName] || null;
+}
+
 const serverTime = function () {
     var xmlHttp;
 
@@ -72,7 +91,13 @@ const serverTime = function () {
 
     var time = new Date(curr).toTimeString().slice(0, 8);
 
-    writeTime.value = time + date;
+    var year = date.slice(8, 13);
+
+    var month = convertMonthNameToNumber(date.slice(1, 4).toString());
+
+    var day = date.slice(5, 8);
+
+    writeTime.value = year + "-" + month + "-" + day + time;
 }
 
 const board = ref({
@@ -82,6 +107,14 @@ const board = ref({
 })
 
 const createBoard = function () {
+    if (board.value.title.trim() === "") {
+        alert("제목을 입력하세요.");
+        return;
+    }
+    if (board.value.content.trim() === "") {
+        alert("내용을 입력하세요.");
+        return;
+    }
     store.createBoard(board.value)
 };
 
@@ -122,6 +155,7 @@ onMounted(() => {
 .board-create-view-body {
     width: 80%;
     height: auto;
+    max-width: 1000px;
 }
 
 .board-create-view-wrap {
@@ -140,6 +174,7 @@ onMounted(() => {
     border-style: none;
     outline: none;
     font-size: 20px;
+    font-weight: 600;
     line-height: 100%;
     padding-left: 10px;
     width: 100%;

@@ -1,7 +1,7 @@
 <template>
     <div id="board-container">
         <div id="page-title">
-            게시글 상세보기
+            자유게시판
             <hr />
         </div>
         <div class="board-detail-view-body">
@@ -69,6 +69,7 @@ const moveUpdate = function () {
         query: {
             boardId: store.board.boardId,
             title: store.board.title, 
+            content: store.board.content,
             userId: store.board.userId,
             writeTime: store.board.createdAt
         }
@@ -98,7 +99,8 @@ const moveList = function () {
 }
 
 .board-detail-view-body {
-    width: 80%
+    width: 80%;
+    max-width: 1000px;
 }
 
 .board-datail-view-wrap {
@@ -113,7 +115,7 @@ const moveList = function () {
 
 .board-title-text {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     color: #000;
     line-height: 100%;
     padding-left: 10px;
