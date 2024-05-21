@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafit.model.dao.MemberDao;
 import com.ssafit.model.dto.Member;
+import com.ssafit.model.dto.MemberRegist;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -30,8 +31,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Transactional
 	@Override
-	public List<Member> getClubRegistList(String userId) {
-		List<Member> list = memberDao.selectClubRegistList(userId);
+	public List<MemberRegist> getClubRegistList(String userId) {
+		List<MemberRegist> list = memberDao.selectClubRegistList(userId);
 		return list;
 	}
 
