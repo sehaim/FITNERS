@@ -70,7 +70,6 @@ const router = createRouter({
           path: ":clubId",
           name: "clubDetail",
           component: ClubDetail,
-          props: true,
         },
       ],
     },

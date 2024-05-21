@@ -35,6 +35,14 @@ const route = useRoute();
 
 const clubId = ref(route.params.clubId);
 
+defineProps({
+  clubId: Number,
+  clubName: String,
+  clubDescription: String,
+  userId: String,
+  userName: String
+})
+
 onMounted(() => {
   store.addIsActive = false;
   store.updateIsActive = false;
