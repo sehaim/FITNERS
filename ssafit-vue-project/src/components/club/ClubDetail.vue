@@ -83,8 +83,21 @@ onMounted(() => {
 
 #club-name {
   color: rgb(54, 51, 51);
+  animation-duration: 3s;
+  animation-name: fadeInDown;
 }
 
+@keyframes fadeInDown {
+  0% {
+      opacity: 0;
+      transform: translate3d(0, -100%, 0);
+    }
+  to {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+}
+ 
 #club-description {
   font-size: 20px;
 }

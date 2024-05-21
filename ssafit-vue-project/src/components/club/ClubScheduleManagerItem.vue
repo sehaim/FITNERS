@@ -1,16 +1,23 @@
 <template>
   <div id="club-schedule-manager-item">
-    <div id="date">
-      <strong>{{ sliceDate(clubSchedule.schedule) }}</strong>
+    <div id="date-time">
+      <div id="date">
+        <strong>{{ sliceDate(clubSchedule.schedule) }}</strong>
+      </div>
+      <div id="time">
+        {{ sliceHour(clubSchedule.schedule) }}시
+        {{ sliceMinute(clubSchedule.schedule) }}분
+      </div>
     </div>
-    <div id="time">
-      {{ sliceHour(clubSchedule.schedule) }}시
-      {{ sliceMinute(clubSchedule.schedule) }}분
-    </div>
+    <button @click="deleteClubSchedule">X</button>
   </div>
 </template>
 
 <script setup>
+import { useClubStore } from "@/stores/club.js";
+
+const store = useClubStore();
+
 const props = defineProps({
   clubSchedule: Object,
 });
@@ -26,6 +33,10 @@ const sliceHour = function (schedule) {
 const sliceMinute = function (schedule) {
   return schedule.slice(14, 16);
 };
+
+const deleteClubSchedule = function () {
+  store.deleteClubSchedule(props.clubSchedule.scheduleId);
+}
 </script>
 
 <style scoped>
@@ -42,9 +53,22 @@ const sliceMinute = function (schedule) {
   margin: 10px;
   border-radius: 10px;
   padding: 0 30px;
+  justify-content: space-between;
+}
+
+#date-time {
+  display: flex;
+  flex-direction: row;
 }
 
 #time {
   margin-left: 30px;
+}
+
+button {
+  border-style: none;
+  background-color: transparent;
+  font-size: 15px;
+  color: #799dbb;
 }
 </style>

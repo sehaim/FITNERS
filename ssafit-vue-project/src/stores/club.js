@@ -101,8 +101,7 @@ export const useClubStore = defineStore(
           location.reload();
         })
         .catch(() => {
-          // 이미 등록된 일정입니다. 만들기
-          router.push({ name: "notFound" });
+          alert("이미 등록된 일정입니다.")
         });
     };
 
@@ -122,8 +121,7 @@ export const useClubStore = defineStore(
           addIsActive.value = true;
         })
         .catch(() => {
-          // 이미 등록된 일정입니다.
-          router.push({ name: "notFound" });
+          alert("이미 등록된 일정입니다.")
         });
     };
 
@@ -163,6 +161,19 @@ export const useClubStore = defineStore(
         });
     };
 
+    const deleteClubSchedule = function(scheduleId) {
+      axios({
+        url: REST_CLUB_API + "/club/schedule/" + `${scheduleId}`,
+        method: 'DELETE'
+      })
+        .then(() => {
+          location.reload();
+        })
+        .catch(() => {
+          router.push({ name: "notFound" });
+        });
+    }
+
     return {
       clubList,
       getClubList,
@@ -181,6 +192,7 @@ export const useClubStore = defineStore(
       updateIsActive,
       update,
       updateClubBoard,
+      deleteClubSchedule
     };
   },
   {
