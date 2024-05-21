@@ -1,8 +1,19 @@
 <template>
   <div id="club-board-update-container">
-    <input type="text" v-model="store.clubBoard.title" id="board-update-title">
+    <button id="close-button" @click="$emit('closeEvent')">x</button>
+    <input
+      type="text"
+      v-model="store.clubBoard.title"
+      id="board-update-title"
+      class="form-check-input"
+    />
     <hr />
-    <input type="text" v-model="store.clubBoard.content" id="board-update-content">
+    <input
+      type="text"
+      v-model="store.clubBoard.content"
+      id="board-update-content"
+      class="form-check-input"
+    />
     <button id="update-btn" @click="updateClubBoard">등록</button>
   </div>
 </template>
@@ -12,13 +23,13 @@ import { useClubStore } from "@/stores/club.js";
 
 const store = useClubStore();
 
-const updateClubBoard = function() {
+const updateClubBoard = function () {
   store.updateClubBoard(props.clubId);
-}
+};
 
 const props = defineProps({
-  clubId: Number
-})
+  clubId: Number,
+});
 </script>
 
 <style scoped>
@@ -36,7 +47,7 @@ const props = defineProps({
   justify-content: space-between;
   box-shadow: 0px 0.5px 2px 1px #cbcac8;
   border-radius: 5px;
-  padding: 1%;
+  padding: 5px 10px 1% 1%;
 }
 
 #close-button {
@@ -45,11 +56,6 @@ const props = defineProps({
   border-style: none;
   color: rgb(139, 137, 137);
   margin-left: 90%;
-}
-
-img {
-  width: 25px;
-  margin-right: 10px;
 }
 
 #content {
@@ -70,5 +76,34 @@ img {
   background-color: #ffdc5cc3;
   color: rgb(71, 69, 69);
   font-size: 14px;
+}
+
+input {
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(230, 224, 224);
+  border-radius: 20px;
+  color: rgb(71, 69, 69);
+  padding: 2% 3%;
+}
+
+#board-update-title {
+  height: 10%;
+}
+
+#board-update-content {
+  height: 60%;
+}
+
+#update-btn {
+  font-size: 15px;
+  color: rgb(255, 255, 255);
+  border-style: none;
+  border-radius: 20px;
+  width: 50px;
+  height: 25px;
+  background-color: rgb(131, 138, 231);
+  margin-top: 10px;
 }
 </style>
