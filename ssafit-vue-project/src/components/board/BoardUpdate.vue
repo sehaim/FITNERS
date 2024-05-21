@@ -1,7 +1,7 @@
 <template>
     <div id="board-container">
         <div id="page-title">
-            게시글 수정
+            자유게시판
             <hr />
         </div>
         <div class="board-update-view-body">
@@ -52,16 +52,21 @@ const store = useBoardStore();
 const props = defineProps({
     boardId: Number,
     title: String,
+    content: String,
     userId: String,
     writeTime: String
 });
 
 const board = ref({
     boardId: props.boardId,
-    content: ""
+    content: props.content
 })
 
 const updateBoard = function () {
+    if (board.value.content.trim() === "") {
+        alert("내용을 입력하세요.");
+        return;
+    }
     store.updateBoard(board.value)
 };
 
@@ -101,6 +106,7 @@ onMounted(() => {
 .board-update-view-body {
     width: 80%;
     height: auto;
+    max-width: 1000px;
 }
 
 .board-update-view-wrap {
@@ -114,14 +120,12 @@ onMounted(() => {
     padding-bottom: 5px;
 }
 
-.input-title {
-    background-color: white;
-    border-style: none;
-    outline: none;
+.board-title-text {
     font-size: 20px;
+    font-weight: 600;
+    color: #000;
     line-height: 100%;
     padding-left: 10px;
-    width: 100%;
 }
 
 .board-view-info {
