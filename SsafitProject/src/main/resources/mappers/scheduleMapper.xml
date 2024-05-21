@@ -20,7 +20,6 @@
 		FROM Club_schedule
 		WHERE club_id = ${clubId}
 		ORDER BY schedule;
-		
 	</select>
 
 	<select id="getUserSchedule" resultType="UserScheduleSearchResult" parameterType="String">
@@ -76,6 +75,18 @@
 		DELETE
 		FROM User_schedule
 		WHERE schedule_id = #{scheduleId};
+	</delete>
+	
+	<delete id="deleteAutoClubSchedule">
+		DELETE
+		FROM Club_schedule
+		WHERE schedule <![CDATA[ < ]]> now();
+	</delete>
+
+	<delete id="deleteAutoUserSchedule">
+		DELETE
+		FROM User_schedule
+		WHERE schedule <![CDATA[ < ]]> now();
 	</delete>
 
 </mapper>
