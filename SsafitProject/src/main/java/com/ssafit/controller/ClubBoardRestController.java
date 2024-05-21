@@ -41,11 +41,12 @@ public class ClubBoardRestController {
 		ClubBoardSearchResult clubBoardSearchResult = clubBoardService.getClubBoardDetail(clubId);
 
 		if (clubBoardSearchResult == null) {
-			clubBoardSearchResult = new ClubBoardSearchResult();
-			clubBoardSearchResult.setClubId(clubId);
-			clubBoardSearchResult.setContent("아직 공지사항이 없습니다.");
-			LocalDateTime dateTime = LocalDateTime.now();
-			clubBoardSearchResult.setCreatedAt(dateTime.toString());
+			ClubBoard clubBoard = new ClubBoard();
+			clubBoard.setClubId(clubId);
+			clubBoard.setTitle("");
+			clubBoard.setContent("아직 공지사항이 없습니다.");
+			clubBoardService.writeClubBoard(clubBoard);
+			clubBoardSearchResult = clubBoardService.getClubBoardDetail(clubId);
 		}
 		
 		return new ResponseEntity<>(clubBoardSearchResult, HttpStatus.OK);

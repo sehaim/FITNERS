@@ -1,36 +1,44 @@
 <template>
   <div id="club-board-detail-container">
     <div id="board-detail">
-      <div id="board-title">
-        <div id="title">{{ store.clubBoard.title }}</div>
-        <div id="board-manager-btn" v-if="store.loginUser.isManager">
-          <button>수정</button>
-        </div>
+      <div id="title" v-if="store.clubBoard.title == '' ">{{ store.clubBoard.title }}</div>
+      <hr v-if="store.clubBoard.title == ''"/>
+      <div id="middle-content">
+        <button v-if="store.loginUser.isManager" @click="update">수정</button>
+        <div id="btn-space" v-else></div>
+        <div id="board-created">{{ sliceDate(store.clubBoard.createdAt) }}</div>
       </div>
-      <hr />
-      <div id="board-created">{{ sliceDate(store.clubBoard.createdAt) }}</div>
       <div id="board-content">
         <div id="content">{{ store.clubBoard.content }}</div>
       </div>
     </div>
+    <ClubBoardUpdate v-if="store.updateIsActive" :clubId="props.clubId" />
   </div>
 </template>
 
 <script setup>
 import { onMounted } from "vue";
 import { useClubStore } from "@/stores/club.js";
+import ClubBoardUpdate from "./ClubBoardUpdate.vue";
 
 const store = useClubStore();
 
-onMounted(() => {
-  store.getClubBoard();
+const props = defineProps({
+  clubId: Number
 })
 
+onMounted(() => {
+  store.getClubBoard(props.clubId);
+})
 
 const sliceDate = function (date) {
   if(date != null) {
     return date.toString().slice(0,10);
   }
+}
+
+const update = function() {
+  store.update();
 }
 </script>
 
@@ -40,7 +48,10 @@ const sliceDate = function (date) {
   display: flex;
   flex-direction: column;
   padding: 3%;
-  justify-content: space-between;
+}
+
+#board-detail > * {
+  margin: 2% 0;
 }
 
 #title {
@@ -52,9 +63,30 @@ hr {
   width: 100%;
 }
 
+#middle-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+button {
+  font-size: 15px;
+  color: rgb(255, 255, 255);
+  border-style: none;
+  border-radius: 20px;
+  width: 50px;
+  height: 25px;
+  background-color: rgb(131, 138, 231);
+}
+
+#btn-space {
+  width: 50px;
+  height: 25px;
+}
+
 #board-created {
   color: rgb(87, 86, 86);
-  text-align: right;
 }
 
 #board-content {
