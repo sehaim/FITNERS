@@ -70,6 +70,7 @@ export const useUserStore = defineStore("user", () => {
         localStorage.clear();
         getLoginUser.value = JSON.parse(localStorage.getItem("loginUser"));
         router.push({ name: "home" });
+        location.reload();
       })
       .catch(() => {
         router.push({ name: "notFound" });

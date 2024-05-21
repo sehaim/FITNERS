@@ -1,7 +1,7 @@
 <template>
   <div id="club-schedule-regist-container">
     <button id="close-button" @click="$emit('closeEvent')">x</button>
-    <input type="datetime-local" v-model="schedule">
+    <input type="datetime-local" v-model="schedule" />
     <button id="regist-button" @click="registSchedule">등록</button>
   </div>
 </template>
@@ -12,12 +12,11 @@ import { useClubStore } from "@/stores/club";
 
 const store = useClubStore();
 
-const schedule = ref("")
+const schedule = ref("");
 
-const registSchedule = function() {
-  store.registSchedule(schedule)
-}
-
+const registSchedule = function () {
+  store.registSchedule(schedule);
+};
 </script>
 
 <style scoped>
@@ -27,8 +26,9 @@ const registSchedule = function() {
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 40vh;
-  left: 37vw;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
   background-color: white;
   align-items: center;
   justify-content: space-between;
@@ -65,5 +65,4 @@ input {
   color: rgb(71, 69, 69);
   font-size: 14px;
 }
-
 </style>

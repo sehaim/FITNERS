@@ -20,7 +20,6 @@ import { onMounted } from "vue";
 import { useClubStore } from "@/stores/club.js";
 import ClubListItem from "@/components/club/ClubListItem.vue";
 
-
 const store = useClubStore();
 
 onMounted(() => {

@@ -16,9 +16,13 @@ import MyMemberListByClub from "./MyMemberListByClub.vue";
 
 const store = useMypageStore();
 
+const props = defineProps({
+  loginUser: Object,
+});
+
 onMounted(() => {
-  store.getMyClubList();
-  store.getMemberRegistList();
+  store.getMyClubList(props.loginUser.userId);
+  store.getMemberRegistList(props.loginUser.userId);
 });
 </script>
 

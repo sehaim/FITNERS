@@ -41,6 +41,7 @@ export const useClubStore = defineStore(
           .get(`${REST_CLUB_API}/${clubId}/${loginUser.value.userId}`)
           .then((res) => {
             status.value = res.data;
+            console.log(status.value);
             if (status.value === "COMPLETED") {
               axios({
                 url: REST_CLUB_API + "/schedule",
@@ -134,30 +135,33 @@ export const useClubStore = defineStore(
 
     const getClubBoard = function (clubId) {
       loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
-      axios.get(`${REST_CLUB_API}/board/${clubId}`)
-      .then((res) => {
-        clubBoard.value = res.data
-      })
-      .catch(() => {
-        router.push({ name: "notFound" })
-      })
-    }
+      axios
+        .get(`${REST_CLUB_API}/board/${clubId}`)
+        .then((res) => {
+          clubBoard.value = res.data;
+        })
+        .catch(() => {
+          router.push({ name: "notFound" });
+        });
+    };
 
     const updateIsActive = ref(false);
 
-    const update = function() {
+    const update = function () {
       updateIsActive.value = true;
-    }
+    };
 
     const updateClubBoard = function (clubId) {
-      axios.put(REST_CLUB_API + "/board/" + `${clubId}`, clubBoard.value)
-      .then(() => {
-        updateIsActive.value = false;
-      })
-      .catch(() => {
-        router.push({ name: "notFound" })
-      })
-    }
+      axios
+        .put(REST_CLUB_API + "/board/" + `${clubId}`, clubBoard.value)
+        .then(() => {
+          updateIsActive.value = false;
+          location.reload();
+        })
+        .catch(() => {
+          router.push({ name: "notFound" });
+        });
+    };
 
     return {
       clubList,
@@ -176,7 +180,7 @@ export const useClubStore = defineStore(
       getClubBoard,
       updateIsActive,
       update,
-      updateClubBoard
+      updateClubBoard,
     };
   },
   {
