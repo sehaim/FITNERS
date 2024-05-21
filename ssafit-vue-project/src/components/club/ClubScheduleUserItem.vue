@@ -15,7 +15,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { useClubStore } from "@/stores/club";
 import ClubToMypage from "./ClubToMypage.vue";
 

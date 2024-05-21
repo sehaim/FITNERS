@@ -5,7 +5,7 @@
         Welcome <span id="club-name">{{ store.club.clubName }}</span> !
       </div>
       <div id="club-description">{{ store.club.clubDescription }}</div>
-      <div id="club-manager-name">관리자 &nbsp &nbsp<strong id="name">{{ store.club.userName }}</strong></div>
+      <div id="club-manager-name">관리자 &nbsp;&nbsp;<strong id="name">{{ store.club.userName }}</strong></div>
     </div>
     <div id="club-detail-content">
       <ClubMemberNone v-if="store.status === 'NONE'" :clubId="clubId" />
@@ -13,6 +13,7 @@
       <ClubMemberDetail
         id="club-member-detail"
         v-if="store.status === 'COMPLETED'"
+        :clubId="clubId"
       />
       <ClubManagerNone v-if="store.status === 'MANAGER'" />
     </div>
@@ -35,7 +36,11 @@ const route = useRoute();
 const clubId = ref(route.params.clubId);
 
 onMounted(() => {
+  store.addIsActive = false;
+  store.updateIsActive = false;
+  clubId.value = route.params.clubId
   store.getClub(clubId.value);
+  store.getClubBoard(clubId.value);
 });
 </script>
 
