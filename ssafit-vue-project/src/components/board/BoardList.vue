@@ -34,11 +34,6 @@
       </div>
       <div>
         <div class="board-list-items">
-          <div class="board-list-name">
-            <div class="board-item-title">제목</div>
-            <div class="board-item-writer">작성자</div>
-            <div class="board-item-datetime">작성일</div>
-            <div class="board-item-view-count">조회수</div>
           <div v-if="store.doSearch && store.noSearchResult" class="board-list-nosearchresult">
             <div class="search-notice-result">
               <span>
