@@ -42,12 +42,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Transactional
 	@Override
 	public List<ClubSchedule> searchClubScheduleList(int clubId) {
+		scheduleDao.deleteAutoClubSchedule();
 		return scheduleDao.getClubSchedule(clubId);
 	}
 
 	@Transactional
 	@Override
 	public List<UserScheduleSearchResult> searchUserScheduleList(String userId) {
+		scheduleDao.deleteAutoUserSchedule();
 		return scheduleDao.getUserSchedule(userId);
 	}
 

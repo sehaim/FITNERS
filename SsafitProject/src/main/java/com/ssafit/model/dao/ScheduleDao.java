@@ -44,5 +44,11 @@ public interface ScheduleDao {
 
 	// 유저 일정 삭제
 	public int deleteUserSchedule(int scheduleId);
+	
+	// 클럽 일정 자동 삭제
+	public int deleteAutoClubSchedule();
+
+	// 유저 일정 자동 삭제
+	public int deleteAutoUserSchedule();
 
 }
