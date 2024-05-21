@@ -29,11 +29,11 @@
                     &nbsp;
                 </div>
                 <div class="board-list-button-wrapper">
-                    <button v-if="store.board.userId == store.loginUser.userId" @click="moveUpdate"
+                    <button v-if="store.loginUser !== null && store.board.userId == store.loginUser.userId" @click="moveUpdate"
                         class="board-update-button">
                         수정
                     </button>
-                    <button v-if="store.board.userId == store.loginUser.userId" @click="deleteBoard"
+                    <button v-if="store.loginUser !== null && store.board.userId == store.loginUser.userId" @click="deleteBoard"
                         class="board-delete-button">
                         삭제
                     </button>
