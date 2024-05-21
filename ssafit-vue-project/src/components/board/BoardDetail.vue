@@ -1,7 +1,7 @@
 <template>
     <div id="board-container">
         <div id="page-title">
-            게시글 상세보기
+            자유게시판
             <hr />
         </div>
         <div class="board-detail-view-body">
@@ -13,10 +13,10 @@
                 </div>
                 <div class="board-view-info">
                     <div class="board-userId">
-                        {{ store.board.userId }}
+                        작성자 : {{ store.board.userId }}
                     </div>
                     <div class="board-datetime">
-                        {{ store.board.createdAt }}
+                        작성시간 : {{ store.board.createdAt }}
                     </div>
                 </div>
                 <div class="board-content-line">
@@ -29,10 +29,12 @@
                     &nbsp;
                 </div>
                 <div class="board-list-button-wrapper">
-                    <button v-if="store.board.userId == store.loginUser.userId" @click="moveUpdate" class="board-update-button">
+                    <button v-if="store.board.userId == store.loginUser.userId" @click="moveUpdate"
+                        class="board-update-button">
                         수정
                     </button>
-                    <button v-if="store.board.userId == store.loginUser.userId" @click="deleteBoard" class="board-delete-button">
+                    <button v-if="store.board.userId == store.loginUser.userId" @click="deleteBoard"
+                        class="board-delete-button">
                         삭제
                     </button>
                     <button @click="moveList" class="board-list-button">
@@ -62,16 +64,20 @@ onMounted(() => {
 });
 
 const moveUpdate = function () {
-    router.push({ name: "boardUpdate" });
+    router.push({
+        name: 'boardUpdate',
+        query: {
+            boardId: store.board.boardId,
+            title: store.board.title, 
+            content: store.board.content,
+            userId: store.board.userId,
+            writeTime: store.board.createdAt
+        }
+    });
 };
 
 const deleteBoard = function () {
-    axios
-        .delete(`http://localhost:8080/ssafit/board/${route.params.boardId}`)
-        .then(() => {
-            router.push({ name: "boardList" });
-        })
-        .catch(() => { });
+    store.deleteBoard(store.board.boardId);
 };
 
 const moveList = function () {
@@ -93,7 +99,8 @@ const moveList = function () {
 }
 
 .board-detail-view-body {
-    width: 80%
+    width: 80%;
+    max-width: 1000px;
 }
 
 .board-datail-view-wrap {
@@ -108,7 +115,7 @@ const moveList = function () {
 
 .board-title-text {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     color: #000;
     line-height: 100%;
     padding-left: 10px;
@@ -197,7 +204,9 @@ const moveList = function () {
 
 }
 
-.board-update-button, .board-delete-button, .board-list-button {
+.board-update-button,
+.board-delete-button,
+.board-list-button {
     display: inline-block;
     margin-bottom: 0;
     padding: 6px 14px;
@@ -211,6 +220,5 @@ const moveList = function () {
     font-weight: normal;
     font-style: normal;
     text-decoration: none;
-}
-</style>
+}</style>
   

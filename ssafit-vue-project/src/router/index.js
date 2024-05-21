@@ -34,12 +34,20 @@ const router = createRouter({
         {
           path: 'create',
           name: 'boardCreate',
-          component: BoardCreate
+          component: BoardCreate,
+          props: route => ({ userId: route.query.userId })
         },
         {
           path: 'update',
           name: 'boardUpdate',
-          component: BoardUpdate
+          component: BoardUpdate,
+          props: route => ({
+            boardId: route.query.boardId,
+            title: route.query.title, 
+            content: route.query.content,
+            userId: route.query.userId,
+            writeTime: route.query.writeTime
+          })
         },
         {
           path: ':id',

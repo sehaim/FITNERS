@@ -11,10 +11,17 @@
 	</select>
 
 	<!-- 상세 게시글 조회 -->
-	<select id="selectOne"  resultType="Board" parameterType="int">
+	<select id="selectOne" resultType="Board" parameterType="int">
 		SELECT * 
 		FROM board
 		WHERE board_id = ${BoardId};
+	</select>
+	
+	<!-- 게시글 이름으로 조회 -->
+	<select id="selectBoardListByTitle" resultType="Board" parameterType="String">
+		SELECT *
+		FROM board
+ 		WHERE title LIKE CONCAT('%', #{title}, '%');
 	</select>
 	
 	<!-- 인기 게시글 조회 -->

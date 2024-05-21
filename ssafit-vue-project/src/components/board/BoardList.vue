@@ -1,12 +1,36 @@
 <template>
   <div id="board-container">
     <div id="page-title">
-      Board List
+      자유게시판
       <hr />
     </div>
-    <div id="board-list">
-      <div class="search">
-        <h5>검색창을 만들 자리입니다</h5>
+    <div class="board-list-body">
+      <div class="board-header">
+        <div class="search">
+          <div>
+            <input type="text" class="input-keyword" placeholder="제목으로 검색" v-model="search.title">
+            <button @click="searchBoardList" class="board-search-button">
+              검색
+            </button>
+          </div>
+        </div>
+        <div v-if="store.loginUser !== null && !store.doSearch" class="insert">
+          <button @click="moveCreateBoard" class="board-write-button">
+            게시글 등록
+          </button>
+        </div>
+        <div v-if="store.doSearch" class="insert">
+          <button @click="moveList" class="board-list-button">
+            목록
+          </button>
+        </div>
+      </div>
+      <div v-if="store.doSearch" class="board-header-search">
+        <div class="search-notice">
+          <span>
+            검색 결과
+          </span>
+        </div>
       </div>
       <div>
         <div class="board-list-items">
@@ -15,6 +39,26 @@
             <div class="board-item-writer">작성자</div>
             <div class="board-item-datetime">작성일</div>
             <div class="board-item-view-count">조회수</div>
+          <div v-if="store.doSearch && store.noSearchResult" class="board-list-nosearchresult">
+            <div class="search-notice-result">
+              <span>
+                검색 결과가 없습니다.
+              </span>
+            </div>
+          </div>
+          <div v-if="store.boardList.length > 0" class="board-list-name">
+            <div class="board-item-title">
+              제목
+            </div>
+            <div class="board-item-writer">
+              작성자
+            </div>
+            <div class="board-item-datetime">
+              작성일
+            </div>
+            <div class="board-item-view-count">
+              조회수
+            </div>
           </div>
           <div
             v-for="board in store.boardList"
@@ -45,11 +89,37 @@
 <script setup>
 import { useBoardStore } from "@/stores/board.js";
 import { onMounted, ref } from "vue";
+import { useRouter } from 'vue-router';
 
 const store = useBoardStore();
 
+const router = useRouter();
+
 const sliceDateTime = function (schedule) {
   return schedule.slice(2, 16);
+};
+
+const search = ref({
+  title: ""
+})
+
+const searchBoardList = function () {
+  if (search.value.title.trim() === "") {
+    alert("검색어를 입력하세요.");
+    return;
+  }
+  store.searchBoardList(search.value.title);
+}
+
+const moveCreateBoard = function () {
+  router.push({
+    name: 'boardCreate',
+    query: { userId: store.loginUser.userId }
+  });
+}
+
+const moveList = function () {
+    router.go(0);
 };
 
 onMounted(() => {
@@ -70,21 +140,89 @@ onMounted(() => {
   width: 95%;
 }
 
-#board-list {
+.board-list-body {
   display: flex;
   justify-content: center;
   flex-direction: column;
   width: 70%;
+  max-width: 1000px;
 }
 
 hr {
   width: 100%;
 }
 
-.search {
+.search,
+.insert {
   text-align: center;
+  margin: 10px;
+}
+
+.board-header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
   margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.board-header-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.search-notice,
+.search-notice-result {
+  padding-bottom: 5px;
+  font-size: 20px;
+}
+
+.input-keyword {
+  display: inline-block;
+  margin-bottom: 0;
+  margin-right: 5px;
+  padding: 6px 14px;
+  outline: 0px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background: #FFFFFF;
+  border-color: #929397;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.board-list-button, 
+.board-write-button,
+.board-search-button {
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 6px 14px;
+  outline: 0px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background: #FFFFFF;
+  border-color: #929397;
+  text-align: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.board-list-nosearchresult {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
   margin-bottom: 20px;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .board-list-items {
