@@ -132,11 +132,27 @@ export const useClubStore = defineStore(
 
     const clubBoard = ref({});
 
-    const getClubBoard = function () {
+    const getClubBoard = function (clubId) {
       loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
-      axios.get(`${REST_CLUB_API}/board/${club.value.clubId}`)
+      axios.get(`${REST_CLUB_API}/board/${clubId}`)
       .then((res) => {
         clubBoard.value = res.data
+      })
+      .catch(() => {
+        router.push({ name: "notFound" })
+      })
+    }
+
+    const updateIsActive = ref(false);
+
+    const update = function() {
+      updateIsActive.value = true;
+    }
+
+    const updateClubBoard = function (clubId) {
+      axios.put(REST_CLUB_API + "/board/" + `${clubId}`, clubBoard.value)
+      .then(() => {
+        updateIsActive.value = false;
       })
       .catch(() => {
         router.push({ name: "notFound" })
@@ -157,7 +173,10 @@ export const useClubStore = defineStore(
       addIsActive,
       close,
       clubBoard,
-      getClubBoard
+      getClubBoard,
+      updateIsActive,
+      update,
+      updateClubBoard
     };
   },
   {

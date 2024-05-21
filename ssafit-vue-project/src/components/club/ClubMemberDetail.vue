@@ -1,13 +1,17 @@
 <template>
   <div id="club-member-detail-container">
     <ClubSchedule />
-    <ClubBoard />
+    <ClubBoard :clubId="clubId"/>
   </div>
 </template>
 
 <script setup>
 import ClubSchedule from "./ClubSchedule.vue";
 import ClubBoard from "./ClubBoard.vue";
+
+defineProps ({
+  clubId: Number
+})
 </script>
 
 <style scoped>

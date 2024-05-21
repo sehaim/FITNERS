@@ -6,12 +6,16 @@
         <div>Notice</div>
       </div>
     </div>
-    <ClubBoardDetail />
+    <ClubBoardDetail :clubId="clubId"/>
   </div>
 </template>
 
 <script setup>
 import ClubBoardDetail from './ClubBoardDetail.vue';
+
+defineProps({
+  clubId: Number
+})
 </script>
 
 <style scoped>
