@@ -167,6 +167,7 @@ const moveList = function () {
     word-wrap: break-word;
     word-break: break-all;
     box-sizing: border-box;
+    white-space:pre-wrap;
 }
 
 .board-list-button-wrapper {
