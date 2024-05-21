@@ -10,6 +10,9 @@ public interface BoardDao {
 
 	// 게시글 상세 조회
 	public Board selectOne(int BoardId);
+	
+	// 게시글 이름으로 조회
+	public List<Board> selectBoardListByTitle(String title);
 
 	// 인기 게시글 조회
 	public List<Board> selectPopularBoard(String startDate);

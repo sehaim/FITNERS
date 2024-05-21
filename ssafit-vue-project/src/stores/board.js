@@ -8,15 +8,20 @@ const REST_BOARD_API = `http://localhost:8080/ssafit/board`
 export const useBoardStore = defineStore('board', () => {
   const loginUser = ref({})
 
+  const doSearch = ref(false)
+  const noSearchResult = ref(false)
+
   const boardList = ref([])
 
   const getBoardList = function () {
+    loginUser.value = JSON.parse(localStorage.getItem("loginUser"))
     axios({
       url: REST_BOARD_API,
       method: "GET",
     })
       .then((response) => {
         boardList.value = response.data
+        doSearch.value = false;
       })
       .catch(() => {
         router.push({ name: "notFound" });
@@ -53,13 +58,13 @@ export const useBoardStore = defineStore('board', () => {
       })
   }
 
-  const updateBoard = function () {
+  const updateBoard = function (board) {
     axios({
-      url: REST_BOARD_API + "/" + `${boardId}`,
+      url: REST_BOARD_API + "/" + `${board.boardId}`,
       method: 'PUT',
       data: board
     })
-      .then((response) => {
+      .then(() => {
         router.push({ name: 'boardList' })
       })
       .catch(() => {
@@ -67,6 +72,37 @@ export const useBoardStore = defineStore('board', () => {
       });
   }
 
-  
-  return { boardList, getBoardList, board, createBoard, getBoard, updateBoard, loginUser }
+  const deleteBoard = function (boardId) {
+    axios({
+      url: REST_BOARD_API + "/" + `${boardId}`,
+      method: 'DELETE'
+    })
+      .then(() => {
+        router.push({ name: 'boardList' })
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  }
+
+  const searchBoardList = function (title) {
+    axios({
+      url: REST_BOARD_API + "/search/" + `${title}`,
+      method: 'GET'
+    })
+      .then((response) => {
+        boardList.value = response.data
+        doSearch.value = true;
+        if (response.data === "") {
+          noSearchResult.value = true;
+        } else {
+          noSearchResult.value = false;
+        }
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  }
+
+  return { boardList, getBoardList, board, createBoard, getBoard, updateBoard, deleteBoard, searchBoardList, loginUser, noSearchResult, doSearch }
 })

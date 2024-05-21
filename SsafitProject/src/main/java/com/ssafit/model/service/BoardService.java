@@ -11,6 +11,9 @@ public interface BoardService {
 	// 게시글 상세 조회
 	public Board searchBoardDetail(int BoardId);
 
+	// 게시글 이름으로 조회
+	public List<Board> searchBoardListByTitle(String title);
+
 	// 인기 게시글 조회
 	public List<Board> searchPopularBoard(String startDate);
 
