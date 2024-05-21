@@ -21,10 +21,9 @@ export const useMypageStore = defineStore("mypage", () => {
 
   const myClubList = ref([]);
 
-  const getMyClubList = function () {
-    loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
+  const getMyClubList = function (userId) {
     axios
-      .get(`${REST_MYPAGE_API}/${loginUser.value.userId}/club`)
+      .get(`${REST_MYPAGE_API}/${userId}/club`)
       .then((res) => {
         myClubList.value = res.data["clubList"];
       })
@@ -35,10 +34,9 @@ export const useMypageStore = defineStore("mypage", () => {
 
   const myScheduleList = ref([]);
 
-  const getMyScheduleList = function () {
-    loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
+  const getMyScheduleList = function (userId) {
     axios
-      .get(`${REST_MYPAGE_API}/user/${loginUser.value.userId}/schedule`)
+      .get(`${REST_MYPAGE_API}/user/${userId}/schedule`)
       .then((res) => {
         myScheduleList.value = res.data["scheduleList"];
       })
@@ -49,10 +47,9 @@ export const useMypageStore = defineStore("mypage", () => {
 
   const memberRegistList = ref([]);
 
-  const getMemberRegistList = function () {
-    loginUser.value = JSON.parse(localStorage.getItem("loginUser"));
+  const getMemberRegistList = function (userId) {
     axios
-      .get(`${REST_MYPAGE_API}/manager/${loginUser.value.userId}/registList`)
+      .get(`${REST_MYPAGE_API}/manager/${userId}/registList`)
       .then((res) => {
         memberRegistList.value = res.data["clubRegistList"];
       })
@@ -95,6 +92,26 @@ export const useMypageStore = defineStore("mypage", () => {
       });
   };
 
+  const addClubIsActive = ref(false);
+
+  const addClub = function () {
+    addClubIsActive.value = true;
+  };
+
+  const registClub = function (club) {
+    axios({
+      url: REST_MYPAGE_API + "/club",
+      method: "POST",
+      data: club,
+    })
+      .then(() => {
+        addClubIsActive.value = false;
+      })
+      .catch(() => {
+        router.push({ name: "notFound" });
+      });
+  };
+
   return {
     loginUser,
     getUser,
@@ -107,5 +124,8 @@ export const useMypageStore = defineStore("mypage", () => {
     getMemberRegistList,
     registMember,
     declineMember,
+    addClubIsActive,
+    addClub,
+    registClub,
   };
 });

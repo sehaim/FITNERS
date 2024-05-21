@@ -28,7 +28,7 @@
 
 	<update id="updateClubBoard" parameterType="ClubBoard">
 		UPDATE Club_board
-		SET title = #{title}, content = #{content}
+		SET title = #{title}, content = #{content}, created_at = now()
 		WHERE club_id = ${clubId};
 	</update>
 

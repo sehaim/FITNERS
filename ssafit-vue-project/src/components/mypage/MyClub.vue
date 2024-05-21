@@ -5,14 +5,43 @@
         <img src="@/assets/img/myclub-icon.png" alt="myclub-icon" />
         <div>My Club</div>
       </div>
+      <div>
+        <button @click="addClub" v-if="loginUser.isManager">+</button>
+        <MyClubAdd
+          v-if="store.addClubIsActive"
+          @close-event="close"
+          :loginUser="loginUser"
+        />
+      </div>
     </div>
     <hr />
-    <MyClubList />
+    <MyClubList :loginUser="loginUser" />
   </div>
 </template>
 
 <script setup>
+import { onMounted } from "vue";
+import { useMypageStore } from "@/stores/mypage.js";
 import MyClubList from "@/components/mypage/MyClubList.vue";
+import MyClubAdd from "@/components/mypage/MyClubAdd.vue";
+
+const store = useMypageStore();
+
+defineProps({
+  loginUser: Object,
+});
+
+onMounted(() => {
+  store.addClubIsActive = false;
+});
+
+const addClub = function () {
+  store.addClub();
+};
+
+const close = function () {
+  store.addClubIsActive = false;
+};
 </script>
 
 <style scoped>
@@ -24,6 +53,7 @@ import MyClubList from "@/components/mypage/MyClubList.vue";
   padding: 20px;
   display: flex;
   flex-direction: column;
+  z-index: 100;
 }
 
 #my-club-container-header {
@@ -49,5 +79,19 @@ img {
 
 hr {
   width: 90%;
+}
+
+button {
+  width: 60px;
+  border-style: none;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: #ffdc5cc3;
+  color: white;
+  margin-right: 10px;
+}
+
+hr {
+  z-index: -100;
 }
 </style>

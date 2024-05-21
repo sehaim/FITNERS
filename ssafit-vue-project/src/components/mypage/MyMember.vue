@@ -6,12 +6,16 @@
         <div>My Member</div>
       </div>
     </div>
-    <MyMemberList />
+    <MyMemberList :loginUser="loginUser" />
   </div>
 </template>
 
 <script setup>
 import MyMemberList from "./MyMemberList.vue";
+
+defineProps({
+  loginUser: Object,
+});
 </script>
 
 <style scoped>

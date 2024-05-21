@@ -166,7 +166,7 @@ const signup = function () {
   passwordLengthCheck.value = false;
   passwordElementCheck.value = false;
 
-  if (user.value.userId === null) {
+  if (user.value.userId == null) {
     activeClass.value = "alert-warning";
     iconCheck.value = true;
     idCheck.value = true;

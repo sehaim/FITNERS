@@ -9,14 +9,18 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useMypageStore } from "@/stores/mypage.js";
 import MyClubListItem from "./MyClubListItem.vue";
 
 const store = useMypageStore();
 
+const props = defineProps({
+  loginUser: Object,
+});
+
 onMounted(() => {
-  store.getMyClubList();
+  store.getMyClubList(props.loginUser.userId);
 });
 </script>
 

@@ -4,9 +4,12 @@
       <div id="title">My Page</div>
     </div>
     <div id="mypage-content-container">
-      <MyClub />
-      <MySchedule v-if="!store.loginUser.isManager" />
-      <MyMember v-else />
+      <MyClub :loginUser="store.loginUser" />
+      <MySchedule
+        v-if="!store.loginUser.isManager"
+        :loginUser="store.loginUser"
+      />
+      <MyMember v-else :loginUser="store.loginUser" />
     </div>
   </div>
 </template>
