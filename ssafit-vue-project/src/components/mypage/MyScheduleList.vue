@@ -16,9 +16,13 @@ import MyScheduleListByClub from "./MyScheduleListByClub.vue";
 
 const store = useMypageStore();
 
+const props = defineProps({
+  loginUser: Object,
+});
+
 onMounted(() => {
-  store.getMyClubList();
-  store.getMyScheduleList();
+  store.getMyClubList(props.loginUser.userId);
+  store.getMyScheduleList(props.loginUser.userId);
 });
 </script>
 

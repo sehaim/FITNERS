@@ -126,11 +126,13 @@ public class MyPageRestController {
 			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
 		}
 
-		int clubId = club.getClubId();
-		String userId = club.getUserId();
+		Club tmp = clubService.searchClubByName(club.getClubName());
+		
+		int clubId = tmp.getClubId();
+		String userId = tmp.getUserId();
 
 		memberService.applyMember(clubId, userId);
-		memberService.applyMember(clubId, userId);
+		memberService.approveMember(clubId, userId);
 
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}

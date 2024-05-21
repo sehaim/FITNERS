@@ -6,12 +6,16 @@
         <div>My Schedule</div>
       </div>
     </div>
-    <MyScheduleList />
+    <MyScheduleList :loginUser="loginUser" />
   </div>
 </template>
 
 <script setup>
 import MyScheduleList from "./MyScheduleList.vue";
+
+defineProps({
+  loginUser: Object,
+});
 </script>
 
 <style scoped>

@@ -1,39 +1,57 @@
 <template>
-  <div id="club-board-update-container">
+  <div id="my-club-add-container">
     <button id="close-button" @click="$emit('closeEvent')">x</button>
     <input
       type="text"
-      v-model="store.clubBoard.title"
-      id="board-update-title"
+      v-model="club.clubName"
+      id="club-regist-title"
       class="form-check-input"
+      placeholder="클럽 이름을 입력해 주세요."
     />
     <hr />
     <input
       type="text"
-      v-model="store.clubBoard.content"
-      id="board-update-content"
+      v-model="club.clubDescription"
+      id="club-regist-description"
       class="form-check-input"
+      placeholder="클럽 설명을 입력해 주세요."
     />
-    <button id="update-btn" @click="updateClubBoard">등록</button>
+    <button id="update-btn" @click="registClub">등록</button>
   </div>
 </template>
 
 <script setup>
-import { useClubStore } from "@/stores/club.js";
+import { ref } from "vue";
+import { useMypageStore } from "@/stores/mypage.js";
 
-const store = useClubStore();
-
-const updateClubBoard = function () {
-  store.updateClubBoard(props.clubId);
-};
+const store = useMypageStore();
 
 const props = defineProps({
-  clubId: Number,
+  loginUser: Object,
 });
+
+const club = ref({
+  clubName: null,
+  userId: props.loginUser.userId,
+  clubDescription: null,
+});
+
+const registClub = function () {
+  if (
+    club.value.clubName !== null &&
+    club.value.clubName.length != 0 &&
+    club.value.clubDescription !== null &&
+    club.value.clubDescription.length != 0
+  ) {
+    store.registClub(club.value);
+  } else {
+    alert("클럽 이름/설명을 입력해 주세요.");
+  }
+};
 </script>
 
 <style scoped>
-#club-board-update-container {
+#my-club-add-container {
   width: 400px;
   height: 400px;
   display: flex;
@@ -88,11 +106,11 @@ input {
   padding: 2% 3%;
 }
 
-#board-update-title {
+#club-regist-title {
   height: 10%;
 }
 
-#board-update-content {
+#club-regist-description {
   height: 60%;
 }
 
