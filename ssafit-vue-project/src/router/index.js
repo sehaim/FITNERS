@@ -44,6 +44,7 @@ const router = createRouter({
           props: route => ({
             boardId: route.query.boardId,
             title: route.query.title, 
+            content: route.query.content,
             userId: route.query.userId,
             writeTime: route.query.writeTime
           })

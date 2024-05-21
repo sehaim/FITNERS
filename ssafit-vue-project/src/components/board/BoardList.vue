@@ -1,10 +1,10 @@
 <template>
   <div id="board-container">
     <div id="page-title">
-      Board List
+      자유게시판
       <hr />
     </div>
-    <div id="board-list">
+    <div class="board-list-body">
       <div class="board-header">
         <div class="search">
           <div>
@@ -14,9 +14,14 @@
             </button>
           </div>
         </div>
-        <div v-if="store.loginUser !== null" class="insert">
+        <div v-if="store.loginUser !== null && !store.doSearch" class="insert">
           <button @click="moveCreateBoard" class="board-write-button">
             게시글 등록
+          </button>
+        </div>
+        <div v-if="store.doSearch" class="insert">
+          <button @click="moveList" class="board-list-button">
+            목록
           </button>
         </div>
       </div>
@@ -104,6 +109,10 @@ const moveCreateBoard = function () {
   });
 }
 
+const moveList = function () {
+    router.go(0);
+};
+
 onMounted(() => {
   store.getBoardList();
 });
@@ -122,34 +131,22 @@ onMounted(() => {
   width: 95%;
 }
 
-#board-list {
+.board-list-body {
   display: flex;
   justify-content: center;
   flex-direction: column;
   flex-wrap: wrap;
   width: 70%;
+  max-width: 1000px;
 }
 
 hr {
   width: 100%;
 }
 
-.board-content-line {
-  clear: both;
-  width: 100%;
-  height: 1px;
-  background: #ccc;
-  font-size: 0;
-  line-height: 0;
-  padding: 0;
-  margin: 10px 0;
-}
-
 .search,
 .insert {
   text-align: center;
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
   margin: 10px;
 }
 
@@ -190,6 +187,7 @@ hr {
   text-decoration: none;
 }
 
+.board-list-button, 
 .board-write-button,
 .board-search-button {
   display: inline-block;
