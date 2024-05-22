@@ -1,5 +1,6 @@
 <template>
   <div id="my-schedule-list-container">
+    <hr />
     <MyScheduleListByClub
       v-for="myClub in store.myClubList"
       :key="myClub.clubId"
@@ -38,5 +39,9 @@ onMounted(() => {
 
 #my-schedule-list-container::-webkit-scrollbar {
   display: none;
+}
+
+hr {
+  width: 90%;
 }
 </style>

@@ -118,5 +118,6 @@ button {
   margin: auto;
   font-size: 16px;
   color: rgb(97, 95, 95);
+  padding: 4%;
 }
 </style>

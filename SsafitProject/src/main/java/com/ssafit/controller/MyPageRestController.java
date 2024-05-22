@@ -96,14 +96,14 @@ public class MyPageRestController {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-	@Operation(summary = "개인 일정 조회", description = "아이디에 해당하는 유저의 개인 일정 목록 조회")
+	@Operation(summary = "개인 일정 삭제")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND") })
 	@DeleteMapping("/user/{userId}/schedule/{scheduleId}")
 	public ResponseEntity<String> deleteUserSchedule(@PathVariable("userId") String userId,
 			@PathVariable("scheduleId") int scheduleId) {
 		if (!scheduleService.deleteUserSchedule(scheduleId)) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
 		}
 
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
