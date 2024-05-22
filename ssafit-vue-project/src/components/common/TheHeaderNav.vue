@@ -3,7 +3,7 @@
     <header>
       <nav id="header-container">
         <div id="page-nav">
-          <RouterLink to="/" id="logo">SSAFIT</RouterLink>
+          <RouterLink to="/" id="logo" class="logo">FITNERS</RouterLink>
           <RouterLink to="/board">자유게시판</RouterLink>
           <RouterLink to="/club">전체 클럽 목록</RouterLink>
           <RouterLink to="/mypage">MyPage</RouterLink>
@@ -14,9 +14,7 @@
         </div>
         <div id="user-nav" v-else>
           <div>
-            <strong style="color: #276699">{{
-              store.getLoginUser.userName
-            }}</strong>
+            <strong id="name">{{ store.getLoginUser.userName }}</strong>
             님 환영합니다!
           </div>
           <i class="bi bi-person-fill"></i>
@@ -75,10 +73,13 @@ const store = useUserStore();
 }
 
 #logo {
-  font-family: "Jersey 25", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+  font-family: "neodgm";
   font-size: 40px;
+  color: #276699;
+}
+
+#name {
+  font-family: "neodgm";
   color: #276699;
 }
 
@@ -90,5 +91,9 @@ button {
 nav a.router-link-exact-active {
   color: #276699;
   font-weight: 700;
+}
+
+.logo.router-link-exact-active {
+  font-weight: 500;
 }
 </style>
