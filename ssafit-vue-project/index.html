@@ -16,6 +16,13 @@
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
+  <script>
+    window.addEventListener("load", function () {
+      if (sessionStorage.getItem("access-token") == null) {
+        localStorage.clear();
+      }
+    });
+  </script>
 </html>
 
 <style>

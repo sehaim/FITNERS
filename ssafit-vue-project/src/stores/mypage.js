@@ -39,6 +39,7 @@ export const useMypageStore = defineStore("mypage", () => {
       .get(`${REST_MYPAGE_API}/user/${userId}/schedule`)
       .then((res) => {
         myScheduleList.value = res.data["scheduleList"];
+        console.log(myScheduleList.value);
       })
       .catch(() => {
         router.push({ name: "notFound" });
@@ -114,8 +115,13 @@ export const useMypageStore = defineStore("mypage", () => {
 
   const deleteMySchedule = function (userId, scheduleId) {
     axios({
-      url: REST_MYPAGE_API + "/user/" + `${userId}` + "/schedule/" + `${scheduleId}`,
-      method: 'DELETE'
+      url:
+        REST_MYPAGE_API +
+        "/user/" +
+        `${userId}` +
+        "/schedule/" +
+        `${scheduleId}`,
+      method: "DELETE",
     })
       .then(() => {
         location.reload();
@@ -123,7 +129,7 @@ export const useMypageStore = defineStore("mypage", () => {
       .catch(() => {
         router.push({ name: "notFound" });
       });
-  }
+  };
 
   return {
     loginUser,

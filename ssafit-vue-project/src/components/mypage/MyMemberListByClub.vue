@@ -8,14 +8,12 @@
         :clubId="myClub.clubId"
         :myMember="myMember"
       />
-      <div v-if="itemNum == 0">가입 신청 중인 멤버가 없습니다.</div>
       <hr v-if="myClub.clubId != myClubList.length" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
 import MyMemberListItem from "./MyMemberListItem.vue";
 
 defineProps({

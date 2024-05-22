@@ -1,6 +1,5 @@
 <template>
   <div id="my-schedule-list-by-club-container">
-    <hr />
     <div id="club-name">{{ myClub.clubName }}</div>
     <MyScheduleListItem
       v-for="mySchedule in myScheduleList"
@@ -9,6 +8,7 @@
       :mySchedule="mySchedule"
       :loginUser="loginUser"
     />
+    <hr />
   </div>
 </template>
 

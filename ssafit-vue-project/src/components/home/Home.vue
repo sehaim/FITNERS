@@ -51,7 +51,7 @@ import HomeHotBoardList from "@/components/home/HomeHotBoardList.vue";
   font-family: "neodgm";
   font-size: 50px;
   color: rgb(233, 199, 86);
-  text-shadow: -2px 0px rgb(0, 0, 0), 0px 2px rgb(0, 0, 0),
+  text-shadow: -4px 0px rgb(0, 0, 0), 0px 4px rgb(0, 0, 0),
     0px -2px rgb(0, 0, 0), 2px 0px rgb(0, 0, 0);
   overflow: hidden;
   border-right: 0.1em solid rgb(233, 199, 86);
