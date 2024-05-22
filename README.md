@@ -48,6 +48,9 @@
 
 ### Java, Spring
 
+- Spring Boot 환경을 이용하여 백엔드 개발 진행
+- 컨트롤러, 서비스, DAO, DTO 등으로 구분하여 REST API 개발
+- MyBatis, Swagger 등의 프레임워크를 활용
 
     
 ### Vue
@@ -66,7 +69,246 @@
 
 ## 3. 프로젝트 구조
 
+### 전체 구조
+```
+📦FITNERS
+ ┣ 📂.metadata
+ ┣ 📂assets
+ ┃ ┗ 📂DB
+ ┃ ┃ ┣ 📜erd.mwb
+ ┃ ┃ ┣ 📜schema.sql
+ ┃ ┃ ┗ 📜sampledata.sql
+ ┣ 📂documents
+ ┃ ┗ 📂scrum
+ ┣ 📂ssafit-vue-project
+ ┣ 📂SsafitProject
+ ┣ 📂test
+ ┣ 📜.gitignore
+ ┗ 📜README.md
+ 
+```
 
+### BACK-END
+```
+📦SsafitProject
+ ┣ 📂.mvn
+ ┃ ┗ 📂wrapper
+ ┃ ┃ ┣ 📜maven-wrapper.jar
+ ┃ ┃ ┗ 📜maven-wrapper.properties
+ ┣ 📂.settings
+ ┃ ┣ 📜org.eclipse.core.resources.prefs
+ ┃ ┣ 📜org.eclipse.jdt.apt.core.prefs
+ ┃ ┣ 📜org.eclipse.jdt.core.prefs
+ ┃ ┣ 📜org.eclipse.m2e.core.prefs
+ ┃ ┗ 📜org.springframework.ide.eclipse.prefs
+ ┣ 📂src
+ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┗ 📂ssafit
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DBConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SwaggerConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardRestController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubBoardRestController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubRestController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyPageRestController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserRestController.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂interceptor
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜JwtInterceptor.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dao
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardDao.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubBoardDao.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubDao.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberDao.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScheduleDao.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserDao.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Board.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Club.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubBoard.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubBoardSearchResult.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubSchedule.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubSearchResult.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginForm.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Member.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberRegist.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Schedule.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜User.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserSchedule.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserScheduleSearchResult.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardServiceImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubBoardService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubBoardServiceImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClubServiceImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberServiceImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScheduleService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScheduleServiceImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserServiceImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂util
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜JwtUtil.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜SsafitProjectApplication.java
+ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┣ 📂mappers
+ ┃ ┃ ┃ ┃ ┣ 📜boardMapper.xml
+ ┃ ┃ ┃ ┃ ┣ 📜clubBoardMapper.xml
+ ┃ ┃ ┃ ┃ ┣ 📜clubMapper.xml
+ ┃ ┃ ┃ ┃ ┣ 📜memberMapper.xml
+ ┃ ┃ ┃ ┃ ┣ 📜scheduleMapper.xml
+ ┃ ┃ ┃ ┃ ┗ 📜userMapper.xml
+ ┃ ┃ ┃ ┗ 📜application.properties
+ ┃ ┗ 📂test
+ ┃ ┃ ┗ 📂java
+ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┗ 📂ssafit
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜SsafitProjectApplicationTests.java
+ ┣ 📂target
+ ┃ ┣ 📂classes
+ ┃ ┃ ┣ 📂com
+ ┃ ┃ ┃ ┗ 📂ssafit
+ ┃ ┃ ┃ ┃ ┣ 📂...
+ ┃ ┃ ┃ ┃ ┣ 📂...
+ ┃ ┃ ┃ ┃ ┣ 📂...
+ ┃ ┃ ┃ ┃ ┗ 📜SsafitProjectApplication.class
+ ┃ ┃ ┣ 📂mappers
+ ┃ ┃ ┃ ┣ 📜boardMapper.xml
+ ┃ ┃ ┃ ┃    .
+ ┃ ┃ ┃ ┃    .
+ ┃ ┃ ┃ ┃    .
+ ┃ ┃ ┃ ┗ 📜userMapper.xml
+ ┃ ┃ ┣ 📂META-INF
+ ┃ ┃ ┃ ┣ 📂maven
+ ┃ ┃ ┃ ┃ ┗ 📂com.ssafit
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂SsafitProject
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜pom.properties
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜pom.xml
+ ┃ ┃ ┃ ┗ 📜MANIFEST.MF
+ ┃ ┃ ┗ 📜application.properties
+ ┃ ┗ 📂test-classes
+ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┗ 📂ssafit
+ ┃ ┃ ┃ ┃ ┗ 📜SsafitProjectApplicationTests.class
+ ┣ 📜.classpath
+ ┣ 📜.gitignore
+ ┣ 📜.project
+ ┣ 📜mvnw
+ ┣ 📜mvnw.cmd
+ ┗ 📜pom.xml
+```
+
+### FRONT-END
+```
+📦ssafit-vue-project
+ ┣ 📂.vscode
+ ┃ ┗ 📜extensions.json
+ ┣ 📂node_modules
+ ┃       .
+ ┃       .
+ ┃       .
+ ┣ 📂public
+ ┃ ┗ 📜favicon.ico
+ ┣ 📂src
+ ┃ ┣ 📂assets
+ ┃ ┃ ┣ 📂font
+ ┃ ┃ ┃ ┗ 📜neodgm.woff
+ ┃ ┃ ┣ 📂img
+ ┃ ┃ ┃ ┣ 📜add-check-icon.png
+ ┃ ┃ ┃ ┣ 📜clock-icon.png
+ ┃ ┃ ┃ ┣ 📜club-list-icon.png
+ ┃ ┃ ┃ ┣ 📜gear-icon.png
+ ┃ ┃ ┃ ┣ 📜home-image.jpg
+ ┃ ┃ ┃ ┣ 📜myclub-icon.png
+ ┃ ┃ ┃ ┣ 📜mymember-icon.png
+ ┃ ┃ ┃ ┣ 📜myschedule-icon.png
+ ┃ ┃ ┃ ┣ 📜notice-icon.png
+ ┃ ┃ ┃ ┣ 📜sad-icon.png
+ ┃ ┃ ┃ ┗ 📜schedule-icon.png
+ ┃ ┃ ┗ 📜style.css
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂board
+ ┃ ┃ ┃ ┣ 📜BoardCreate.vue
+ ┃ ┃ ┃ ┣ 📜BoardDetail.vue
+ ┃ ┃ ┃ ┣ 📜BoardList.vue
+ ┃ ┃ ┃ ┗ 📜BoardUpdate.vue
+ ┃ ┃ ┣ 📂club
+ ┃ ┃ ┃ ┣ 📜ClubBoard.vue
+ ┃ ┃ ┃ ┣ 📜ClubBoardDetail.vue
+ ┃ ┃ ┃ ┣ 📜ClubBoardUpdate.vue
+ ┃ ┃ ┃ ┣ 📜ClubDetail.vue
+ ┃ ┃ ┃ ┣ 📜ClubList.vue
+ ┃ ┃ ┃ ┣ 📜ClubListItem.vue
+ ┃ ┃ ┃ ┣ 📜ClubManagerNone.vue
+ ┃ ┃ ┃ ┣ 📜ClubMemberDetail.vue
+ ┃ ┃ ┃ ┣ 📜ClubMemberNone.vue
+ ┃ ┃ ┃ ┣ 📜ClubMemberProceeding.vue
+ ┃ ┃ ┃ ┣ 📜ClubSchedule.vue
+ ┃ ┃ ┃ ┣ 📜ClubScheduleManager.vue
+ ┃ ┃ ┃ ┣ 📜ClubScheduleManagerItem.vue
+ ┃ ┃ ┃ ┣ 📜ClubScheduleRegist.vue
+ ┃ ┃ ┃ ┣ 📜ClubScheduleUser.vue
+ ┃ ┃ ┃ ┣ 📜ClubScheduleUserItem.vue
+ ┃ ┃ ┃ ┗ 📜ClubToMypage.vue
+ ┃ ┃ ┣ 📂common
+ ┃ ┃ ┃ ┣ 📜TheFooterNav.vue
+ ┃ ┃ ┃ ┗ 📜TheHeaderNav.vue
+ ┃ ┃ ┣ 📂error
+ ┃ ┃ ┃ ┗ 📜notFound.vue
+ ┃ ┃ ┣ 📂home
+ ┃ ┃ ┃ ┣ 📜Home.vue
+ ┃ ┃ ┃ ┣ 📜HomeHotBoardList.vue
+ ┃ ┃ ┃ ┗ 📜HomeHotBoardListItem.vue
+ ┃ ┃ ┣ 📂mypage
+ ┃ ┃ ┃ ┣ 📜MyClub.vue
+ ┃ ┃ ┃ ┣ 📜MyClubAdd.vue
+ ┃ ┃ ┃ ┣ 📜MyClubList.vue
+ ┃ ┃ ┃ ┣ 📜MyClubListItem.vue
+ ┃ ┃ ┃ ┣ 📜MyMember.vue
+ ┃ ┃ ┃ ┣ 📜MyMemberList.vue
+ ┃ ┃ ┃ ┣ 📜MyMemberListByClub.vue
+ ┃ ┃ ┃ ┣ 📜MyMemberListItem.vue
+ ┃ ┃ ┃ ┣ 📜MyPage.vue
+ ┃ ┃ ┃ ┣ 📜MySchedule.vue
+ ┃ ┃ ┃ ┣ 📜MyScheduleList.vue
+ ┃ ┃ ┃ ┣ 📜MyScheduleListByClub.vue
+ ┃ ┃ ┃ ┗ 📜MyScheduleListItem.vue
+ ┃ ┃ ┗ 📂user
+ ┃ ┃ ┃ ┣ 📜Login.vue
+ ┃ ┃ ┃ ┗ 📜Signup.vue
+ ┃ ┣ 📂router
+ ┃ ┃ ┗ 📜index.js
+ ┃ ┣ 📂stores
+ ┃ ┃ ┣ 📜board.js
+ ┃ ┃ ┣ 📜club.js
+ ┃ ┃ ┣ 📜home.js
+ ┃ ┃ ┣ 📜mypage.js
+ ┃ ┃ ┗ 📜user.js
+ ┃ ┣ 📂views
+ ┃ ┃ ┣ 📜BoardView.vue
+ ┃ ┃ ┣ 📜ClubView.vue
+ ┃ ┃ ┣ 📜HomeView.vue
+ ┃ ┃ ┣ 📜LoginView.vue
+ ┃ ┃ ┣ 📜MyPageView.vue
+ ┃ ┃ ┣ 📜NotFoundView.vue
+ ┃ ┃ ┗ 📜SignupView.vue
+ ┃ ┣ 📜App.vue
+ ┃ ┗ 📜main.js
+ ┣ 📜.gitignore
+ ┣ 📜index.html
+ ┣ 📜jsconfig.json
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜README.md
+ ┗ 📜vite.config.js
+
+```
 
 <br>
 
@@ -143,13 +385,59 @@
 
 <br>
 
-## 6. 신경 쓴 부분
+## 6. 주요 기능
 
 
 
 <br>
 
 ## 7. 페이지별 기능
+
+- 홈 화면
+
+![home](./assets/img/home.gif)
+
+<br>
+
+- 회원가입 화면
+
+![signup](./assets/img/signup.gif)
+
+<br>
+
+- 로그인 화면
+
+![login](./assets/img/login.gif)
+
+<br>
+
+- 게시글 전체보기/상세보기/검색 화면
+
+![boardsearch](./assets/img/board.gif)
+
+<br>
+
+- 유저 마이페이지 화면
+
+![mypage-user](./assets/img/mypage-user.gif)
+
+<br>
+
+- 유저 클럽목록 화면
+
+![clublist-user](./assets/img/clublist-user.gif)
+
+<br>
+
+- 관리자 마이페이지 화면
+
+![mypage-admin](./assets/img/mypage-admin.gif)
+
+<br>
+
+- 관리자 클럽목록 화면
+
+![clublist-admin](./assets/img/clublist-admin.gif)
 
 
 <br>
