@@ -1,19 +1,9 @@
 <template>
   <div id="club-board-update-container">
     <button id="close-button" @click="$emit('closeEvent')">x</button>
-    <input
-      type="text"
-      v-model="store.clubBoard.title"
-      id="board-update-title"
-      class="form-check-input"
-    />
+    <input type="text" v-model="store.clubBoard.title" id="board-update-title" class="form-check-input" />
     <hr />
-    <input
-      type="text"
-      v-model="store.clubBoard.content"
-      id="board-update-content"
-      class="form-check-input"
-    />
+    <textarea v-model="store.clubBoard.content" id="board-update-content" class="form-check-input" />
     <button id="update-btn" @click="updateClubBoard">등록</button>
   </div>
 </template>
@@ -78,7 +68,7 @@ const props = defineProps({
   font-size: 14px;
 }
 
-input {
+input, textarea {
   width: 100%;
   border-style: solid;
   border-width: 1px;
@@ -93,7 +83,14 @@ input {
 }
 
 #board-update-content {
-  height: 60%;
+  min-height: 60%;
+  width: 100%;
+  max-width: 100%;
+  resize: none;
+  word-wrap: break-word;
+  word-break: break-all;
+  box-sizing: border-box;
+  white-space: pre-wrap;
 }
 
 #update-btn {
