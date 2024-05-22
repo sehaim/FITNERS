@@ -44,7 +44,7 @@
 	</select>
 	
 	<select id="selectClubScheduleById" resultType="ClubSchedule" parameterType="int">
-		SELECT schedule_id, user_id, schedule
+		SELECT schedule_id, club_id, schedule
 		FROM Club_schedule
 		WHERE schedule_id = #{scheduleId};
 	</select>

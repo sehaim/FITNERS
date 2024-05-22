@@ -22,13 +22,14 @@ onMounted(() => {
 
 <style scoped>
 #hot-board-list-container {
-  height: 28%;
+  height: 30%;
+  min-height: 30%;
   display: flex;
   flex-direction: row;
   position: relative;
   top: -30%;
   z-index: 100;
-  padding: 3%;
+  padding: 20px 40px;
   justify-content: space-between;
 }
 </style>

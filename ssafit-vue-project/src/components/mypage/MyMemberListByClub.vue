@@ -1,13 +1,15 @@
 <template>
   <div id="my-member-list-by-club-container">
     <hr />
+    <div v-if="memberRegistList !== null">
     <div id="club-name">{{ myClub.clubName }}</div>
     <MyMemberListItem
-      v-for="myMember in memberRegistList"
-      :key="myMember.userId"
-      :clubId="myClub.clubId"
-      :myMember="myMember"
+    v-for="myMember in memberRegistList"
+    :key="myMember.userId"
+    :clubId="myClub.clubId"
+    :myMember="myMember"
     />
+  </div>
   </div>
 </template>
 
@@ -18,6 +20,7 @@ defineProps({
   myClub: Object,
   memberRegistList: Object,
 });
+
 </script>
 
 <style scoped>
