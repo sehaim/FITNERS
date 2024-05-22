@@ -23,6 +23,9 @@ import com.ssafit.model.service.MemberService;
 import com.ssafit.model.service.ScheduleService;
 import com.ssafit.model.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -47,14 +50,16 @@ public class MyPageRestController {
 		this.scheduleService = scheduleService;
 	}
 
-	// 유저 아이디로 클럽 조회
+	@Operation(summary = "유저 아이디로 클럽 목록 조회", description = "매니저인 경우 해당 유저가 관리하는 클럽 목록 조회/일반 사용자인 경우 해당 유저가 속해있는 클럽 목록 조회")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND") })
 	@GetMapping("/{userId}/club")
 	public ResponseEntity<?> getManagerClubList(@PathVariable("userId") String userId) {
 		Map<String, Object> map = new HashMap<>();
 
 		if (userService.search(userId) == null) {
 			map.put("result", FAIL);
-			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
 		}
 
 		if (!userService.checkUserType(userId)) {
@@ -72,12 +77,15 @@ public class MyPageRestController {
 	}
 
 	// 유저 아이디로 개인 일정 조회
+	@Operation(summary = "개인 일정 조회", description = "아이디에 해당하는 유저의 개인 일정 목록 조회")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND") })
 	@GetMapping("/user/{userId}/schedule")
 	public ResponseEntity<?> addClub(@PathVariable("userId") String userId) {
 		Map<String, Object> map = new HashMap<>();
 		if (userService.search(userId) == null || userService.checkUserType(userId)) {
 			map.put("result", FAIL);
-			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
 		}
 
 		List<UserScheduleSearchResult> list = scheduleService.searchUserScheduleList(userId);
@@ -88,7 +96,9 @@ public class MyPageRestController {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-	// 개인 일정 삭제
+	@Operation(summary = "개인 일정 조회", description = "아이디에 해당하는 유저의 개인 일정 목록 조회")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND") })
 	@DeleteMapping("/user/{userId}/schedule/{scheduleId}")
 	public ResponseEntity<String> deleteUserSchedule(@PathVariable("userId") String userId,
 			@PathVariable("scheduleId") int scheduleId) {
@@ -99,13 +109,15 @@ public class MyPageRestController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 
-	// 매니저가 담당하는 클럽의 가입 요청 목록 조회
+	@Operation(summary = "클럽 가입 요청 조회", description = "아이디에 해당하는 유저가 관리하는 클럽의 가입 요청 목록 조회")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND") })
 	@GetMapping("/manager/{userId}/registList")
 	public ResponseEntity<?> getClubRegistList(@PathVariable("userId") String userId) {
 		Map<String, Object> map = new HashMap<>();
 		if (userService.search(userId) == null || !userService.checkUserType(userId)) {
 			map.put("result", FAIL);
-			return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
 		}
 
 		List<MemberRegist> list = memberService.getClubRegistList(userId);
@@ -116,12 +128,14 @@ public class MyPageRestController {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-	// 클럽 추가
+	@Operation(summary = "신규 클럽 개설")
+	@ApiResponses({ @ApiResponse(responseCode = "201", description = "CREATED"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST") })
 	@PostMapping("/club")
 	public ResponseEntity<?> addClub(@RequestBody Club club) {
 		boolean result = clubService.addClub(club);
 		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
 		Club tmp = clubService.searchClubByName(club.getClubName());
@@ -135,7 +149,9 @@ public class MyPageRestController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 
-	// 가입 요청 승인
+	@Operation(summary = "가입 요청 승인", description = "클럽 가입 요청 승인 후 신규 멤버 추가")
+	@ApiResponses({ @ApiResponse(responseCode = "201", description = "CREATED"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST") })
 	@PostMapping("/manager/member/accepted")
 	public ResponseEntity<?> approveRegist(@RequestBody Map<String, Object> map) {
 		int clubId = (int) map.get("clubId");
@@ -143,20 +159,22 @@ public class MyPageRestController {
 		System.out.println(clubId);
 		boolean result = memberService.approveMember(clubId, userId);
 		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
-		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 
-	// 가입 요청 거절
+	@Operation(summary = "가입 요청 거절", description = "클럽 가입 요청 거절 후 가입 요청 목록에서 제거")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST") })
 	@PostMapping("/manager/member/denied")
 	public ResponseEntity<?> declineRegist(@RequestBody Map<String, Object> map) {
 		int clubId = (int) map.get("clubId");
 		String userId = (String) map.get("userId");
 		boolean result = memberService.declineMember(clubId, userId);
 		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);

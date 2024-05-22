@@ -1,7 +1,5 @@
 package com.ssafit.controller;
 
-import java.time.LocalDateTime;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +16,9 @@ import com.ssafit.model.dto.ClubBoard;
 import com.ssafit.model.dto.ClubBoardSearchResult;
 import com.ssafit.model.service.ClubBoardService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -35,7 +36,8 @@ public class ClubBoardRestController {
 		this.clubBoardService = clubBoardService;
 	}
 
-	// 클럽 게시글(공지사항) 상세조회
+	@Operation(summary = "클럽 공지사항 상세 조회", description = "클럽 공지사항 ID에 해당하는 공지사항 상세 조회")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK") })
 	@GetMapping("/board/{clubId}")
 	public ResponseEntity<?> searchClubBoard(@PathVariable("clubId") int clubId) {
 		ClubBoardSearchResult clubBoardSearchResult = clubBoardService.getClubBoardDetail(clubId);
@@ -48,43 +50,36 @@ public class ClubBoardRestController {
 			clubBoardService.writeClubBoard(clubBoard);
 			clubBoardSearchResult = clubBoardService.getClubBoardDetail(clubId);
 		}
-		
+
 		return new ResponseEntity<>(clubBoardSearchResult, HttpStatus.OK);
 	}
 
-	// 클럽 게시글(공지사항) 등록
+	@Operation(summary = "클럽 공지사항 등록", description = "클럽 공지사항 신규 등록")
+	@ApiResponses({ @ApiResponse(responseCode = "201", description = "CREATED"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST") })
 	@PostMapping("/board/add")
 	public ResponseEntity<?> writeClubBoard(@RequestBody ClubBoard clubBoard) {
 		boolean result = clubBoardService.writeClubBoard(clubBoard);
 
 		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 
-	// 클럽 게시글(공지사항) 수정
+	@Operation(summary = "클럽 공지사항 수정", description = "클럽 공지사항 ID에 해당하는 클럽 공지사항 수정")
+	@ApiResponses({ @ApiResponse(responseCode = "201", description = "CREATED"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST") })
 	@PutMapping("/board/{clubId}")
 	public ResponseEntity<?> updateClubBoard(@PathVariable("clubId") int clubId, @RequestBody ClubBoard clubBoard) {
 		boolean result = clubBoardService.modifyClubBoard(clubId, clubBoard);
 
 		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
-		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 
-	// 클럽 게시글(공지사항) 삭제
-	@DeleteMapping("/board/{clubId}")
-	public ResponseEntity<?> deleteClubBoard(@PathVariable("clubId") int clubId) {
-		boolean result = clubBoardService.removeClubBoard(clubId);
-
-		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
-		}
-
-		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
-	}
 }

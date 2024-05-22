@@ -21,6 +21,9 @@ import com.ssafit.model.service.ClubService;
 import com.ssafit.model.service.MemberService;
 import com.ssafit.model.service.ScheduleService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -42,14 +45,16 @@ public class ClubRestController {
 		this.scheduleService = scheduleService;
 	}
 
-	// 전체 클럽 조회
+	@Operation(summary = "전체 클럽 목록 조회")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK") })
 	@GetMapping
 	public ResponseEntity<?> getAllClub() {
 		List<ClubSearchResult> list = clubService.searchClubList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
-	// 클럽 아이디, 유저 아이디로 해당 유저가 클럽에 가입중인지 조회
+	@Operation(summary = "유저의 클럽 가입 여부 조회", description = "클럽 아이디, 유저 아이디로 해당 유저가 클럽에 가입중인지 조회")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK") })
 	@GetMapping("/{clubId}/{userId}")
 	public ResponseEntity<String> getStatus(@PathVariable("clubId") int clubId, @PathVariable("userId") String userId) {
 		Map<String, Object> map = new HashMap<>();
@@ -59,7 +64,8 @@ public class ClubRestController {
 		return new ResponseEntity<>(searchResult, HttpStatus.OK);
 	}
 
-	// 클럽 일정 조회
+	@Operation(summary = "클럽 일정 조회", description = "클럽 아이디로 클럽 일정 조회")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK") })
 	@PostMapping("/schedule")
 	public ResponseEntity<List> getClubSchedule(@RequestBody Map<String, Integer> clubIdMap) {
 		List<ClubSchedule> clubScheduleList = scheduleService.searchClubScheduleList(clubIdMap.get("clubId"));
@@ -67,47 +73,55 @@ public class ClubRestController {
 		return new ResponseEntity<>(clubScheduleList, HttpStatus.OK);
 	}
 
-	// 클럽 가입 요청
+	@Operation(summary = "클럽 가입 요청", description = "클럽 가입 요청/멤버 목록에 미승인 멤버로 추가")
+	@ApiResponses({ @ApiResponse(responseCode = "201", description = "CREATED"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST") })
 	@PostMapping("/regist")
 	public ResponseEntity<?> registClub(@RequestBody Map<String, Object> map) {
 		int clubId = Integer.valueOf(map.get("clubId").toString());
 		String userId = (String) map.get("userId");
 		boolean result = memberService.applyMember(clubId, userId);
 		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
-		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 
-	// 클럽 일정 추가
+	@Operation(summary = "클럽 일정 추가")
+	@ApiResponses({ @ApiResponse(responseCode = "201", description = "CREATED"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST") })
 	@PostMapping("/schedule/add")
 	public ResponseEntity<?> addClubSchedule(@RequestBody Map<String, Object> map) {
 		int clubId = Integer.valueOf(map.get("clubId").toString());
 		String schedule = (String) map.get("schedule");
 
 		if (scheduleService.searchClubSchedule(clubId, schedule) != null) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
 		boolean result = scheduleService.insertClubSchedule(clubId, schedule);
 		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 
-	// 클럽 일정 삭제
+	@Operation(summary = "클럽 일정 삭제")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST") })
 	@DeleteMapping("/schedule/{scheduleId}")
 	public ResponseEntity<?> deleteClubSchedule(@PathVariable("scheduleId") int scheduleId) {
 		if (!scheduleService.deleteClubSchedule(scheduleId)) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 
-	// 개인 일정 추가
+	@Operation(summary = "개인 일정 추가")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST") })
 	@PostMapping("/user/schedule/add")
 	public ResponseEntity<?> addUserSchedule(@RequestBody Map<String, Object> map) {
 		int clubId = Integer.valueOf(map.get("clubId").toString());
@@ -115,12 +129,12 @@ public class ClubRestController {
 		String schedule = (String) map.get("schedule");
 
 		if (scheduleService.searchClubSchedule(clubId, schedule) == null) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
 		boolean result = scheduleService.insertUserSchedule(userId, schedule, clubId);
 		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
