@@ -14,11 +14,7 @@
         <div id="content">{{ store.clubBoard.content }}</div>
       </div>
     </div>
-    <ClubBoardUpdate
-      v-if="store.updateIsActive"
-      :clubId="props.clubId"
-      @close-event="close"
-    />
+    <ClubBoardUpdate v-if="store.updateIsActive" :clubId="props.clubId" @close-event="close" />
   </div>
 </template>
 
@@ -60,7 +56,7 @@ const close = function () {
   padding: 3%;
 }
 
-#board-detail > * {
+#board-detail>* {
   margin: 2% 0;
 }
 
@@ -108,11 +104,15 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
+  word-wrap: break-word;
+  word-break: break-all;
+  box-sizing: border-box;
+  white-space: pre-wrap;
 }
 
 #content {
   margin: auto;
-  font-size: 18px;
+  font-size: 16px;
   color: rgb(97, 95, 95);
 }
 </style>

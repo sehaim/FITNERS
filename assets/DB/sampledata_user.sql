@@ -56,17 +56,8 @@ VALUES
 INSERT INTO User (user_id, user_name, user_password, isManager)
 VALUES 
 ("admin0001", "김민준", "admin0001@", 1),
-("admin0002", "이상민", "admin0002@", 1),
-("admin0003", "박지훈", "admin0003@", 1),
+("admin0002", "김하린", "admin0002@", 1),
+("admin0003", "정소윤", "admin0003@", 1),
 ("admin0004", "정연우", "admin0004@", 1),
-("admin0005", "김하린", "admin0005@", 1),
-("admin0006", "이도윤", "admin0006@", 1),
-("admin0007", "박준서", "admin0007@", 1),
-("admin0008", "한서현", "admin0008@", 1),
-("admin0009", "김다은", "admin0009@", 1),
-("admin0010", "최유진", "admin0010@", 1),
-("admin0011", "오승준", "admin0011@", 1),
-("admin0012", "임하린", "admin0012@", 1),
-("admin0013", "신지후", "admin0013@", 1),
-("admin0014", "문수아", "admin0014@", 1),
-("admin0015", "정하윤", "admin0015@", 1);
+("admin0005", "이승환", "admin0005@", 1),
+("admin0006", "이도윤", "admin0006@", 1);
