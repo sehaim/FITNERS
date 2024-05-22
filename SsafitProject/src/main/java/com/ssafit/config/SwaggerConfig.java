@@ -14,10 +14,9 @@ public class SwaggerConfig {
 	  public OpenAPI springShopOpenAPI() {
 	      return new OpenAPI()
 	              .info(new Info()
-	            		  .title("SSAFIT API")
-	            		  .description("SSAFIT PROJECT API")
-	            		  .version("0.0.1")
-	            		  .license(new License().name("SSAFY").url("https://www.ssafy.com"))
+	            		  .title("FITNERS API")
+	            		  .description("FITNERS PROJECT API")
+	            		  .version("1.0.0")
 	              );
 	  }
 }
