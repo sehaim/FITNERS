@@ -2,10 +2,15 @@
   <div id="club-detail-container">
     <div id="club-detail-header">
       <div id="club-welcome">
-        Welcome <span id="club-name">{{ store.club.clubName }}</span> !
+        Welcome &nbsp;&nbsp;<span id="club-name">{{
+          store.club.clubName
+        }}</span>
+        &nbsp;!
       </div>
       <div id="club-description">{{ store.club.clubDescription }}</div>
-      <div id="club-manager-name">관리자 &nbsp;&nbsp;<strong id="name">{{ store.club.userName }}</strong></div>
+      <div id="club-manager-name">
+        관리자 &nbsp;&nbsp;<strong id="name">{{ store.club.userName }}</strong>
+      </div>
     </div>
     <div id="club-detail-content">
       <ClubMemberNone v-if="store.status === 'NONE'" :clubId="clubId" />
@@ -40,13 +45,13 @@ defineProps({
   clubName: String,
   clubDescription: String,
   userId: String,
-  userName: String
-})
+  userName: String,
+});
 
 onMounted(() => {
   store.addIsActive = false;
   store.updateIsActive = false;
-  clubId.value = route.params.clubId
+  clubId.value = route.params.clubId;
   store.getClub(clubId.value);
   store.getClubBoard(clubId.value);
 });
@@ -82,22 +87,23 @@ onMounted(() => {
 }
 
 #club-name {
-  color: rgb(54, 51, 51);
+  font-family: "neodgm";
+  color: rgb(94, 91, 91);
   animation-duration: 3s;
   animation-name: fadeInDown;
 }
 
 @keyframes fadeInDown {
   0% {
-      opacity: 0;
-      transform: translate3d(0, -100%, 0);
-    }
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
   to {
-      opacity: 1;
-      transform: translateZ(0);
-    }
+    opacity: 1;
+    transform: translateZ(0);
+  }
 }
- 
+
 #club-description {
   font-size: 20px;
 }
