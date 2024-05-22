@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useMypageStore } from "@/stores/mypage.js";
 import MyClubListItem from "./MyClubListItem.vue";
 

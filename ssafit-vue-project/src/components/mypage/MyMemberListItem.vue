@@ -1,5 +1,9 @@
 <template>
-  <div id="my-member-item-container" v-if="clubId == myMember.clubId">
+  <div
+    class="item"
+    id="my-member-item-container"
+    v-if="clubId == myMember.clubId"
+  >
     <div id="member">{{ myMember.userName }}</div>
     <div id="btn">
       <button id="regist" @click="registMember">수락</button>

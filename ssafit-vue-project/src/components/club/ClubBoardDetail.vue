@@ -4,7 +4,7 @@
       <div id="title" v-if="store.clubBoard.title != ''">
         {{ store.clubBoard.title }}
       </div>
-      <hr v-if="store.clubBoard.title == ''" />
+      <hr v-if="!store.clubBoard.title == ''" />
       <div id="middle-content">
         <button v-if="store.loginUser.isManager" @click="update">수정</button>
         <div id="btn-space" v-else></div>
@@ -14,7 +14,11 @@
         <div id="content">{{ store.clubBoard.content }}</div>
       </div>
     </div>
-    <ClubBoardUpdate v-if="store.updateIsActive" :clubId="props.clubId" @close-event="close" />
+    <ClubBoardUpdate
+      v-if="store.updateIsActive"
+      :clubId="props.clubId"
+      @close-event="close"
+    />
   </div>
 </template>
 
@@ -56,7 +60,7 @@ const close = function () {
   padding: 3%;
 }
 
-#board-detail>* {
+#board-detail > * {
   margin: 2% 0;
 }
 

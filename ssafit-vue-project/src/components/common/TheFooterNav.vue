@@ -3,7 +3,7 @@
     <footer id="footer-container">
       <div>이용약관</div>
       <div>개인정보 처리방침</div>
-      <div>Copyright &#169; SSAFIT Studio All Rights reserved</div>
+      <div>Copyright &#169; 기세등등 All Rights reserved</div>
     </footer>
   </div>
 </template>

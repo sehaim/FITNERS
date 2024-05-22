@@ -69,18 +69,18 @@ const store = useUserStore();
 
 .bi {
   font-size: 30px;
-  color: #276699;
+  color: #2d669b;
 }
 
 #logo {
   font-family: "neodgm";
   font-size: 40px;
-  color: #276699;
+  color: #2d669b;
 }
 
 #name {
   font-family: "neodgm";
-  color: #276699;
+  color: #2d669b;
 }
 
 button {
@@ -89,7 +89,7 @@ button {
 }
 
 nav a.router-link-exact-active {
-  color: #276699;
+  color: #2d669b;
   font-weight: 700;
 }
 
