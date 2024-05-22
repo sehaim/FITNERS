@@ -18,13 +18,22 @@ import com.ssafit.model.dto.User;
 import com.ssafit.model.service.UserService;
 import com.ssafit.util.JwtUtil;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.SchemaProperties;
+import io.swagger.v3.oas.annotations.media.SchemaProperty;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/ssafit")
-@Tag(name = "Controller - User", description = "사용자 관련 기능\n 로그인, 로그아웃, 회원가입 API")
+@Tag(name = "Controller - User", description = "사용자 관련 기능")
 @CrossOrigin
 public class UserRestController {
 
@@ -41,7 +50,9 @@ public class UserRestController {
 		this.userService = userService;
 	}
 
-	// 로그인
+	@Operation(summary = "로그인", description = "유저 아이디와 패스워드를 입력하여 로그인")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "401", description = "UNAUTHORIZED") })
 	@PostMapping("/login")
 	public ResponseEntity<Map<String, Object>> login(@RequestBody LoginForm loginForm) {
 		boolean result = userService.login(loginForm);
@@ -65,7 +76,9 @@ public class UserRestController {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-	// 로그아웃
+	@Operation(summary = "로그아웃")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "401", description = "UNAUTHORIZED") })
 	@PostMapping("/logout")
 	public ResponseEntity<String> logout() {
 		boolean result = userService.logout();
@@ -75,24 +88,16 @@ public class UserRestController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 
-	// 회원가입
+	@Operation(summary = "회원가입", description = "유저 아이디와 패스워드, 이름, 유저 타입을 입력하여 회원가입")
+	@ApiResponses({ @ApiResponse(responseCode = "201", description = "CREATED"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST") })
 	@PostMapping("/signup")
 	public ResponseEntity<String> signup(@RequestBody User user) {
 		boolean result = userService.signupUser(user);
 		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
-	}
-
-	// 회원탈퇴
-	@DeleteMapping("/withdrawal")
-	public ResponseEntity<?> Withdrawal(@RequestBody LoginForm loginForm) {
-		boolean result = userService.deleteUser(loginForm);
-		if (!result) {
-			return new ResponseEntity<>(FAIL, HttpStatus.UNAUTHORIZED);
-		}
-		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 
 }
