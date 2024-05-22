@@ -41,7 +41,6 @@ export const useClubStore = defineStore(
           .get(`${REST_CLUB_API}/${clubId}/${loginUser.value.userId}`)
           .then((res) => {
             status.value = res.data;
-            console.log(status.value);
             if (status.value === "COMPLETED") {
               axios({
                 url: REST_CLUB_API + "/schedule",
@@ -163,7 +162,7 @@ export const useClubStore = defineStore(
 
     const deleteClubSchedule = function(scheduleId) {
       axios({
-        url: REST_CLUB_API + "/club/schedule/" + `${scheduleId}`,
+        url: REST_CLUB_API + "/schedule/" + `${scheduleId}`,
         method: 'DELETE'
       })
         .then(() => {
