@@ -3,7 +3,7 @@
     <div id="img-container">
       <img src="@/assets/img/home-image.jpg" alt="home-image" />
     </div>
-    <div id="banner">Let's work out with us!</div>
+    <div id="banner">&nbsp; Let's work out with us!</div>
     <HomeHotBoardList />
   </div>
 </template>
@@ -34,7 +34,6 @@ import HomeHotBoardList from "@/components/home/HomeHotBoardList.vue";
   }
 }
 
-/* 커서 깜빡임 */
 @keyframes blink {
   50% {
     border-color: transparent;
@@ -42,7 +41,7 @@ import HomeHotBoardList from "@/components/home/HomeHotBoardList.vue";
 }
 
 #banner {
-  max-width: 740px;
+  max-width: 806px;
   height: 55px;
   position: absolute;
   top: 20%;
