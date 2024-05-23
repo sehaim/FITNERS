@@ -1,5 +1,9 @@
 <template>
   <div>
-    <h2>NotFoundView</h2>
+    <NotFound />
   </div>
 </template>
+
+<script setup>
+import NotFound from "@/components/error/NotFound.vue";
+</script>
