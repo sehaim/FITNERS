@@ -1,7 +1,7 @@
 <template>
   <div id="club-manager-err-container">
-    <img src="@/assets/img/gear-icon.png" alt="gear-icon">
-    <div id="content">일반 회원만 접근 가능합니다.</div>
+    <img src="@/assets/img/gear-icon.png" alt="gear-icon" />
+    <div id="content">클럽 관리자만 접근 가능합니다.</div>
   </div>
 </template>
 
@@ -25,10 +25,7 @@ img {
   opacity: 70%;
 }
 
-
 #content {
   font-size: 18px;
 }
-
-
 </style>
