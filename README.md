@@ -1,9 +1,10 @@
 # 운동 메이트&그룹 서비스 FITNERS
 
+![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30&height=250&section=header&text=FITNERS&animation=fadeIn&fontSize=100)
+
 ## 프로젝트 소개
 - FITNERS는 운동을 좋아하는 사람들이 다른 사람들과 운동경험과 정보를 공유하고, 함께 운동할 메이트를 구할 수 있는 서비스입니다.
 - 운동을 함께할 메이트와 그룹을 만들어 그룹별 페이지를 사용할 수 있습니다. 그룹별로 공지사항을 빠르게 공유할 수 있고 단체 일정을 만들고 이를 개인 일정에 추가할 수 있습니다.
-- 개인의 프로필 페이지에 좋아하는 구절 등 책에 대한 정보를 작성하고 판매하고 싶은 책을 등록할 수 있습니다.
 - 모든 유저들은 그룹페이지나 마이페이지 외에도 자유게시판을 이용할 수 있습니다. 자유게시판을 통해 수많은 유저들과 운동경험이나 정보를 공유할 수 있습니다.
 <br>
 
@@ -11,7 +12,7 @@
 
 <div align="center">
 
-|                                                         **김기창**                                                          |                                                        **임세하**                                                        |
+|  **김기창** | **임세하** |
 | :-------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------: |
 | [<img src="https://avatars.githubusercontent.com/kgc9007" height=150 width=150> <br/> @kgc9007](https://github.com/kgc9007) | [<img src="https://avatars.githubusercontent.com/sehaim" height=150 width=150> <br/> @sehaim](https://github.com/sehaim) |
 
@@ -67,7 +68,10 @@
 
 ## 3. 프로젝트 구조
 
-### 전체 구조
+<details>
+<summary>전체구조</summary>
+<div markdown="1">
+
 ```
 📦FITNERS
  ┣ 📂.metadata
@@ -86,7 +90,13 @@
  
 ```
 
-### BACK-END
+</div>
+</details>
+
+<details>
+<summary>BACK-END</summary>
+<div markdown="1">
+
 ```
 📦SsafitProject
  ┣ 📂.mvn
@@ -202,7 +212,13 @@
  ┗ 📜pom.xml
 ```
 
-### FRONT-END
+</div>
+</details>
+
+<details>
+<summary>FRONT-END</summary>
+<div markdown="1">
+
 ```
 📦ssafit-vue-project
  ┣ 📂.vscode
@@ -307,6 +323,9 @@
  ┗ 📜vite.config.js
 
 ```
+
+</div>
+</details>
 
 <br>
 
