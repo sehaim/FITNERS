@@ -1,4 +1,4 @@
-# 운동 메이트를 구하고 일정을 공유하는 소셜 피트니스 플랫폼 FITNERS
+## 운동 메이트를 구하고 일정을 공유하는 소셜 피트니스 플랫폼
 
 ![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30&height=250&section=header&text=FITNERS&animation=fadeIn&fontSize=100)
 
